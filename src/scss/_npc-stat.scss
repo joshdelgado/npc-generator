@@ -1,0 +1,19 @@
+.npc-stat {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 0.5rem;
+
+	&__label {
+		font-size: 1.25rem;
+	}
+
+	&__score {
+		font-size: 2rem;
+		padding: 0.5rem 0;
+	}
+
+	&__modifier {
+		font-size: 1rem;
+	}
+}

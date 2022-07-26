@@ -1,0 +1,24 @@
+.generate-npc-button {
+	display: block;
+	color: #111;
+	font-size: 2rem;
+	padding: 1rem 3rem;
+	max-width: 720px;
+	margin: 0 auto;
+	box-shadow: var(--box-shadow);
+	background-color: lightblue;
+	border-radius: var(--border-radius);
+	border: 2px solid darken(lightblue, 20%);
+	cursor: pointer;
+	transition: all 200ms ease;
+
+	&:hover {
+		transform: translateY(2px);
+		box-shadow: 0 2px 6px 0px rgba(0, 0, 0, 0.3);
+	}
+
+	&:active {
+		color: white;
+		background-color: blue;
+	}
+}

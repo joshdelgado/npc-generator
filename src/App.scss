@@ -1,0 +1,30 @@
+:root {
+	--border-radius: 3px;
+	--box-shadow: 0 4px 8px 0px rgba(0, 0, 0, 0.2);
+}
+
+* {
+	box-sizing: border-box;
+}
+
+.app {
+	position: relative;
+	padding: 1rem;
+
+	&:before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: -1;
+		background-image: url(https://picsum.photos/id/1018/1920/1080?grayscale&blur=5);
+		background-size: cover;
+		height: 100vh;
+		width: 100vw;
+		opacity: 0.5;
+	}
+}
+
+@import "scss/npc-card";
+@import "scss/npc-stat";
+@import "scss/generate-npc-button";
