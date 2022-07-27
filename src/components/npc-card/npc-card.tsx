@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 const baseUrl: string = 'https://www.dnd5eapi.co/api/';
 const abilities: string[] = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
+const classes: string[] = ['barbarian', 'bard', 'cleric', 'druid', 'fighter', 'monk', 'paladin', 'ranger', 'rogue', 'sorcerer', 'warlock', 'wizard'];
+const races: string[] = ['dragonborn', 'dwarf', 'elf', 'gnome', 'helf-elf', 'half-orc', 'halfling', 'human', 'tiefling'];
 
 // Utility
 function randomNumber(min, max) {
@@ -18,6 +20,10 @@ function getNpcGender(): string {
 
 function getArmorClass(score: number): number {
 	return 10 + getModifier(score);
+}
+
+function getHitpoints(npcClass, score): number {
+	return npcClass.hit_die + getModifier(score);
 }
 
 function getNpcName(): string {
@@ -88,21 +94,22 @@ export class NpcCard extends Component<any, any> {
 		};
 	}
 
-	generateStats(): void {
+	generateStats(npcClass): void {
 		let stats: {} = {},
-			ac: number = 10;
+			ac: number = 10,
+			hitpoints = 0;
 
 		abilities.forEach((key) => {
 			const score = this.generateStat();
-			console.log(key);
-			console.log(score);
-			if (key == abilities[1]) { ac = getArmorClass(score); }
+			if (key == 'dexterity') { ac = getArmorClass(score); }
+			if (key == 'constitution') { hitpoints = getHitpoints(npcClass, score); }
 			stats[key] = { score: score, modifier: getModifier(score) };
 		});
 
 		this.setState({
 			abilityScores: stats,
-			armorClass: ac
+			armorClass: ac,
+			hitpoints: hitpoints
 		});
 	}
 
@@ -126,11 +133,13 @@ export class NpcCard extends Component<any, any> {
 	}
 
 	generateNpc = () => {
-		let race = this.getNpcData('race', 'races/');
-		let classs = this.getNpcData('class', 'classes/');
-		this.generateStats();
+		let race = this.getNpcData('race', 'races/' + races[randomNumber(0, races.length - 1)]);
+		let npcClass = this.getNpcData('class', 'classes/' + classes[randomNumber(0, classes.length - 1)]);
 
-		Promise.all([race, classs]).then(() => {
+		Promise.all([race, npcClass]).then((r) => {
+			console.log(r);
+			this.generateStats(r[1].class);
+
 			this.setState({
 				name: getNpcName(),
 				gender: getNpcGender()
@@ -146,8 +155,8 @@ export class NpcCard extends Component<any, any> {
 		try {
 			const response = await fetch(baseUrl + endpoint);
 			const data = await response.json();
-			const obj = await getRandomResult(data);
-			this.setState({ [key]: obj });
+			this.setState({ [key]: data });
+			return { [key]: data };
 		} catch (error) {
 			this.setState({ [key]: 'problem' })
 		}
@@ -183,11 +192,12 @@ export class NpcCard extends Component<any, any> {
 					<div className="npc-card__image" >
 						<img src="https://www.fillmurray.com/300/300" />
 					</div>
-					<ol className="npc-card__info" >
+					<ol className="npc-card__info">
 						{this.renderLineItem(npc.gender)}
 						{this.renderLineItem(npc.race.name)}
 						{this.renderLineItem(npc.class.name)}
-						{this.renderLineItem(npc.armorClass)}
+						{this.renderLineItem('AC: ' + npc.armorClass)}
+						{this.renderLineItem('HP: ' + npc.hitpoints)}
 					</ol>
 					<ul className="npc-card__ability-scores" >
 						{this.renderAbilityScore('Strength', npc.abilityScores.strength.score, npc.abilityScores.strength.modifier)}
