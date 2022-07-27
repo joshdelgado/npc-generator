@@ -8,9 +8,24 @@ function randomNumber(min, max) {
 	return Math.floor(Math.random() * (max - min) + min);
 }
 
-function getModifier(score: number): string {
-	let stat = Math.floor((score - 10) / 2);
-	return stat >= 0 ? ("+" + stat) : stat.toString();
+function getRandomResult(data) {
+	return data.results[Math.floor(Math.random() * (data.results.length))];
+};
+
+function getNpcGender(): string {
+	return Math.floor(Math.random() * 2) == 0 ? 'Male' : 'Female';
+}
+
+function getArmorClass(score: number): number {
+	return 10 + getModifier(score);
+}
+
+function getNpcName(): string {
+	return Math.floor(Math.random() * 2) == 0 ? 'Hector The Well Endowed' : 'Marrrrrr';
+}
+
+function getModifier(score: number): number {
+	return Math.floor((score - 10) / 2);
 }
 
 function NpcLineItem(props) {
@@ -31,7 +46,30 @@ function NpcAbilityScore(props) {
 	);
 }
 
+interface Npc {
+	race: string,
+	class: string,
+	gender: string,
+	abilityScores: AbilityScores,
+	loaded: boolean
+}
+
+interface AbilityScores {
+	strength: Stat,
+	dexterity: Stat,
+	intelligence: Stat,
+	wisdom: Stat,
+	constitution: Stat,
+	charisma: Stat,
+}
+
+interface Stat {
+	score: number,
+	modifier: number
+}
+
 export class NpcCard extends Component<any, any> {
+
 	constructor(props: any) {
 		super(props);
 		this.state = {
@@ -51,12 +89,21 @@ export class NpcCard extends Component<any, any> {
 	}
 
 	generateStats(): void {
-		let stats: {} = {};
-		abilities.forEach((key, ability) => {
+		let stats: {} = {},
+			ac: number = 10;
+
+		abilities.forEach((key) => {
 			const score = this.generateStat();
+			console.log(key);
+			console.log(score);
+			if (key == abilities[1]) { ac = getArmorClass(score); }
 			stats[key] = { score: score, modifier: getModifier(score) };
 		});
-		this.setState({ abilityScores: stats });
+
+		this.setState({
+			abilityScores: stats,
+			armorClass: ac
+		});
 	}
 
 	generateStat(): number {
@@ -81,35 +128,26 @@ export class NpcCard extends Component<any, any> {
 	generateNpc = () => {
 		let race = this.getNpcData('race', 'races/');
 		let classs = this.getNpcData('class', 'classes/');
-		let gender = this.getNpcGender();
-		let name = this.getNpcName();
 		this.generateStats();
 
-		Promise.all([race, classs, gender, name]).then(() => {
+		Promise.all([race, classs]).then(() => {
+			this.setState({
+				name: getNpcName(),
+				gender: getNpcGender()
+			});
+
 			setTimeout(() => {
 				this.setState({ loaded: true });
 			}, 1000);
 		});
 	}
 
-	getRandomResult(data) {
-		return data.results[Math.floor(Math.random() * (data.results.length))];
-	};
-
-	getNpcGender(): void {
-		this.setState({ gender: Math.floor(Math.random() * 2) == 0 ? 'Male' : 'Female' });
-	}
-
-	getNpcName(): void {
-		this.setState({ name: Math.floor(Math.random() * 2) == 0 ? 'Hector The Well Endowed' : 'Marrrrrr' });
-	}
-
-	async getNpcData(key, endpoint: string) {
+	async getNpcData(key, endpoint: string): Promise<any> {
 		try {
 			const response = await fetch(baseUrl + endpoint);
 			const data = await response.json();
-			const raceObj = await this.getRandomResult(data);
-			this.setState({ [key]: raceObj });
+			const obj = await getRandomResult(data);
+			this.setState({ [key]: obj });
 		} catch (error) {
 			this.setState({ [key]: 'problem' })
 		}
@@ -149,6 +187,7 @@ export class NpcCard extends Component<any, any> {
 						{this.renderLineItem(npc.gender)}
 						{this.renderLineItem(npc.race.name)}
 						{this.renderLineItem(npc.class.name)}
+						{this.renderLineItem(npc.armorClass)}
 					</ol>
 					<ul className="npc-card__ability-scores" >
 						{this.renderAbilityScore('Strength', npc.abilityScores.strength.score, npc.abilityScores.strength.modifier)}
@@ -159,7 +198,7 @@ export class NpcCard extends Component<any, any> {
 						{this.renderAbilityScore('Charisma', npc.abilityScores.charisma.score, npc.abilityScores.charisma.modifier)}
 					</ul>
 				</div>
-				<button className="generate-npc-button" onClick={this.handleClick}> Generate NPC</button>
+				<button className="generate-npc-button" onClick={this.handleClick}>Generate NPC</button>
 			</>
 		)
 	}
