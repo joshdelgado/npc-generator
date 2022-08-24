@@ -1,4 +1,5 @@
 export interface Stat {
 	score: number,
-	modifier: number
+	modifier: number,
+	hasBonus: number
 }

@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { AbilityScores } from '../../interfaces/ability-scores';
 import { SimpleRange } from '../../interfaces/simple-range';
+import { Stat } from '../../interfaces/stat';
 
 class RaceInfo {
-	age: SimpleRange;
-	height: SimpleRange;
-	weight: SimpleRange;
+	age: SimpleRange = { min: 0, max: 0 };
+	height: SimpleRange = { min: 0, max: 0 };
+	weight: SimpleRange = { min: 0, max: 0 };
 
 	constructor(minAge: number, maxAge: number, minHeight: number, maxHeight: number, minWeight: number, maxWeight: number) {
 		this.age.min = minAge;
@@ -19,7 +21,7 @@ class RaceInfo {
 const baseUrl: string = 'https://www.dnd5eapi.co/api/';
 const abilities: string[] = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
 const classes: string[] = ['barbarian', 'bard', 'cleric', 'druid', 'fighter', 'monk', 'paladin', 'ranger', 'rogue', 'sorcerer', 'warlock', 'wizard'];
-const races: string[] = ['dragonborn', 'dwarf', 'elf', 'gnome', 'helf-elf', 'half-orc', 'halfling', 'human', 'tiefling'];
+const races: string[] = ['dragonborn', 'dwarf', 'elf', 'gnome', 'half-elf', 'half-orc', 'halfling', 'human', 'tiefling'];
 const raceInfo: Map<string, RaceInfo> = new Map<string, RaceInfo>([
 	['dragonborn', new RaceInfo(18, 100, 60, 120, 150, 300)],
 	['dwarf', new RaceInfo(18, 100, 60, 120, 150, 300)],
@@ -50,8 +52,8 @@ function getArmorClass(score: number): number {
 	return 10 + getModifier(score);
 }
 
-function getHitpoints(npcClass, score): number {
-	return npcClass.hit_die + getModifier(score);
+function getHitpoints(hitDie: number, score: number): number {
+	return hitDie + getModifier(score);
 }
 
 function getNpcName(): string {
@@ -71,7 +73,7 @@ function NpcLineItem(props) {
 function NpcAbilityScore(props) {
 	return (
 		<li className="npc-card__ability-score">
-			<div className="npc-stat">
+			<div className={`npc-stat ${props.hasBonus ? 'npc-stat--has-bonus' : ''}`}>
 				<span className="npc-stat__label">{props.label}</span>
 				<span className="npc-stat__score">{props.score}</span>
 				<span className="npc-stat__modifier">{props.modifier}</span>
@@ -89,27 +91,42 @@ export class NpcCard extends Component<any, any> {
 			class: null,
 			gender: null,
 			abilityScores: {
-				strength: { score: null, modifier: null },
-				dexterity: { score: null, modifier: null },
-				intelligence: { score: null, modifier: null },
-				wisdom: { score: null, modifier: null },
-				constitution: { score: null, modifier: null },
-				charisma: { score: null, modifier: null },
+				strength: { score: null, modifier: null, hasBonus: null },
+				dexterity: { score: null, modifier: null, hasBonus: null },
+				intelligence: { score: null, modifier: null, hasBonus: null },
+				wisdom: { score: null, modifier: null, hasBonus: null },
+				constitution: { score: null, modifier: null, hasBonus: null },
+				charisma: { score: null, modifier: null, hasBonus: null },
 			},
 			loaded: false
 		};
 	}
 
-	generateStats(npcClass): void {
+	generateStats(hitDie: number, abilityBonuses): void {
 		let stats: {} = {},
 			ac: number = 10,
-			hitpoints = 0;
+			hitpoints = 0,
+			bonuses: Map<string, number> = new Map<string, number>();
+
+		if (abilityBonuses) {
+			abilityBonuses.forEach((ab) => {
+				bonuses.set(ab.ability_score.index, ab.bonus);
+			});
+		}
 
 		abilities.forEach((key) => {
-			const score = this.generateStat();
-			if (key == 'dexterity') { ac = getArmorClass(score); }
-			if (key == 'constitution') { hitpoints = getHitpoints(npcClass, score); }
-			stats[key] = { score: score, modifier: getModifier(score) };
+			let score: number = this.generateStat(),
+				hasBonus: boolean = false;
+
+			if (bonuses && bonuses.has(key.substring(0, 3))) {
+				//@ts-ignore I check if the key exists above
+				score += bonuses.get(key.substring(0, 3));
+				hasBonus = true;
+			}
+
+			if (key === 'dexterity') { ac = getArmorClass(score); }
+			if (key === 'constitution') { hitpoints = getHitpoints(hitDie, score); }
+			stats[key] = { score: score, modifier: getModifier(score), hasBonus: hasBonus };
 		});
 
 		this.setState({
@@ -143,8 +160,7 @@ export class NpcCard extends Component<any, any> {
 		let npcClass = this.getNpcData('class', 'classes/' + classes[randomNumber(0, classes.length - 1)]);
 
 		Promise.all([race, npcClass]).then((r) => {
-			console.log(r);
-			this.generateStats(r[1].class);
+			this.generateStats(r[1].class.hit_die, r[0].race.ability_bonuses);
 
 			this.setState({
 				name: getNpcName(),
@@ -176,8 +192,8 @@ export class NpcCard extends Component<any, any> {
 		return <NpcLineItem value={value} />
 	}
 
-	renderAbilityScore(label, score, modifier) {
-		return <NpcAbilityScore label={label} score={score} modifier={modifier} />
+	renderAbilityScore(label: string, abilityScore: Stat) {
+		return <NpcAbilityScore label={label} score={abilityScore.score} modifier={abilityScore.modifier} hasBonus={abilityScore.hasBonus} />
 	}
 
 	handleClick = (): void => {
@@ -212,12 +228,12 @@ export class NpcCard extends Component<any, any> {
 						<img src="https://www.fillmurray.com/300/300" />
 					</div>
 					<ul className="npc-card__ability-scores" >
-						{this.renderAbilityScore('Strength', npc.abilityScores.strength.score, npc.abilityScores.strength.modifier)}
-						{this.renderAbilityScore('Dexterity', npc.abilityScores.dexterity.score, npc.abilityScores.dexterity.modifier)}
-						{this.renderAbilityScore('Constitution', npc.abilityScores.constitution.score, npc.abilityScores.constitution.modifier)}
-						{this.renderAbilityScore('Intelligence', npc.abilityScores.intelligence.score, npc.abilityScores.intelligence.modifier)}
-						{this.renderAbilityScore('Wisdom', npc.abilityScores.wisdom.score, npc.abilityScores.wisdom.modifier)}
-						{this.renderAbilityScore('Charisma', npc.abilityScores.charisma.score, npc.abilityScores.charisma.modifier)}
+						{this.renderAbilityScore('Strength', npc.abilityScores.strength)}
+						{this.renderAbilityScore('Dexterity', npc.abilityScores.dexterity)}
+						{this.renderAbilityScore('Constitution', npc.abilityScores.constitution)}
+						{this.renderAbilityScore('Intelligence', npc.abilityScores.intelligence)}
+						{this.renderAbilityScore('Wisdom', npc.abilityScores.wisdom)}
+						{this.renderAbilityScore('Charisma', npc.abilityScores.charisma)}
 					</ul>
 					<div className='npc-card__bio'>
 						<p>blah blah blah</p>
