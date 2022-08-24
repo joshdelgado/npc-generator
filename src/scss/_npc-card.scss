@@ -10,15 +10,43 @@
 	margin: 0 auto 1rem;
 	box-shadow: var(--box-shadow);
 
-	&__name {
-		text-align: center;
-		font-size: 3rem;
+	&__header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 		width: 100%;
-		padding-bottom: 1.5rem;
+		padding-bottom: 2rem;
+	}
+
+	&__name {
+		font-size: 2.5rem;
+		padding-bottom: 0.5rem;
+	}
+
+	&__info {
+		display: flex;
+	}
+
+	&__sturdiness {
+		display: flex;
+		justify-content: space-between;
+		font-size: 2rem;
+
+		li {
+			padding-left: 1.5rem;
+			text-align: center;
+		}
+
+		span {
+			display: block;
+			padding-bottom: 0.5rem;
+			font-size: 1.25rem;
+		}
 	}
 
 	&__image {
 		width: 50%;
+		padding-bottom: 1.5rem;
 
 		img {
 			display: inline-block;
@@ -26,11 +54,6 @@
 			border-radius: var(--border-radius);
 			box-shadow: var(--box-shadow);
 		}
-	}
-
-	&__info {
-		width: 50%;
-		display: flex;
 	}
 
 	&__value {
@@ -42,6 +65,12 @@
 		display: flex;
 		justify-content: space-between;
 		width: 100%;
-		margin: 0.5rem -0.5rem;
+		margin: 0.5rem -0.5rem 2rem;
+	}
+
+	&__bio {
+		width: 100%;
+		padding: 2rem 1rem 1rem;
+		border-top: 1px solid #222;
 	}
 }

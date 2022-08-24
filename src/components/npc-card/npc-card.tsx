@@ -1,9 +1,37 @@
 import React, { Component } from 'react';
+import { SimpleRange } from '../../interfaces/simple-range';
+
+class RaceInfo {
+	age: SimpleRange;
+	height: SimpleRange;
+	weight: SimpleRange;
+
+	constructor(minAge: number, maxAge: number, minHeight: number, maxHeight: number, minWeight: number, maxWeight: number) {
+		this.age.min = minAge;
+		this.age.max = maxAge;
+		this.height.min = minHeight;
+		this.height.max = maxHeight;
+		this.weight.min = minWeight;
+		this.weight.max = maxWeight;
+	}
+}
 
 const baseUrl: string = 'https://www.dnd5eapi.co/api/';
 const abilities: string[] = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
 const classes: string[] = ['barbarian', 'bard', 'cleric', 'druid', 'fighter', 'monk', 'paladin', 'ranger', 'rogue', 'sorcerer', 'warlock', 'wizard'];
 const races: string[] = ['dragonborn', 'dwarf', 'elf', 'gnome', 'helf-elf', 'half-orc', 'halfling', 'human', 'tiefling'];
+const raceInfo: Map<string, RaceInfo> = new Map<string, RaceInfo>([
+	['dragonborn', new RaceInfo(18, 100, 60, 120, 150, 300)],
+	['dwarf', new RaceInfo(18, 100, 60, 120, 150, 300)],
+	['elf', new RaceInfo(18, 100, 60, 120, 150, 300)],
+	['gnome', new RaceInfo(18, 100, 60, 120, 150, 300)],
+	['helf-elf', new RaceInfo(18, 100, 60, 120, 150, 300)],
+	['half-orc', new RaceInfo(18, 100, 60, 120, 150, 300)],
+	['halfling', new RaceInfo(18, 100, 60, 120, 150, 300)],
+	['human', new RaceInfo(18, 100, 60, 120, 150, 300)],
+	['tiefling', new RaceInfo(18, 100, 60, 120, 150, 300)]
+]);
+
 
 // Utility
 function randomNumber(min, max) {
@@ -50,28 +78,6 @@ function NpcAbilityScore(props) {
 			</div>
 		</li>
 	);
-}
-
-interface Npc {
-	race: string,
-	class: string,
-	gender: string,
-	abilityScores: AbilityScores,
-	loaded: boolean
-}
-
-interface AbilityScores {
-	strength: Stat,
-	dexterity: Stat,
-	intelligence: Stat,
-	wisdom: Stat,
-	constitution: Stat,
-	charisma: Stat,
-}
-
-interface Stat {
-	score: number,
-	modifier: number
 }
 
 export class NpcCard extends Component<any, any> {
@@ -188,17 +194,23 @@ export class NpcCard extends Component<any, any> {
 		return (
 			<>
 				<div className="npc-card" >
-					<h2 className="npc-card__name">{npc.name}</h2>
+					<div className="npc-card__header">
+						<div>
+							<h2 className="npc-card__name">{npc.name}</h2>
+							<ol className="npc-card__info">
+								{this.renderLineItem(npc.gender)}
+								{this.renderLineItem(npc.race.name)}
+								{this.renderLineItem(npc.class.name)}
+							</ol>
+						</div>
+						<ol className="npc-card__sturdiness">
+							<li><span>HP</span>{npc.hitpoints}</li>
+							<li><span>AC</span>{npc.armorClass}</li>
+						</ol>
+					</div>
 					<div className="npc-card__image" >
 						<img src="https://www.fillmurray.com/300/300" />
 					</div>
-					<ol className="npc-card__info">
-						{this.renderLineItem(npc.gender)}
-						{this.renderLineItem(npc.race.name)}
-						{this.renderLineItem(npc.class.name)}
-						{this.renderLineItem('AC: ' + npc.armorClass)}
-						{this.renderLineItem('HP: ' + npc.hitpoints)}
-					</ol>
 					<ul className="npc-card__ability-scores" >
 						{this.renderAbilityScore('Strength', npc.abilityScores.strength.score, npc.abilityScores.strength.modifier)}
 						{this.renderAbilityScore('Dexterity', npc.abilityScores.dexterity.score, npc.abilityScores.dexterity.modifier)}
@@ -207,6 +219,9 @@ export class NpcCard extends Component<any, any> {
 						{this.renderAbilityScore('Wisdom', npc.abilityScores.wisdom.score, npc.abilityScores.wisdom.modifier)}
 						{this.renderAbilityScore('Charisma', npc.abilityScores.charisma.score, npc.abilityScores.charisma.modifier)}
 					</ul>
+					<div className='npc-card__bio'>
+						<p>blah blah blah</p>
+					</div>
 				</div>
 				<button className="generate-npc-button" onClick={this.handleClick}>Generate NPC</button>
 			</>
