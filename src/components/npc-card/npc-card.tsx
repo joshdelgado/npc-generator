@@ -252,7 +252,8 @@ export class NpcCard extends Component<any, any> {
 		let min = Math.min(...statArray);
 		let index = statArray.indexOf(min);
 
-		statArray = statArray.filter(i => i !== index);
+		// statArray = statArray.filter(i => i !== index);
+		statArray.splice(index, 1);
 		return statArray.reduce(reducer)
 
 		// Random
