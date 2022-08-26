@@ -86,6 +86,7 @@ const abilities: string[] = ['strength', 'dexterity', 'constitution', 'intellige
 const classes: string[] = ['barbarian', 'bard', 'cleric', 'druid', 'fighter', 'monk', 'paladin', 'ranger', 'rogue', 'sorcerer', 'warlock', 'wizard'];
 const races: string[] = ['dragonborn', 'dwarf', 'elf', 'gnome', 'half-elf', 'half-orc', 'halfling', 'human', 'tiefling'];
 const statTypes: string[] = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
+const alignments: string[] = ['chaotic-evil', 'chaotic-neutral', 'chaotic-good', 'lawful-evil', 'lawful-neutral', 'lawful-good', 'neutral-evil', 'neutral', 'neutral-good']
 const raceInfo: Map<string, RaceInfo> = new Map<string, RaceInfo>([
 	['dragonborn', new RaceInfo('dragonborn', 15, 80, 78, 90, 215, 300)],
 	['dwarf', new RaceInfo('dwarf', 50, 350, 48, 60, 120, 200)],
@@ -124,10 +125,6 @@ function randomNumber(min, max) {
 	return Math.floor(Math.random() * (max - min) + min);
 }
 
-function getRandomResult(data) {
-	return data.results[Math.floor(Math.random() * (data.results.length))];
-};
-
 function getNpcGender(): string {
 	return Math.floor(Math.random() * 2) === 0 ? 'Male' : 'Female';
 }
@@ -140,7 +137,8 @@ function getHitpoints(hitDie: number, score: number, level?: number): number {
 	let hp = hitDie + getModifier(score),
 		rollsLeft = level || 0;
 	while (rollsLeft > 1) {
-		hp += randomNumber(1, hitDie);
+		// TODO YeahThe modifier should adjust as con increases but it doesn't right now
+		hp += randomNumber(1, hitDie) + getModifier(score);
 		rollsLeft--;
 	}
 	return hp;
@@ -181,7 +179,7 @@ function NpcLineItem(props) {
 function NpcAbilityScore(props) {
 	return (
 		<li className="npc-card__ability-score">
-			<div className={`npc-stat ${props.hasBonus ? 'npc-stat--has-bonus' : ''}`}>
+			<div className='npc-stat'>
 				<span className="npc-stat__label">{props.label}</span>
 				<span className="npc-stat__score">{props.score}</span>
 				<span className="npc-stat__modifier">{props.modifier}</span>
@@ -200,12 +198,12 @@ export class NpcCard extends Component<any, any> {
 			class: null,
 			gender: null,
 			abilityScores: {
-				strength: { score: null, modifier: null, hasBonus: null },
-				dexterity: { score: null, modifier: null, hasBonus: null },
-				intelligence: { score: null, modifier: null, hasBonus: null },
-				wisdom: { score: null, modifier: null, hasBonus: null },
-				constitution: { score: null, modifier: null, hasBonus: null },
-				charisma: { score: null, modifier: null, hasBonus: null },
+				strength: { score: null, modifier: null },
+				dexterity: { score: null, modifier: null },
+				intelligence: { score: null, modifier: null },
+				wisdom: { score: null, modifier: null },
+				constitution: { score: null, modifier: null },
+				charisma: { score: null, modifier: null },
 			},
 			loaded: false
 		};
@@ -240,18 +238,16 @@ export class NpcCard extends Component<any, any> {
 		}
 
 		abilities.forEach((key) => {
-			let score: number = this.generateStat(),
-				hasBonus: boolean = false;
+			let score: number = this.generateStat();
 
 			if (bonuses && bonuses.has(key.substring(0, 3))) {
 				//@ts-ignore I check if the key exists above
 				score += bonuses.get(key.substring(0, 3));
-				hasBonus = true;
 			}
 
 			if (key === 'dexterity') { ac = getArmorClass(score); }
 			if (key === 'constitution') { hitpoints = getHitpoints(hitDie, score, level); }
-			stats[key] = { score: score, modifier: getModifier(score), hasBonus: hasBonus };
+			stats[key] = { score: score, modifier: getModifier(score) };
 		});
 
 		this.setState({
@@ -283,18 +279,21 @@ export class NpcCard extends Component<any, any> {
 	generateNpc = () => {
 		let randomClass = classes[randomNumber(0, classes.length - 1)];
 		let randomRace = races[randomNumber(0, races.length - 1)];
+		let randomAlignment = alignments[randomNumber(0, alignments.length)];
 		let level = randomNumber(1, 20);
 		let npcRace = this.getNpcData('race', 'races/' + randomRace);
 		let npcClass = this.getNpcData('class', 'classes/' + randomClass);
 		let npcLevel = this.getNpcData('level', 'classes/' + randomClass + '/levels/' + level);
+		let npcAlignment = this.getNpcData('alignment', 'alignments/' + randomAlignment);
 
-		Promise.all([npcRace, npcClass, npcLevel]).then((r) => {
+		Promise.all([npcRace, npcClass, npcLevel, npcAlignment]).then((r) => {
 			this.generateStats(r[1].class.hit_die, r[0].race.ability_bonuses, r[2].level.ability_score_bonuses, level);
 			const gender = getNpcGender();
 
 			this.setState({
 				name: getNpcName(r[0].race.index, gender),
-				gender: gender
+				gender: gender,
+				alignment: r[3].alignment
 			});
 
 			setTimeout(() => {
@@ -323,7 +322,7 @@ export class NpcCard extends Component<any, any> {
 	}
 
 	renderAbilityScore(label: string, abilityScore: Stat) {
-		return <NpcAbilityScore label={label} score={abilityScore.score} modifier={abilityScore.modifier} hasBonus={abilityScore.hasBonus} />
+		return <NpcAbilityScore label={label} score={abilityScore.score} modifier={abilityScore.modifier} />
 	}
 
 	handleClick = (): void => {
@@ -334,14 +333,20 @@ export class NpcCard extends Component<any, any> {
 	render() {
 		const npc = this.state;
 		if (!npc.loaded) {
-			return <div className="npc-card">Loading...</div>
+			return (
+				<>
+					<div className="npc-card">Loading...</div>
+					<button className="generate-npc-button generate-npc-button--disabled" disabled>Generate NPC</button>
+				</>
+
+			)
 		}
 		console.log('NPC State', npc);
 		return (
 			<>
-				<select>
+				{/* <select>
 					{[...Array(20)].map((a, index) => <option key={Math.random() + index} value={index + 1}>{index + 1}</option>)}
-				</select>
+				</select> */}
 				<div className="npc-card" >
 					<div className="npc-card__header">
 						<div>
@@ -359,7 +364,7 @@ export class NpcCard extends Component<any, any> {
 						</ol>
 					</div>
 					<div className="npc-card__image" >
-						<img src="https://www.fillmurray.com/300/300" />
+						<img src={`${process.env.PUBLIC_URL}/img/${npc.race.index}.png`} alt={npc.race.name} />
 					</div>
 					<div className="npc-card__bio">
 						<ol className="npc-card__attributes">
@@ -367,6 +372,7 @@ export class NpcCard extends Component<any, any> {
 							<li><strong>Height</strong>{getHeight(raceInfo.get(npc.race.index)!.height.min, raceInfo.get(npc.race.index)!.height.max, 1)}</li>
 							<li><strong>Weight</strong>{getRandomNumberStandardDist(raceInfo.get(npc.race.index)!.weight.min, raceInfo.get(npc.race.index)!.weight.max, 1)} lbs</li>
 						</ol>
+						<span className="npc-card__alignment">{npc.alignment.name}</span>
 						<p>Small bio about {npc.name}</p>
 					</div>
 					<ul className="npc-card__ability-scores" >

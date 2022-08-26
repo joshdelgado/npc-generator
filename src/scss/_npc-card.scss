@@ -1,8 +1,9 @@
 .npc-card {
 	display: flex;
-	background-color: #f9f9f9;
+	justify-content: space-between;
 	flex-wrap: wrap;
-	min-height: 526px;
+	background-color: #f9f9f9;
+	min-height: 592px;
 	padding: 1rem;
 	border: 2px solid #111;
 	border-radius: var(--border-radius);
@@ -45,14 +46,15 @@
 	}
 
 	&__image {
-		width: 50%;
+		width: calc(50% - 3rem);
 		padding-bottom: 1.5rem;
 
 		img {
 			display: inline-block;
-			border: 1px solid #111;
-			border-radius: var(--border-radius);
-			box-shadow: var(--box-shadow);
+			max-width: 100%;
+			// border: 1px solid #111;
+			// border-radius: var(--border-radius);
+			// box-shadow: var(--box-shadow);
 		}
 	}
 
@@ -76,12 +78,11 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: flex-start;
-		padding-bottom: 1rem;
+		padding-bottom: 2rem;
 
 		li {
 			flex: 1 1 auto;
 			font-size: 1.5rem;
-			padding-bottom: 0.75rem;
 			line-height: 1.25;
 		}
 
@@ -89,5 +90,14 @@
 			display: block;
 			font-size: 1rem;
 		}
+	}
+
+	&__alignment {
+		display: inline-block;
+		width: 100%;
+		margin: 0;
+		padding-bottom: 2rem;
+		text-align: center;
+		font-size: 1.5rem;
 	}
 }
