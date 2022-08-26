@@ -225,8 +225,6 @@ export class NpcCard extends Component<any, any> {
 			]),
 			availableAbi = numOfAbi * 2;
 
-		console.log('Available Points', availableAbi);
-
 		// If there are Ability bonuses, loop through and set them to the bonus map
 		if (abilityBonuses) {
 			abilityBonuses.forEach((ab) => {
@@ -285,7 +283,7 @@ export class NpcCard extends Component<any, any> {
 	generateNpc = () => {
 		let randomClass = classes[randomNumber(0, classes.length - 1)];
 		let randomRace = races[randomNumber(0, races.length - 1)];
-		let level = 20;
+		let level = randomNumber(1, 20);
 		let npcRace = this.getNpcData('race', 'races/' + randomRace);
 		let npcClass = this.getNpcData('class', 'classes/' + randomClass);
 		let npcLevel = this.getNpcData('level', 'classes/' + randomClass + '/levels/' + level);
