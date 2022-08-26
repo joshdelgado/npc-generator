@@ -85,7 +85,6 @@ const baseUrl: string = 'https://www.dnd5eapi.co/api/';
 const abilities: string[] = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
 const classes: string[] = ['barbarian', 'bard', 'cleric', 'druid', 'fighter', 'monk', 'paladin', 'ranger', 'rogue', 'sorcerer', 'warlock', 'wizard'];
 const races: string[] = ['dragonborn', 'dwarf', 'elf', 'gnome', 'half-elf', 'half-orc', 'halfling', 'human', 'tiefling'];
-const statTypes: string[] = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
 const alignments: string[] = ['chaotic-evil', 'chaotic-neutral', 'chaotic-good', 'lawful-evil', 'lawful-neutral', 'lawful-good', 'neutral-evil', 'neutral', 'neutral-good']
 const raceInfo: Map<string, RaceInfo> = new Map<string, RaceInfo>([
 	['dragonborn', new RaceInfo('dragonborn', 15, 80, 78, 90, 215, 300)],
@@ -98,6 +97,27 @@ const raceInfo: Map<string, RaceInfo> = new Map<string, RaceInfo>([
 	['human', new RaceInfo('human', 18, 80, 60, 78, 130, 225)],
 	['tiefling', new RaceInfo('tiefling', 18, 90, 60, 78, 130, 225)]
 ]);
+const quirks: string[] = [
+	'They are an aspiring matress salesman.',
+	'Their favorite thing to do is eat pinecones.',
+	'They believe they are a God stuck in mortal form.',
+	'They don\'t like cheese unless it is frozen solid.',
+	'They like to watch.',
+	'They always wear an eye patch but often change which eye. No one seems to notice.',
+	'Their nickname is "Jabonicus" but refuses to elaborate on why.',
+	'They have died three times... so far.',
+	'They were raised by wolves and are searching for their two brothers, Vin and Paul.',
+	'They are an accomplished boar racer.',
+	'They have a wooden pegleg that is filled with a secret.',
+	'When they hear a special word they instantly fall asleep.'
+];
+const adjectives: string[] = ['fiesty', 'stubborn', 'timid', 'sneaky', 'aggressive', 'horny', 'punctual'];
+const traits: string[] = [
+	'who runs their family\'s business.',
+	'who collects toads in their free time.',
+	'with more clothing options than common sense.',
+	'that loves their dog more than anything.'
+]
 
 
 // Utility
@@ -232,7 +252,7 @@ export class NpcCard extends Component<any, any> {
 
 		// Distribute level-based bonuses to bonus map
 		while (availableAbi > 0) {
-			let randomStat = statTypes[randomNumber(0, statTypes.length - 1)].substring(0, 3);
+			let randomStat = abilities[randomNumber(0, abilities.length - 1)].substring(0, 3);
 			bonuses.set(randomStat, bonuses.get(randomStat)! + 1);
 			availableAbi--;
 		}
@@ -277,8 +297,8 @@ export class NpcCard extends Component<any, any> {
 	}
 
 	generateNpc = () => {
-		let randomClass = classes[randomNumber(0, classes.length - 1)];
-		let randomRace = races[randomNumber(0, races.length - 1)];
+		let randomClass = classes[randomNumber(0, classes.length)];
+		let randomRace = races[randomNumber(0, races.length)];
 		let randomAlignment = alignments[randomNumber(0, alignments.length)];
 		let level = randomNumber(1, 20);
 		let npcRace = this.getNpcData('race', 'races/' + randomRace);
@@ -373,7 +393,9 @@ export class NpcCard extends Component<any, any> {
 							<li><strong>Weight</strong>{getRandomNumberStandardDist(raceInfo.get(npc.race.index)!.weight.min, raceInfo.get(npc.race.index)!.weight.max, 1)} lbs</li>
 						</ol>
 						<span className="npc-card__alignment">{npc.alignment.name}</span>
-						<p>Small bio about {npc.name}</p>
+						<p>{npc.name} is a {adjectives[randomNumber(0, adjectives.length)]} {npc.race.name} {traits[randomNumber(0, traits.length)]}</p>
+						<p>I don't even know what is going to go here. Something descriptive. But I'd prefer to not have to write it all myself. An api?</p>
+						<p>{quirks[randomNumber(0, quirks.length)]}</p>
 					</div>
 					<ul className="npc-card__ability-scores" >
 						{this.renderAbilityScore('Strength', npc.abilityScores.strength)}

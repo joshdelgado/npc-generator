@@ -100,4 +100,13 @@
 		text-align: center;
 		font-size: 1.5rem;
 	}
+
+	p {
+		line-height: 1.5;
+		margin-bottom: 1rem;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
 }
