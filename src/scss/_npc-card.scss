@@ -65,12 +65,29 @@
 		display: flex;
 		justify-content: space-between;
 		width: 100%;
-		margin: 0.5rem -0.5rem 2rem;
+		margin: 0.5rem 0 1rem;
 	}
 
 	&__bio {
 		width: 50%;
-		// padding: 2rem 1rem 1rem;
-		// border-top: 1px solid #222;
+	}
+
+	&__attributes {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		padding-bottom: 1rem;
+
+		li {
+			flex: 1 1 auto;
+			font-size: 1.5rem;
+			padding-bottom: 0.75rem;
+			line-height: 1.25;
+		}
+
+		strong {
+			display: block;
+			font-size: 1rem;
+		}
 	}
 }
