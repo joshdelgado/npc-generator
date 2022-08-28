@@ -122,7 +122,13 @@ const traits2: string[] = [
 	'They are a skilled fighter and are proud of it.',
 	'They are not a fan of small talk.'
 ]
-const religiousAdjective: string[] = ['are a devout', 'are a lazy', 'pretend to be a'];
+const religiousAdjective: string[] = [
+	'are a devout',
+	'are a zealous',
+	'pretend to be a',
+	'are a nominal',
+	'are a bregrudging'
+];
 const religion: Map<string, string[]> = new Map<string, string[]>([
 	['CE', ['Beshaba, goddess of misfortune', 'Cyric, god of lies', 'Malar, god of the hunt', 'Talona, goddess of disease and poison', 'Talos, god of storms', 'Umberlee, goddess of the sea']],
 	['CN', ['Leira, goddess of illusion', 'Mask, god of thieves']],
@@ -135,11 +141,11 @@ const religion: Map<string, string[]> = new Map<string, string[]>([
 	['NG', ['Chauntea, goddess of agriculture', 'Deneir, god of writing', 'Eldath, goddess of peace', 'Lathander, god of birth and renewal', 'Mielikki, goddess of forests', 'Milil, god of poetry and song', 'Mystra, goddess of magic']]
 ]);
 const socioeconomic: string[] = [
-	'They are positively abreast with currency.',
-	'They are poor as fuck.',
-	'They were born rich but are terrible with money.',
-	'They live comfortably.',
-	'Though they have little money, they are content.'
+	'are positively abreast with currency.',
+	'are poor as fuck.',
+	'were born rich but are terrible with money.',
+	'live comfortably.',
+	'though they have little money, they are content.'
 ];
 
 
@@ -179,11 +185,13 @@ function getArmorClass(score: number): number {
 function getHitpoints(hitDie: number, score: number, level?: number): number {
 	let hp = hitDie + getModifier(score),
 		rollsLeft = level || 0;
+
 	while (rollsLeft > 1) {
 		// TODO YeahThe modifier should adjust as con increases but it doesn't right now
-		hp += randomNumber(1, hitDie) + getModifier(score);
+		hp += (randomNumber(1, hitDie) + getModifier(score));
 		rollsLeft--;
 	}
+
 	return hp;
 }
 
@@ -319,6 +327,15 @@ export class NpcCard extends Component<any, any> {
 		// return randomNumber(3,18);
 	}
 
+	generateDescription = () => {
+		return (
+			<>
+				<p>{this.state.npc.name} is a {adjectives[randomNumber(0, adjectives.length)]} {this.state.npc.race.name} {traits[randomNumber(0, traits.length)]}</p>
+				<p>They {religiousAdjective[randomNumber(0, religiousAdjective.length)]} follower of {religion.get(this.state.npc.alignment.abbreviation)![0]} and {socioeconomic[randomNumber(0, socioeconomic.length)]} {traits2[randomNumber(0, traits2.length)]}</p>
+				<p>{quirks[randomNumber(0, quirks.length)]}</p>
+			</>)
+	}
+
 	generateNpc = () => {
 		let randomClass = classes[randomNumber(0, classes.length)];
 		let randomRace = races[randomNumber(0, races.length)];
@@ -417,7 +434,7 @@ export class NpcCard extends Component<any, any> {
 						</ol>
 						<span className="npc-card__alignment">{npc.alignment.name}</span>
 						<p>{npc.name} is a {adjectives[randomNumber(0, adjectives.length)]} {npc.race.name} {traits[randomNumber(0, traits.length)]}</p>
-						<p>They {religiousAdjective[randomNumber(0, religiousAdjective.length)]} follower of {religion.get(npc.alignment.abbreviation)![0]}. {socioeconomic[randomNumber(0, socioeconomic.length)]} {traits2[randomNumber(0, traits2.length)]}</p>
+						<p>They {religiousAdjective[randomNumber(0, religiousAdjective.length)]} follower of {religion.get(npc.alignment.abbreviation)![0]} and {socioeconomic[randomNumber(0, socioeconomic.length)]} {traits2[randomNumber(0, traits2.length)]}</p>
 						<p>{quirks[randomNumber(0, quirks.length)]}</p>
 					</div>
 					<ul className="npc-card__ability-scores" >
