@@ -118,6 +118,29 @@ const traits: string[] = [
 	'with more clothing options than common sense.',
 	'that loves their dog more than anything.'
 ]
+const traits2: string[] = [
+	'They are a skilled fighter and are proud of it.',
+	'They are not a fan of small talk.'
+]
+const religiousAdjective: string[] = ['are a devout', 'are a lazy', 'pretend to be a'];
+const religion: Map<string, string[]> = new Map<string, string[]>([
+	['CE', ['Beshaba, goddess of misfortune', 'Cyric, god of lies', 'Malar, god of the hunt', 'Talona, goddess of disease and poison', 'Talos, god of storms', 'Umberlee, goddess of the sea']],
+	['CN', ['Leira, goddess of illusion', 'Mask, god of thieves']],
+	['CG', ['Lliira, goddess of joy', 'Selûne, goddess of the moon', 'Sune, goddess of love and beauty', 'Tymora, goddess of good fortune']],
+	['LE', ['Bane, god of tyranny', 'Loviatar, goddess of pain']],
+	['LN', ['Azuth, god of wizards', 'Helm, god of protection', 'Kelemvor, god of the dead', 'Savras, god of divination and fate']],
+	['LG', ['Ilmater, god of endurance', 'Torm, god of courage and self-sacrifice', 'Tyr, god of justice']],
+	['NE', ['Auril, goddess of winter', 'Bhaal, god of murder', 'Myrkul, god of death', 'Shar, goddess of darkness and loss']],
+	['N', ['Gond, god of craft', 'Oghma, god of knowledge', 'Silvanus, god of wild nature', 'Tempus, god of war', 'Waukeen, goddess of trade']],
+	['NG', ['Chauntea, goddess of agriculture', 'Deneir, god of writing', 'Eldath, goddess of peace', 'Lathander, god of birth and renewal', 'Mielikki, goddess of forests', 'Milil, god of poetry and song', 'Mystra, goddess of magic']]
+]);
+const socioeconomic: string[] = [
+	'They are positively abreast with currency.',
+	'They are poor as fuck.',
+	'They were born rich but are terrible with money.',
+	'They live comfortably.',
+	'Though they have little money, they are content.'
+];
 
 
 // Utility
@@ -394,7 +417,7 @@ export class NpcCard extends Component<any, any> {
 						</ol>
 						<span className="npc-card__alignment">{npc.alignment.name}</span>
 						<p>{npc.name} is a {adjectives[randomNumber(0, adjectives.length)]} {npc.race.name} {traits[randomNumber(0, traits.length)]}</p>
-						<p>I don't even know what is going to go here. Something descriptive. But I'd prefer to not have to write it all myself. An api?</p>
+						<p>They {religiousAdjective[randomNumber(0, religiousAdjective.length)]} follower of {religion.get(npc.alignment.abbreviation)![0]}. {socioeconomic[randomNumber(0, socioeconomic.length)]} {traits2[randomNumber(0, traits2.length)]}</p>
 						<p>{quirks[randomNumber(0, quirks.length)]}</p>
 					</div>
 					<ul className="npc-card__ability-scores" >
