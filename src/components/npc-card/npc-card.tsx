@@ -202,6 +202,8 @@ function getRandomMapKey(map): string {
 	return items[Math.floor(randomNumber(0, items.length))];
 }
 
+// Functions below this comment should probably be in the component
+
 function getNpcGender(): string {
 	return Math.floor(Math.random() * 2) === 0 ? 'Male' : 'Female';
 }
@@ -261,7 +263,7 @@ function NpcAbilityScore(props) {
 			<div className='npc-stat'>
 				<span className="npc-stat__label">{props.label}</span>
 				<span className="npc-stat__score">{props.score}</span>
-				<span className="npc-stat__modifier">{props.modifier}</span>
+				<span className="npc-stat__modifier">{props.modifier > 0 ? '+' + props.modifier : props.modifier}</span>
 			</div>
 		</li>
 	);
