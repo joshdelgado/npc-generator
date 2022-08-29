@@ -84,9 +84,8 @@ class RaceInfo {
 const baseUrl: string = 'https://www.dnd5eapi.co/api/';
 const abilities: string[] = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
 const classes: string[] = ['barbarian', 'bard', 'cleric', 'druid', 'fighter', 'monk', 'paladin', 'ranger', 'rogue', 'sorcerer', 'warlock', 'wizard'];
-const races: string[] = ['dragonborn', 'dwarf', 'elf', 'gnome', 'half-elf', 'half-orc', 'halfling', 'human', 'tiefling'];
 const alignments: string[] = ['chaotic-evil', 'chaotic-neutral', 'chaotic-good', 'lawful-evil', 'lawful-neutral', 'lawful-good', 'neutral-evil', 'neutral', 'neutral-good']
-const raceInfo: Map<string, RaceInfo> = new Map<string, RaceInfo>([
+const races: Map<string, RaceInfo> = new Map<string, RaceInfo>([
 	['dragonborn', new RaceInfo('dragonborn', 15, 80, 78, 90, 215, 300)],
 	['dwarf', new RaceInfo('dwarf', 50, 350, 48, 60, 120, 200)],
 	['elf', new RaceInfo('elf', 100, 750, 54, 78, 125, 215)],
@@ -97,6 +96,63 @@ const raceInfo: Map<string, RaceInfo> = new Map<string, RaceInfo>([
 	['human', new RaceInfo('human', 18, 80, 60, 78, 130, 225)],
 	['tiefling', new RaceInfo('tiefling', 18, 90, 60, 78, 130, 225)]
 ]);
+const gods: Map<string, string[]> = new Map<string, string[]>([
+	['CE', ['Beshaba, goddess of misfortune', 'Cyric, god of lies', 'Malar, god of the hunt', 'Talona, goddess of disease and poison', 'Talos, god of storms', 'Umberlee, goddess of the sea']],
+	['CN', ['Leira, goddess of illusion', 'Mask, god of thieves']],
+	['CG', ['Lliira, goddess of joy', 'Selûne, goddess of the moon', 'Sune, goddess of love and beauty', 'Tymora, goddess of good fortune']],
+	['LE', ['Bane, god of tyranny', 'Loviatar, goddess of pain']],
+	['LN', ['Azuth, god of wizards', 'Helm, god of protection', 'Kelemvor, god of the dead', 'Savras, god of divination and fate']],
+	['LG', ['Ilmater, god of endurance', 'Torm, god of courage and self-sacrifice', 'Tyr, god of justice']],
+	['NE', ['Auril, goddess of winter', 'Bhaal, god of murder', 'Myrkul, god of death', 'Shar, goddess of darkness and loss']],
+	['N', ['Gond, god of craft', 'Oghma, god of knowledge', 'Silvanus, god of wild nature', 'Tempus, god of war', 'Waukeen, goddess of trade']],
+	['NG', ['Chauntea, goddess of agriculture', 'Deneir, god of writing', 'Eldath, goddess of peace', 'Lathander, god of birth and renewal', 'Mielikki, goddess of forests', 'Milil, god of poetry and song', 'Mystra, goddess of magic']]
+]);
+
+/*
+*
+* These constants are used to generate the NCp's bio
+*
+*/
+
+// General adjective to describe personality
+const adjectives: string[] = ['fiesty', 'stubborn', 'timid', 'sneaky', 'aggressive', 'horny', 'punctual'];
+
+// Things they do
+const traits: string[] = [
+	'who runs their family\'s business.',
+	'who collects toads in their free time.',
+	'with more clothing options than common sense.',
+	'that loves their dog more than anything.',
+	'with a love-hate relationship with cooking.'
+]
+
+// Ways they behave
+const traits2: string[] = [
+	'They are a skilled combatant and are proud of it.',
+	'They are not a fan of small talk.',
+	'They look for the good in everyone they meet.',
+	'They manage to find something wrong with everything.'
+]
+
+// Modifies how strong their faith is
+const religiousAdjective: string[] = [
+	'are a devout',
+	'are a zealous',
+	'pretend to be a',
+	'are a nominal',
+	'are a bregrudging'
+];
+
+// Describes how much wealth they have
+const socioeconomic: string[] = [
+	'are positively abreast with currency.',
+	'are poor as fuck.',
+	'were born rich but are terrible with money.',
+	'live comfortably.',
+	'though they have little money, they are content.'
+];
+
+// A quirk they have to give them some el oh el ha ha
 const quirks: string[] = [
 	'They are an aspiring matress salesman.',
 	'Their favorite thing to do is eat pinecones.',
@@ -111,45 +167,12 @@ const quirks: string[] = [
 	'They have a wooden pegleg that is filled with a secret.',
 	'When they hear a special word they instantly fall asleep.'
 ];
-const adjectives: string[] = ['fiesty', 'stubborn', 'timid', 'sneaky', 'aggressive', 'horny', 'punctual'];
-const traits: string[] = [
-	'who runs their family\'s business.',
-	'who collects toads in their free time.',
-	'with more clothing options than common sense.',
-	'that loves their dog more than anything.'
-]
-const traits2: string[] = [
-	'They are a skilled fighter and are proud of it.',
-	'They are not a fan of small talk.'
-]
-const religiousAdjective: string[] = [
-	'are a devout',
-	'are a zealous',
-	'pretend to be a',
-	'are a nominal',
-	'are a bregrudging'
-];
-const religion: Map<string, string[]> = new Map<string, string[]>([
-	['CE', ['Beshaba, goddess of misfortune', 'Cyric, god of lies', 'Malar, god of the hunt', 'Talona, goddess of disease and poison', 'Talos, god of storms', 'Umberlee, goddess of the sea']],
-	['CN', ['Leira, goddess of illusion', 'Mask, god of thieves']],
-	['CG', ['Lliira, goddess of joy', 'Selûne, goddess of the moon', 'Sune, goddess of love and beauty', 'Tymora, goddess of good fortune']],
-	['LE', ['Bane, god of tyranny', 'Loviatar, goddess of pain']],
-	['LN', ['Azuth, god of wizards', 'Helm, god of protection', 'Kelemvor, god of the dead', 'Savras, god of divination and fate']],
-	['LG', ['Ilmater, god of endurance', 'Torm, god of courage and self-sacrifice', 'Tyr, god of justice']],
-	['NE', ['Auril, goddess of winter', 'Bhaal, god of murder', 'Myrkul, god of death', 'Shar, goddess of darkness and loss']],
-	['N', ['Gond, god of craft', 'Oghma, god of knowledge', 'Silvanus, god of wild nature', 'Tempus, god of war', 'Waukeen, goddess of trade']],
-	['NG', ['Chauntea, goddess of agriculture', 'Deneir, god of writing', 'Eldath, goddess of peace', 'Lathander, god of birth and renewal', 'Mielikki, goddess of forests', 'Milil, god of poetry and song', 'Mystra, goddess of magic']]
-]);
-const socioeconomic: string[] = [
-	'are positively abreast with currency.',
-	'are poor as fuck.',
-	'were born rich but are terrible with money.',
-	'live comfortably.',
-	'though they have little money, they are content.'
-];
 
-
-// Utility
+/*
+*
+* Utility
+*
+*/
 
 // Answer by joshuakcockrell: https://stackoverflow.com/questions/25582882/javascript-math-random-normal-distribution-gaussian-bell-curve
 function getRandomNumberStandardDist(min, max, skew) {
@@ -172,6 +195,11 @@ function getRandomNumberStandardDist(min, max, skew) {
 
 function randomNumber(min, max) {
 	return Math.floor(Math.random() * (max - min) + min);
+}
+
+function getRandomMapKey(map): string {
+	const items: string[] = Array.from(map.keys());
+	return items[Math.floor(randomNumber(0, items.length))];
 }
 
 function getNpcGender(): string {
@@ -205,14 +233,14 @@ function getHeight(min, max, skew): string {
 
 function getNpcName(race: string, gender: string): string {
 	// @ts-ignore
-	const rand1 = Math.floor(Math.random() * raceInfo.get(race)!.names[gender.toLowerCase()].length),
+	const rand1 = Math.floor(Math.random() * races.get(race)!.names[gender.toLowerCase()].length),
 		// @ts-ignore
-		rand2 = Math.floor(Math.random() * raceInfo.get(race)!.names.surname.length);
+		rand2 = Math.floor(Math.random() * races.get(race)!.names.surname.length);
 
 	// @ts-ignore
-	let last = raceInfo.get(race)!.names.surname[rand2],
+	let last = races.get(race)!.names.surname[rand2],
 		// @ts-ignore
-		first = raceInfo.get(race)!.names[gender.toLowerCase()][rand1];
+		first = races.get(race)!.names[gender.toLowerCase()][rand1];
 
 	return first + " " + last;
 }
@@ -331,14 +359,14 @@ export class NpcCard extends Component<any, any> {
 		return (
 			<>
 				<p>{this.state.npc.name} is a {adjectives[randomNumber(0, adjectives.length)]} {this.state.npc.race.name} {traits[randomNumber(0, traits.length)]}</p>
-				<p>They {religiousAdjective[randomNumber(0, religiousAdjective.length)]} follower of {religion.get(this.state.npc.alignment.abbreviation)![0]} and {socioeconomic[randomNumber(0, socioeconomic.length)]} {traits2[randomNumber(0, traits2.length)]}</p>
+				<p>They {religiousAdjective[randomNumber(0, religiousAdjective.length)]} follower of {gods.get(this.state.npc.alignment.abbreviation)![0]} and {socioeconomic[randomNumber(0, socioeconomic.length)]} {traits2[randomNumber(0, traits2.length)]}</p>
 				<p>{quirks[randomNumber(0, quirks.length)]}</p>
 			</>)
 	}
 
 	generateNpc = () => {
 		let randomClass = classes[randomNumber(0, classes.length)];
-		let randomRace = races[randomNumber(0, races.length)];
+		let randomRace = getRandomMapKey(races);
 		let randomAlignment = alignments[randomNumber(0, alignments.length)];
 		let level = randomNumber(1, 20);
 		let npcRace = this.getNpcData('race', 'races/' + randomRace);
@@ -428,13 +456,13 @@ export class NpcCard extends Component<any, any> {
 					</div>
 					<div className="npc-card__bio">
 						<ol className="npc-card__attributes">
-							<li><strong>Age</strong>{getRandomNumberStandardDist(raceInfo.get(npc.race.index)!.age.min, raceInfo.get(npc.race.index)!.age.max, 1)} years</li>
-							<li><strong>Height</strong>{getHeight(raceInfo.get(npc.race.index)!.height.min, raceInfo.get(npc.race.index)!.height.max, 1)}</li>
-							<li><strong>Weight</strong>{getRandomNumberStandardDist(raceInfo.get(npc.race.index)!.weight.min, raceInfo.get(npc.race.index)!.weight.max, 1)} lbs</li>
+							<li><strong>Age</strong>{getRandomNumberStandardDist(races.get(npc.race.index)!.age.min, races.get(npc.race.index)!.age.max, 1)} years</li>
+							<li><strong>Height</strong>{getHeight(races.get(npc.race.index)!.height.min, races.get(npc.race.index)!.height.max, 1)}</li>
+							<li><strong>Weight</strong>{getRandomNumberStandardDist(races.get(npc.race.index)!.weight.min, races.get(npc.race.index)!.weight.max, 1)} lbs</li>
 						</ol>
 						<span className="npc-card__alignment">{npc.alignment.name}</span>
 						<p>{npc.name} is a {adjectives[randomNumber(0, adjectives.length)]} {npc.race.name} {traits[randomNumber(0, traits.length)]}</p>
-						<p>They {religiousAdjective[randomNumber(0, religiousAdjective.length)]} follower of {religion.get(npc.alignment.abbreviation)![0]} and {socioeconomic[randomNumber(0, socioeconomic.length)]} {traits2[randomNumber(0, traits2.length)]}</p>
+						<p>They {religiousAdjective[randomNumber(0, religiousAdjective.length)]} follower of {gods.get(npc.alignment.abbreviation)![0]} and {socioeconomic[randomNumber(0, socioeconomic.length)]} {traits2[randomNumber(0, traits2.length)]}</p>
 						<p>{quirks[randomNumber(0, quirks.length)]}</p>
 					</div>
 					<ul className="npc-card__ability-scores" >
