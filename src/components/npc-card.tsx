@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { SimpleRange } from '../../interfaces/simple-range';
-import { Stat } from '../../interfaces/stat';
+import { SimpleRange } from '../interfaces/simple-range';
+import { Stat } from '../interfaces/stat';
 
 class RaceInfo {
 	age: SimpleRange = { min: 0, max: 0 };

@@ -1,0 +1,23 @@
+.app-footer {
+	background-color: var(--deep-red);
+	width: 100%;
+	padding: 1rem 0;
+	margin-top: auto;
+
+	&__content {
+		padding: 0 1rem;
+		max-width: 1200px;
+		margin: 0 auto;
+		color: var(--white);
+	}
+
+	p {
+		text-align: right;
+		margin: 0;
+	}
+
+	a {
+		color: var(--gold);
+		text-decoration: none;
+	}
+}
