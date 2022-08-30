@@ -1,6 +1,15 @@
 :root {
 	--border-radius: 3px;
 	--box-shadow: 0 4px 8px 0px rgba(0, 0, 0, 0.2);
+
+	--white: #f9f9f9;
+	--yellow: #FFFEBD;
+	--gold: #F7CE65;
+	--red: #930C10;
+	--deep-red: #290000;
+	--black: #030303;
+
+	--text-color: #222222;
 }
 
 $breakpoint: 760px;
@@ -12,7 +21,10 @@ $breakpoint-small: 460px;
 
 .app {
 	position: relative;
-	padding: 1rem;
+
+	&__content {
+		padding: 0 1rem;
+	}
 
 	&:before {
 		content: '';
@@ -29,12 +41,13 @@ $breakpoint-small: 460px;
 	}
 }
 
+@import "scss/app-header";
 @import "scss/npc-card";
 @import "scss/npc-stat";
 @import "scss/generate-npc-button";
 
 @media(max-width: $breakpoint) {
-	.app {
-		padding: 1rem 0.5rem;
+	.app__content {
+		padding: 0 0.5rem;
 	}
 }
