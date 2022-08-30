@@ -439,7 +439,7 @@ export class NpcCard extends Component<any, any> {
 				</select> */}
 				<div className="npc-card" >
 					<div className="npc-card__header">
-						<div>
+						<div className="npc-card__titles">
 							<h2 className="npc-card__name">{npc.name}</h2>
 							<ol className="npc-card__info">
 								{this.renderLineItem('Level ' + npc.level.level)}
