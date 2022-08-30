@@ -244,7 +244,11 @@ function getNpcName(race: string, gender: string): string {
 		// @ts-ignore
 		first = races.get(race)!.names[gender.toLowerCase()][rand1];
 
-	return first + " " + last;
+
+	let returnName = first;
+	if (last) { returnName = returnName + " " + last; }
+
+	return returnName;
 }
 
 function getModifier(score: number): number {
@@ -463,12 +467,8 @@ export class NpcCard extends Component<any, any> {
 				<div className="npc-card" >
 					<div className="npc-card__header">
 						<div className="npc-card__titles">
-							<h2 className="npc-card__name">{npc.name}
-								{this.renderGenderIcon(this.state.gender)}
-							</h2>
+							<h2 className="npc-card__name">{npc.name}{this.renderGenderIcon(this.state.gender)}</h2>
 							<ol className="npc-card__info">
-								{/* {this.renderLineItem('Level ' + npc.level.level)} */}
-								{/* {this.renderLineItem(npc.gender)} */}
 								{this.renderLineItem(npc.race.name)}
 								{this.renderLineItem(npc.class.name)}
 

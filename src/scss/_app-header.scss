@@ -17,3 +17,9 @@
 		font-weight: 500;
 	}
 }
+
+@media(max-width: $breakpoint) {
+	.app-header {
+		margin-bottom: 2rem;
+	}
+}
