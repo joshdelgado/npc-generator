@@ -24,7 +24,7 @@
 	}
 }
 
-@media (max-width: 760px) {
+@media (max-width: $breakpoint) {
 	.generate-npc-button {
 		position: fixed;
 		bottom: 0;

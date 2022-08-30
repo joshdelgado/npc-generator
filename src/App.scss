@@ -3,6 +3,9 @@
 	--box-shadow: 0 4px 8px 0px rgba(0, 0, 0, 0.2);
 }
 
+$breakpoint: 760px;
+$breakpoint-small: 460px;
+
 * {
 	box-sizing: border-box;
 }
@@ -29,3 +32,9 @@
 @import "scss/npc-card";
 @import "scss/npc-stat";
 @import "scss/generate-npc-button";
+
+@media(max-width: $breakpoint) {
+	.app {
+		padding: 1rem 0.5rem;
+	}
+}
