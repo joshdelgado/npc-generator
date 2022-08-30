@@ -1,4 +1,5 @@
 .npc-card {
+	position: relative;
 	display: flex;
 	justify-content: space-between;
 	flex-wrap: wrap;
@@ -108,6 +109,28 @@
 		&:last-child {
 			margin-bottom: 0;
 		}
+	}
+
+	&__spinner {
+		position: absolute;
+		left: calc(50% - (var(--spinner-size) / 2));
+		top: calc(50% - (var(--spinner-size) / 2));
+		height: var(--spinner-size);
+		width: var(--spinner-size);
+		border: 8px solid var(--red);
+		border-radius: 100%;
+		border-bottom-color: transparent;
+		animation: spinner 1.5s infinite linear;
+	}
+}
+
+@keyframes spinner {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
 	}
 }
 

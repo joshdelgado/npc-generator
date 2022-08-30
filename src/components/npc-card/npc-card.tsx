@@ -411,7 +411,7 @@ export class NpcCard extends Component<any, any> {
 
 			setTimeout(() => {
 				this.setState({ loaded: true });
-			}, 1000);
+			}, randomNumber(1000, 3000));
 		});
 	}
 
@@ -452,7 +452,7 @@ export class NpcCard extends Component<any, any> {
 		if (!npc.loaded) {
 			return (
 				<>
-					<div className="npc-card">Loading...</div>
+					<div className="npc-card"><div className="npc-card__spinner"></div></div>
 					<button className="generate-npc-button generate-npc-button--disabled" disabled>Generate NPC</button>
 				</>
 
