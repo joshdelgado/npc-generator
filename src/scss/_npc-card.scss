@@ -1,3 +1,13 @@
+@keyframes spinner {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
 .npc-card {
 	position: relative;
 	display: flex;
@@ -58,7 +68,7 @@
 
 		img {
 			display: inline-block;
-			max-width: 100%;
+			max-width: 320px;
 		}
 	}
 
@@ -121,16 +131,6 @@
 		border-radius: 100%;
 		border-bottom-color: transparent;
 		animation: spinner 1.5s infinite linear;
-	}
-}
-
-@keyframes spinner {
-	0% {
-		transform: rotate(0deg);
-	}
-
-	100% {
-		transform: rotate(360deg);
 	}
 }
 
@@ -206,7 +206,7 @@
 
 		&__ability-scores {
 			flex-wrap: wrap;
-			margin: 2rem 0 0;
+			margin: 2rem 0 1rem;
 
 			li {
 				flex: 1 1 calc(100% / 3);
