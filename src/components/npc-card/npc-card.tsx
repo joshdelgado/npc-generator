@@ -427,7 +427,6 @@ export class NpcCard extends Component<any, any> {
 	}
 
 	componentDidMount() {
-		console.log('ran');
 		this.generateNpc();
 	}
 
