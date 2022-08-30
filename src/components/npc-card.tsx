@@ -490,7 +490,7 @@ export class NpcCard extends Component<any, any> {
 							<li><strong>Weight</strong>{getRandomNumberStandardDist(races.get(npc.race.index)!.weight.min, races.get(npc.race.index)!.weight.max, 1)} lbs</li>
 							<li><strong>Alignment</strong>{npc.alignment.name}</li>
 						</ol>
-						<div>
+						<div className="npc-card__description">
 							<p>{npc.name} is a {adjectives[randomNumber(0, adjectives.length)]} {npc.race.name} {traits[randomNumber(0, traits.length)]}</p>
 							<p>They {religiousAdjective[randomNumber(0, religiousAdjective.length)]} follower of {gods.get(npc.alignment.abbreviation)![0]} and {socioeconomic[randomNumber(0, socioeconomic.length)]} {traits2[randomNumber(0, traits2.length)]}</p>
 							<p>{quirks[randomNumber(0, quirks.length)]}</p>

@@ -3,9 +3,11 @@
 	flex-direction: column;
 	align-items: center;
 	margin: 0.5rem;
+	color: var(--deep-red);
 
 	&__label {
 		font-size: 1.25rem;
+		color: var(--red);
 	}
 
 	&__score {
