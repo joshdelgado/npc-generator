@@ -488,11 +488,13 @@ export class NpcCard extends Component<any, any> {
 							<li><strong>Age</strong>{getRandomNumberStandardDist(races.get(npc.race.index)!.age.min, races.get(npc.race.index)!.age.max, 1)} years</li>
 							<li><strong>Height</strong>{getHeight(races.get(npc.race.index)!.height.min, races.get(npc.race.index)!.height.max, 1)}</li>
 							<li><strong>Weight</strong>{getRandomNumberStandardDist(races.get(npc.race.index)!.weight.min, races.get(npc.race.index)!.weight.max, 1)} lbs</li>
+							<li><strong>Alignment</strong>{npc.alignment.name}</li>
 						</ol>
-						<span className="npc-card__alignment">{npc.alignment.name}</span>
-						<p>{npc.name} is a {adjectives[randomNumber(0, adjectives.length)]} {npc.race.name} {traits[randomNumber(0, traits.length)]}</p>
-						<p>They {religiousAdjective[randomNumber(0, religiousAdjective.length)]} follower of {gods.get(npc.alignment.abbreviation)![0]} and {socioeconomic[randomNumber(0, socioeconomic.length)]} {traits2[randomNumber(0, traits2.length)]}</p>
-						<p>{quirks[randomNumber(0, quirks.length)]}</p>
+						<div>
+							<p>{npc.name} is a {adjectives[randomNumber(0, adjectives.length)]} {npc.race.name} {traits[randomNumber(0, traits.length)]}</p>
+							<p>They {religiousAdjective[randomNumber(0, religiousAdjective.length)]} follower of {gods.get(npc.alignment.abbreviation)![0]} and {socioeconomic[randomNumber(0, socioeconomic.length)]} {traits2[randomNumber(0, traits2.length)]}</p>
+							<p>{quirks[randomNumber(0, quirks.length)]}</p>
+						</div>
 					</div>
 					<ul className="npc-card__ability-scores" >
 						{this.renderAbilityScore('Strength', npc.abilityScores.strength)}
