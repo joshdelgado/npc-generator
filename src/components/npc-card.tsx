@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import { SimpleRange } from '../interfaces/simple-range';
 import { Stat } from '../interfaces/stat';
+import { Alignment } from '../interfaces/alignment';
 
 class RaceInfo {
+	name: string;
 	age: SimpleRange = { min: 0, max: 0 };
 	height: SimpleRange = { min: 0, max: 0 };
 	weight: SimpleRange = { min: 0, max: 0 };
 	names: { male: string[], female: string[], surname: string[] } = { male: [], female: [], surname: [] };
 
 	constructor(name: string, minAge: number, maxAge: number, minHeight: number, maxHeight: number, minWeight: number, maxWeight: number) {
-		this.setNames(name);
+		this.setNames(name.toLowerCase());
+		this.name = name;
 		this.age.min = minAge;
 		this.age.max = maxAge;
 		this.height.min = minHeight;
@@ -81,20 +84,31 @@ class RaceInfo {
 	}
 }
 
+
 const baseUrl: string = 'https://www.dnd5eapi.co/api/';
 const abilities: string[] = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
 const classes: string[] = ['barbarian', 'bard', 'cleric', 'druid', 'fighter', 'monk', 'paladin', 'ranger', 'rogue', 'sorcerer', 'warlock', 'wizard'];
-const alignments: string[] = ['chaotic-evil', 'chaotic-neutral', 'chaotic-good', 'lawful-evil', 'lawful-neutral', 'lawful-good', 'neutral-evil', 'neutral', 'neutral-good']
+const alignments: Map<string, Alignment> = new Map<string, Alignment>([
+	['chaotic-evil', { alias: 'chaotic-evil', code: 'CE', name: 'Chaotic Evil' }],
+	['chaotic-neutral', { alias: 'chaotic-neutral', code: 'CN', name: 'Chaotic Neutral' }],
+	['chaotic-good', { alias: 'chaotic-good', code: 'CG', name: 'Chaotic Good' }],
+	['lawful-evil', { alias: 'lawful-evil', code: 'LE', name: 'Lawful Evil' }],
+	['lawful-neutral', { alias: 'lawful-neutral', code: 'LN', name: 'Lawful Neutral' }],
+	['lawful-good', { alias: 'lawful-good', code: 'LG', name: 'Lawful Good' }],
+	['neutral-evil', { alias: 'neutral-evil', code: 'NE', name: 'Neutral Evil' }],
+	['neutral', { alias: 'neutral', code: 'N', name: 'Neutral' }],
+	['neutral-good', { alias: 'neutral-good', code: 'NG', name: 'Neutral Good' }],
+]);
 const races: Map<string, RaceInfo> = new Map<string, RaceInfo>([
-	['dragonborn', new RaceInfo('dragonborn', 15, 80, 78, 90, 215, 300)],
-	['dwarf', new RaceInfo('dwarf', 50, 350, 48, 60, 120, 200)],
-	['elf', new RaceInfo('elf', 100, 750, 54, 78, 125, 215)],
-	['gnome', new RaceInfo('gnome', 40, 480, 32, 48, 40, 45)],
-	['half-elf', new RaceInfo('half-elf', 20, 190, 58, 74, 140, 220)],
-	['half-orc', new RaceInfo('half-orc', 14, 75, 60, 80, 150, 250)],
-	['halfling', new RaceInfo('halfling', 20, 250, 32, 42, 35, 45)],
-	['human', new RaceInfo('human', 18, 80, 60, 78, 130, 225)],
-	['tiefling', new RaceInfo('tiefling', 18, 90, 60, 78, 130, 225)]
+	['dragonborn', new RaceInfo('Dragonborn', 15, 80, 78, 90, 215, 300)],
+	['dwarf', new RaceInfo('Dwarf', 50, 350, 48, 60, 120, 200)],
+	['elf', new RaceInfo('Elf', 100, 750, 54, 78, 125, 215)],
+	['gnome', new RaceInfo('Gnome', 40, 480, 32, 48, 40, 45)],
+	['half-elf', new RaceInfo('Half-Elf', 20, 190, 58, 74, 140, 220)],
+	['half-orc', new RaceInfo('Half-Orc', 14, 75, 60, 80, 150, 250)],
+	['halfling', new RaceInfo('Halfling', 20, 250, 32, 42, 35, 45)],
+	['human', new RaceInfo('Human', 18, 80, 60, 78, 130, 225)],
+	['tiefling', new RaceInfo('Tiefling', 18, 90, 60, 78, 130, 225)]
 ]);
 const gods: Map<string, string[]> = new Map<string, string[]>([
 	['CE', ['Beshaba, goddess of misfortune', 'Cyric, god of lies', 'Malar, god of the hunt', 'Talona, goddess of disease and poison', 'Talos, god of storms', 'Umberlee, goddess of the sea']],
@@ -200,6 +214,10 @@ function randomNumber(min, max) {
 function getRandomMapKey(map): string {
 	const items: string[] = Array.from(map.keys());
 	return items[Math.floor(randomNumber(0, items.length))];
+}
+
+function capitalize(word): string {
+	return word.split('').map((letter, i) => i ? letter.toLowerCase() : letter.toUpperCase()).join('');
 }
 
 // Functions below this comment should probably be in the component
@@ -309,7 +327,14 @@ export class NpcCard extends Component<any, any> {
 				constitution: { score: null, modifier: null },
 				charisma: { score: null, modifier: null },
 			},
-			loaded: false
+			loaded: false,
+			selections: {
+				alignment: null,
+				class: null,
+				gender: null,
+				level: null,
+				race: null
+			}
 		};
 	}
 
@@ -390,9 +415,10 @@ export class NpcCard extends Component<any, any> {
 	}
 
 	generateNpc = () => {
-		let randomClass = classes[randomNumber(0, classes.length)];
+		const selections = this.state.selections;
+		let randomClass = selections.class ? classes[selections.class] : classes[randomNumber(0, classes.length)];
 		let randomRace = getRandomMapKey(races);
-		let randomAlignment = alignments[randomNumber(0, alignments.length)];
+		let randomAlignment = getRandomMapKey(alignments)
 		let level = randomNumber(1, 20);
 		let npcRace = this.getNpcData('race', 'races/' + randomRace);
 		let npcClass = this.getNpcData('class', 'classes/' + randomClass);
@@ -461,9 +487,6 @@ export class NpcCard extends Component<any, any> {
 		console.log('NPC State', npc);
 		return (
 			<>
-				{/* <select>
-					{[...Array(20)].map((a, index) => <option key={Math.random() + index} value={index + 1}>{index + 1}</option>)}
-				</select> */}
 				<div className="npc-card" >
 					<div className="npc-card__header">
 						<div className="npc-card__titles">
