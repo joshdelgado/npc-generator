@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 
 export class AppFooter extends Component<any, any> {
+	constructor(props) {
+		super(props);
+	}
 	render() {
 		return (
 			<footer className="app-footer">

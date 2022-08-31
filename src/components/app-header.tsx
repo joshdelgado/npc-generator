@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 
 export class AppHeader extends Component<any, any> {
+
+	constructor(props) {
+		super(props);
+	}
+
 	render() {
 		return (
 			<header className="app-header">
