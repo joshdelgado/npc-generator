@@ -6,10 +6,6 @@ import { NpcOptions } from './npc-options';
 
 export class NpcGenerator extends Component<any, any> {
 
-	constructor(props: any) {
-		super(props);
-	}
-
 	render() {
 		return (
 			<>
