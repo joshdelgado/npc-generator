@@ -3,29 +3,24 @@ import { NpcRaceSelect } from './npc-race-select';
 
 export class NpcOptions extends Component<any, any> {
 	state = {
-		options: [
-			{
-				name: 'no',
-				value: 'no'
-			},
-			{
-				name: 'yes',
-				value: 'yes'
-			}
-		],
-		value: ''
+		level: '',
+		gender: '',
+		race: '',
+		class: '',
+		alignment: '',
 	}
 
 	handleChange = (event: any) => {
 		this.setState({ value: event.target.value })
 	}
 
-	render() {
-		const { options, value } = this.state;
+	assignState = (value: string) => {
+		this.setState(value);
+	}
 
+	render() {
 		return (
 			<div className="npc-options">
-
 				<div className="npc-options__content">
 					<div className="npc-options__input">
 						<label htmlFor="level-select">Level</label>
@@ -46,18 +41,11 @@ export class NpcOptions extends Component<any, any> {
 					</div>
 
 					<div className="npc-options__input">
-						<NpcRaceSelect></NpcRaceSelect>
+						<NpcRaceSelect callback={this.assignState}></NpcRaceSelect>
 					</div>
 
 
-					{/* <label htmlFor="race-select">Race</label>
-				<select name="race" id="race-select">
-					<option value="">Random</option>
-					{Array.from(races.entries()).map((entry) => {
-						const [key, value] = entry;
-						return (<option key={key} value={key}>{value.name}</option>);
-					})}
-				</select>
+					{/* 
 
 				<label htmlFor="class-select">Class</label>
 				<select name="class" id="class-select">
