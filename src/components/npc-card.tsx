@@ -197,7 +197,8 @@ export class NpcCard extends Component<any, any> {
 				<p>{npc.name} is a {adjectives[randomNumber(0, adjectives.length)]} {npc.race.name} {traits[randomNumber(0, traits.length)]}</p>
 				<p>They {religiousAdjective[randomNumber(0, religiousAdjective.length)]} follower of {gods.get(npc.alignment.abbreviation)![0]} and {socioeconomic[randomNumber(0, socioeconomic.length)]} {traits2[randomNumber(0, traits2.length)]}</p>
 				<p>{quirks[randomNumber(0, quirks.length)]}</p>
-			</>)
+			</>
+		)
 	}
 
 	generateNpc = () => {

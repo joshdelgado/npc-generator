@@ -1,9 +1,3 @@
-/*
-*
-* Utility
-*
-*/
-
 // Answer by joshuakcockrell: https://stackoverflow.com/questions/25582882/javascript-math-random-normal-distribution-gaussian-bell-curve
 export function getRandomNumberStandardDist(min: number, max: number, skew: number) {
 	let u = 0, v = 0;
