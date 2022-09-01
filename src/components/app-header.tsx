@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 export class AppHeader extends Component<any, any> {
 
-	constructor(props) {
+	constructor(props: any) {
 		super(props);
 	}
 

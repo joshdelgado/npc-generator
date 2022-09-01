@@ -15,7 +15,7 @@ export class NpcRaceSelect extends Component<any, any> {
 		value: ''
 	}
 
-	handleChange = (event) => {
+	handleChange = (event: any) => {
 		this.setState({ value: event.target.value })
 	}
 

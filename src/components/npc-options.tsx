@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-// @ts-ignore
-import { NpcRaceSelect } from './npc-race-select.tsx';
+import { NpcRaceSelect } from './npc-race-select';
 
 export class NpcOptions extends Component<any, any> {
 	state = {
@@ -17,7 +16,7 @@ export class NpcOptions extends Component<any, any> {
 		value: ''
 	}
 
-	handleChange = (event) => {
+	handleChange = (event: any) => {
 		this.setState({ value: event.target.value })
 	}
 
