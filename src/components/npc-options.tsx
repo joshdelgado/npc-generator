@@ -25,23 +25,32 @@ export class NpcOptions extends Component<any, any> {
 
 		return (
 			<div className="npc-options">
-				<label htmlFor="level-select">Level</label>
-				<select name="level" id="level-select">
-					<option value="">Random</option>
-					{[...Array(20)].map((a, index) => <option key={Math.random() + index} value={index + 1}>{index + 1}</option>)}
-				</select>
 
-				<label htmlFor="gender-select">Gender</label>
-				<select name="gender" id="gender-select">
-					<option value="">Random</option>
-					<option value="male">Male</option>
-					<option value="female">Female</option>
-					<option value="other">Other</option>
-				</select>
+				<div className="npc-options__content">
+					<div className="npc-options__input">
+						<label htmlFor="level-select">Level</label>
+						<select name="level" id="level-select">
+							<option value="">Random</option>
+							{[...Array(20)].map((a, index) => <option key={Math.random() + index} value={index + 1}>{index + 1}</option>)}
+						</select>
+					</div>
 
-				<NpcRaceSelect></NpcRaceSelect>
+					<div className="npc-options__input">
+						<label htmlFor="gender-select">Gender</label>
+						<select name="gender" id="gender-select">
+							<option value="">Random</option>
+							<option value="male">Male</option>
+							<option value="female">Female</option>
+							<option value="other">Other</option>
+						</select>
+					</div>
 
-				{/* <label htmlFor="race-select">Race</label>
+					<div className="npc-options__input">
+						<NpcRaceSelect></NpcRaceSelect>
+					</div>
+
+
+					{/* <label htmlFor="race-select">Race</label>
 				<select name="race" id="race-select">
 					<option value="">Random</option>
 					{Array.from(races.entries()).map((entry) => {
@@ -67,17 +76,22 @@ export class NpcOptions extends Component<any, any> {
 					})}
 				</select> */}
 
-				<label htmlFor="roll-type-select">Stat Point Algorithm</label>
-				<select name="roll-type" id="roll-type-select">
-					<option value="">Random</option>
-					<option value="4d6dropLowest">4d6 Drop Lowest</option>
-				</select>
+					<div className="npc-options__input">
+						<label htmlFor="roll-type-select">Stat Point Algorithm</label>
+						<select name="roll-type" id="roll-type-select">
+							<option value="">Random</option>
+							<option value="4d6dropLowest">4d6 Drop Lowest</option>
+						</select>
+					</div>
 
-				<label htmlFor="algo-select">Stat Distribution</label>
-				<select name="algo" id="algo-select">
-					<option value="">Random</option>
-					<option value="intelligent">Intelligent</option>
-				</select>
+					<div className="npc-options__input">
+						<label htmlFor="algo-select">Stat Distribution</label>
+						<select name="algo" id="algo-select">
+							<option value="">Random</option>
+							<option value="intelligent">Intelligent</option>
+						</select>
+					</div>
+				</div>
 			</div>
 		)
 	}

@@ -1,0 +1,40 @@
+.npc-options {
+	background-color: var(--yellow);
+	padding: 1rem 1rem 0;
+	border: 2px solid var(--deep-red);
+	border-radius: var(--border-radius);
+	max-width: 760px;
+	margin: 0 auto 1rem;
+
+	&__content {
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		margin: -0.5rem;
+	}
+
+	&__input {
+		flex: 1 1 auto;
+		margin: 0.5rem;
+	}
+
+	label {
+		display: block;
+		color: var(--black);
+		font-size: 14px;
+		font-weight: 500;
+		padding-bottom: 0.25rem;
+	}
+
+	select {
+		font-size: 16px;
+		margin-bottom: 1rem;
+		padding: 0.5rem;
+		width: 100%;
+		cursor: pointer;
+	}
+
+	option {
+		padding: 0.5rem;
+	}
+}
