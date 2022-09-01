@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { races } from '../consts/races';
+import { races } from '../../consts/races';
 
 export class NpcRaceSelect extends Component<any, any> {
 	state = { race: '' };

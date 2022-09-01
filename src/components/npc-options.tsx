@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
-import { NpcRaceSelect } from './npc-race-select';
+import { NpcAlignmentSelect } from './inputs/npc-alignment-select';
+import { NpcClassSelect } from './inputs/npc-class-select';
+import { NpcGenderSelect } from './inputs/npc-gender-select';
+import { NpcLevelSelect } from './inputs/npc-level-select';
+import { NpcRaceSelect } from './inputs/npc-race-select';
+import { NpcStatDistributionSelect } from './inputs/npc-stat-distribution-select';
 
 export class NpcOptions extends Component<any, any> {
 	state = {
@@ -23,61 +28,22 @@ export class NpcOptions extends Component<any, any> {
 			<div className="npc-options">
 				<div className="npc-options__content">
 					<div className="npc-options__input">
-						<label htmlFor="level-select">Level</label>
-						<select name="level" id="level-select">
-							<option value="">Random</option>
-							{[...Array(20)].map((a, index) => <option key={Math.random() + index} value={index + 1}>{index + 1}</option>)}
-						</select>
+						<NpcLevelSelect callback={this.assignState}></NpcLevelSelect>
 					</div>
-
 					<div className="npc-options__input">
-						<label htmlFor="gender-select">Gender</label>
-						<select name="gender" id="gender-select">
-							<option value="">Random</option>
-							<option value="male">Male</option>
-							<option value="female">Female</option>
-							<option value="other">Other</option>
-						</select>
+						<NpcGenderSelect callback={this.assignState}></NpcGenderSelect>
 					</div>
-
 					<div className="npc-options__input">
 						<NpcRaceSelect callback={this.assignState}></NpcRaceSelect>
 					</div>
-
-
-					{/* 
-
-				<label htmlFor="class-select">Class</label>
-				<select name="class" id="class-select">
-					<option value="">Random</option>
-					{Array.from(classes).map((c) => {
-						return (<option key={c} value={c}>{capitalize(c)}</option>);
-					})}
-				</select>
-
-				<label htmlFor="alignment-select">Alignment</label>
-				<select name="alignment" id="alignment-select">
-					<option value="">Random</option>
-					{Array.from(alignments.entries()).map((entry) => {
-						const [_, value] = entry;
-						return (<option key={value.code} value={value.alias}>{value.name}</option>);
-					})}
-				</select> */}
-
 					<div className="npc-options__input">
-						<label htmlFor="roll-type-select">Stat Point Algorithm</label>
-						<select name="roll-type" id="roll-type-select">
-							<option value="">Random</option>
-							<option value="4d6dropLowest">4d6 Drop Lowest</option>
-						</select>
+						<NpcAlignmentSelect callback={this.assignState}></NpcAlignmentSelect>
 					</div>
-
 					<div className="npc-options__input">
-						<label htmlFor="algo-select">Stat Distribution</label>
-						<select name="algo" id="algo-select">
-							<option value="">Random</option>
-							<option value="intelligent">Intelligent</option>
-						</select>
+						<NpcClassSelect callback={this.assignState}></NpcClassSelect>
+					</div>
+					<div className="npc-options__input">
+						<NpcStatDistributionSelect callback={this.assignState}></NpcStatDistributionSelect>
 					</div>
 				</div>
 			</div>

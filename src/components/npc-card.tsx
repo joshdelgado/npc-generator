@@ -5,10 +5,10 @@ import { races } from '../consts/races';
 import { alignments } from '../consts/alignments';
 import { adjectives, traits, religiousAdjective, socioeconomic, traits2, quirks } from '../consts/npc-bio';
 import { randomNumber, getRandomNumberStandardDist, getRandomMapKey } from '../utility/functions';
+import { classes } from '../consts/consts';
 
 const baseUrl: string = 'https://www.dnd5eapi.co/api/';
 const abilities: string[] = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
-const classes: string[] = ['barbarian', 'bard', 'cleric', 'druid', 'fighter', 'monk', 'paladin', 'ranger', 'rogue', 'sorcerer', 'warlock', 'wizard'];
 
 function NpcLineItem(props: any) {
 	return (
