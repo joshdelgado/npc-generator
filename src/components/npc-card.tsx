@@ -55,7 +55,6 @@ export class NpcCard extends Component<any, any> {
 			name: null,
 			race: null,
 			class: null,
-			gender: null,
 			abilityScores: {
 				strength: { score: null, modifier: null },
 				dexterity: { score: null, modifier: null },
@@ -69,7 +68,8 @@ export class NpcCard extends Component<any, any> {
 				age: null,
 				height: null,
 				weight: null,
-				alignment: null
+				alignment: null,
+				gender: null
 			},
 			loaded: false,
 			userSelections: {
@@ -221,7 +221,6 @@ export class NpcCard extends Component<any, any> {
 
 	generateNpc = () => {
 		const selections = this.state.userSelections;
-		console.log(selections);
 		let randomClass = selections.class || classes[randomNumber(0, classes.length)];
 		let randomRace = selections.race || getRandomMapKey(races);
 		let randomAlignment = selections.alignment || getRandomMapKey(alignments)
@@ -237,12 +236,12 @@ export class NpcCard extends Component<any, any> {
 
 			this.setState({
 				name: this.getNpcName(r[0].race.index, gender),
-				gender: gender,
 				attributes: {
 					age: this.getAge(),
 					height: this.getHeight(),
 					weight: this.getWeight(),
 					alignment: r[3].alignment,
+					gender: gender
 				}
 			}, () => {
 				this.setState({
@@ -273,7 +272,7 @@ export class NpcCard extends Component<any, any> {
 
 	componentDidUpdate = (oldProps: any) => {
 		if (oldProps.userSelections !== this.props.userSelections) {
-			this.setState({ userSelections: this.props.userSelections }, () => { console.log(this.state) });
+			this.setState({ userSelections: this.props.userSelections });
 		}
 	}
 
@@ -311,7 +310,7 @@ export class NpcCard extends Component<any, any> {
 				<div className="npc-card" >
 					<div className="npc-card__header">
 						<div className="npc-card__titles">
-							<h2 className="npc-card__name">{npc.name}{this.renderGenderIcon(this.state.gender)}</h2>
+							<h2 className="npc-card__name">{npc.name}{this.renderGenderIcon(this.state.attributes.gender)}</h2>
 							<ol className="npc-card__info">
 								{this.renderLineItem(npc.race.name)}
 								{this.renderLineItem(npc.class.name)}

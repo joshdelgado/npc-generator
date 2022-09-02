@@ -34,10 +34,7 @@ export class NpcGenerator extends Component<any, any> {
 	}
 
 	updateOptions = (userSelections: any) => {
-		console.log(userSelections);
-		this.setState({ userSelections: userSelections }, () => {
-			console.log(this.state);
-		})
+		this.setState({ userSelections: userSelections });
 	}
 
 	render() {
