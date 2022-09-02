@@ -22,9 +22,3 @@
 		text-decoration: none;
 	}
 }
-
-@media (max-width: $breakpoint) {
-	.app-footer {
-		margin-bottom: 70px; // button height minus a few pixels
-	}
-}

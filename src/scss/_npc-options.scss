@@ -21,8 +21,6 @@
 		&--buttons {
 			display: flex;
 			justify-content: flex-end;
-			align-self: flex-end;
-			text-align: right;
 		}
 	}
 
@@ -56,6 +54,10 @@
 
 		&__input {
 			flex: 1 1 100%;
+
+			&--buttons {
+				flex-direction: column;
+			}
 		}
 	}
 }
