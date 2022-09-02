@@ -23,17 +23,6 @@
 		}
 	}
 
-	&__link {
-		color: var(--red);
-		font-weight: 500;
-		cursor: pointer;
-		transition: all 150ms ease;
-
-		&:hover {
-			color: var(--deep-red);
-		}
-	}
-
 	&__button {
 		padding: 0.5rem 1.75rem;
 		margin-bottom: 1rem;
