@@ -22,7 +22,6 @@ export class NpcOptions extends Component<any, any> {
 	assignState = (value: string) => {
 		this.setState(value, () => {
 			this.props.callback(this.state);
-			console.log(this.state);
 		});
 	}
 
@@ -30,6 +29,10 @@ export class NpcOptions extends Component<any, any> {
 		this.setState(this.ogState, () => {
 			this.props.callback(this.state);
 		});
+	}
+
+	handleSubmit = () => {
+		this.props.generateNpc();
 	}
 
 	render() {
@@ -54,8 +57,9 @@ export class NpcOptions extends Component<any, any> {
 					<div className="npc-options__input">
 						<NpcStatDistributionCheckbox value={this.state.statAlgo} callback={this.assignState}></NpcStatDistributionCheckbox>
 					</div>
-					<div className="npc-options__input npc-options__input--reset">
-						<button className="npc-options__button" onClick={this.resetSelctions}>Reset</button>
+					<div className="npc-options__input npc-options__input--buttons">
+						<button className="button button--secondary" onClick={this.resetSelctions}>Reset</button>
+						<button className="button" onClick={this.handleSubmit}>Generate NPC</button>
 					</div>
 				</div>
 			</div>
