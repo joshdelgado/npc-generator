@@ -53,8 +53,10 @@ export class NpcOptions extends Component<any, any> {
 					<div className="npc-options__input">
 						<NpcStatDistributionSelect value={this.state.statAlgo} callback={this.assignState}></NpcStatDistributionSelect>
 					</div>
+					<div className="npc-options__input npc-options__input--reset">
+						<button className="npc-options__button" onClick={this.resetSelctions}>Reset</button>
+					</div>
 				</div>
-				<span onClick={this.resetSelctions}>reset</span>
 			</div>
 		)
 	}

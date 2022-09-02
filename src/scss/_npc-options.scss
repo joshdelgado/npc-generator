@@ -1,5 +1,5 @@
 .npc-options {
-	background-color: var(--yellow);
+	background-color: var(--white);
 	padding: 1rem 1rem 0;
 	border: 2px solid var(--deep-red);
 	border-radius: var(--border-radius);
@@ -16,11 +16,44 @@
 	&__input {
 		flex: 1 1 auto;
 		margin: 0.5rem;
+
+		&--reset {
+			align-self: flex-end;
+			text-align: right;
+		}
+	}
+
+	&__link {
+		color: var(--red);
+		font-weight: 500;
+		cursor: pointer;
+		transition: all 150ms ease;
+
+		&:hover {
+			color: var(--deep-red);
+		}
+	}
+
+	&__button {
+		padding: 0.5rem 1.75rem;
+		margin-bottom: 1rem;
+		font-weight: 500;
+		color: var(--yellow);
+		background-color: var(--red);
+		border: 3px solid var(--red);
+		border-radius: var(--border-radius);
+		cursor: pointer;
+		transition: all 200ms ease;
+
+		&:hover {
+			transform: translateY(2px);
+		}
 	}
 
 	label {
 		display: block;
 		color: var(--black);
+		color: var(--red);
 		font-size: 14px;
 		font-weight: 500;
 		padding-bottom: 0.25rem;
@@ -31,10 +64,29 @@
 		margin-bottom: 1rem;
 		padding: 0.5rem;
 		width: 100%;
+		color: var(--deep-red);
 		cursor: pointer;
 	}
 
 	option {
 		padding: 0.5rem;
+	}
+}
+
+@media (max-width: $breakpoint) {
+	.npc-options {
+		flex-direction: column;
+
+		&__input {
+			flex: 1 1 100%;
+
+			&--reset {
+				text-align: right;
+			}
+		}
+
+		&__button {
+			font-size: 1.25rem;
+		}
 	}
 }
