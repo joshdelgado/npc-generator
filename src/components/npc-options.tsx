@@ -7,16 +7,26 @@ import { NpcRaceSelect } from './inputs/npc-race-select';
 import { NpcStatDistributionSelect } from './inputs/npc-stat-distribution-select';
 
 export class NpcOptions extends Component<any, any> {
+
 	state = {
 		level: '',
 		gender: '',
 		race: '',
 		class: '',
 		alignment: '',
+		statAlgo: ''
 	}
+
+	ogState = this.state;
 
 	assignState = (value: string) => {
 		this.setState(value, () => {
+			this.props.callback(this.state);
+		});
+	}
+
+	resetSelctions = () => {
+		this.setState(this.ogState, () => {
 			this.props.callback(this.state);
 		});
 	}
@@ -26,24 +36,25 @@ export class NpcOptions extends Component<any, any> {
 			<div className="npc-options">
 				<div className="npc-options__content">
 					<div className="npc-options__input">
-						<NpcLevelSelect callback={this.assignState}></NpcLevelSelect>
+						<NpcLevelSelect value={this.state.level} callback={this.assignState}></NpcLevelSelect>
 					</div>
 					<div className="npc-options__input">
-						<NpcGenderSelect callback={this.assignState}></NpcGenderSelect>
+						<NpcGenderSelect value={this.state.gender} callback={this.assignState}></NpcGenderSelect>
 					</div>
 					<div className="npc-options__input">
-						<NpcRaceSelect callback={this.assignState}></NpcRaceSelect>
+						<NpcRaceSelect value={this.state.race} callback={this.assignState}></NpcRaceSelect>
 					</div>
 					<div className="npc-options__input">
-						<NpcAlignmentSelect callback={this.assignState}></NpcAlignmentSelect>
+						<NpcClassSelect value={this.state.class} callback={this.assignState}></NpcClassSelect>
 					</div>
 					<div className="npc-options__input">
-						<NpcClassSelect callback={this.assignState}></NpcClassSelect>
+						<NpcAlignmentSelect value={this.state.alignment} callback={this.assignState}></NpcAlignmentSelect>
 					</div>
 					<div className="npc-options__input">
-						<NpcStatDistributionSelect callback={this.assignState}></NpcStatDistributionSelect>
+						<NpcStatDistributionSelect value={this.state.statAlgo} callback={this.assignState}></NpcStatDistributionSelect>
 					</div>
 				</div>
+				<span onClick={this.resetSelctions}>reset</span>
 			</div>
 		)
 	}

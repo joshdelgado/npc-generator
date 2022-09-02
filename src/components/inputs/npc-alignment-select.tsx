@@ -2,19 +2,16 @@ import React, { Component } from 'react';
 import { alignments } from '../../consts/alignments';
 
 export class NpcAlignmentSelect extends Component<any, any> {
-	state = { alignment: '' };
 
 	handleChange = (event: any) => {
-		this.setState({ alignment: event.target.value }, () => {
-			this.props.callback(this.state);
-		});
+		this.props.callback({ alignment: event.target.value });
 	}
 
 	render() {
 		return (
 			<>
 				<label htmlFor="alignment">Alignment</label>
-				<select id="alignment" onChange={this.handleChange} value={this.state.alignment}>
+				<select id="alignment" onChange={this.handleChange} value={this.props.value}>
 					<option key='blank' value=''>Random</option>
 					{Array.from(alignments.values()).map((a) => (
 						<option key={a.alias} value={a.alias}>

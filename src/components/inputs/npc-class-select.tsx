@@ -3,19 +3,16 @@ import { classes } from '../../consts/consts';
 import { capitalize } from '../../utility/functions';
 
 export class NpcClassSelect extends Component<any, any> {
-	state = { class: '' };
 
 	handleChange = (event: any) => {
-		this.setState({ class: event.target.value }, () => {
-			this.props.callback(this.state);
-		});
+		this.props.callback({ class: event.target.value });
 	}
 
 	render() {
 		return (
 			<>
 				<label htmlFor="class">Class</label>
-				<select id="class" onChange={this.handleChange} value={this.state.class}>
+				<select id="class" onChange={this.handleChange} value={this.props.value}>
 					<option key='blank' value=''>Random</option>
 					{classes.map((c) => (
 						<option key={c.toLowerCase()} value={c.toLowerCase()}>

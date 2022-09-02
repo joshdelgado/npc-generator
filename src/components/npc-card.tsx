@@ -243,8 +243,11 @@ export class NpcCard extends Component<any, any> {
 					height: this.getHeight(),
 					weight: this.getWeight(),
 					alignment: r[3].alignment,
-				},
-				description: this.generateDescription()
+				}
+			}, () => {
+				this.setState({
+					description: this.generateDescription()
+				})
 			});
 
 			setTimeout(() => {
