@@ -15,7 +15,7 @@ export class NpcRaceSelect extends Component<any, any> {
 			<>
 				<label htmlFor="race">Race</label>
 				<select id="race" onChange={this.handleChange} value={this.state.race}>
-					<option value=''>Random</option>
+					<option key='random' value=''>Random</option>
 					{Array.from(races.values()).map((r) => (
 						<option key={r.name} value={r.name.toLowerCase()}>
 							{r.name}

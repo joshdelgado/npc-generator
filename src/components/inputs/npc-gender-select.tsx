@@ -14,10 +14,10 @@ export class NpcGenderSelect extends Component<any, any> {
 			<>
 				<label htmlFor="gender">Gender</label>
 				<select id="gender" onChange={this.handleChange} value={this.state.gender}>
-					<option value="">Random</option>
-					<option value="male">Male</option>
-					<option value="female">Female</option>
-					<option value="other">Other</option>
+					<option key="blank" value="">Random</option>
+					<option key="male" value="male">Male</option>
+					<option key="female" value="female">Female</option>
+					<option key="none" value="none">None</option>
 				</select>
 			</>
 		)

@@ -14,8 +14,8 @@ export class NpcStatDistributionSelect extends Component<any, any> {
 			<>
 				<label htmlFor="statAlgo">Stat Algorithm</label>
 				<select id="statAlgo" onChange={this.handleChange} value={this.state.statAlgo}>
-					<option value=''>Random</option>
-					<option value='minmax'>MinMax</option>
+					<option key="blank" value="">Random</option>
+					<option key="minmax" value="minmax">MinMax</option>
 				</select>
 			</>
 		)

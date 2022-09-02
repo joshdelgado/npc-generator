@@ -15,7 +15,7 @@ export class NpcAlignmentSelect extends Component<any, any> {
 			<>
 				<label htmlFor="alignment">Alignment</label>
 				<select id="alignment" onChange={this.handleChange} value={this.state.alignment}>
-					<option value=''>Random</option>
+					<option key='blank' value=''>Random</option>
 					{Array.from(alignments.values()).map((a) => (
 						<option key={a.alias} value={a.alias}>
 							{a.name}

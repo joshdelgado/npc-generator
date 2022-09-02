@@ -15,12 +15,10 @@ export class NpcOptions extends Component<any, any> {
 		alignment: '',
 	}
 
-	handleChange = (event: any) => {
-		this.setState({ value: event.target.value })
-	}
-
 	assignState = (value: string) => {
-		this.setState(value);
+		this.setState(value, () => {
+			this.props.callback(this.state);
+		});
 	}
 
 	render() {

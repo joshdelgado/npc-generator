@@ -1,11 +1,15 @@
 import './App.scss';
-import { NpcGenerator } from './components/npc-generator.tsx';
+import { AppHeader } from './components/app-header';
+import { AppFooter } from './components/app-footer';
+import { NpcGenerator } from './components/npc-generator';
 
 
 function App() {
 	return (
-		<div className="app" >
+		<div className="app">
+			<AppHeader></AppHeader>
 			<NpcGenerator></NpcGenerator>
+			<AppFooter> </AppFooter>
 		</div>
 	);
 }

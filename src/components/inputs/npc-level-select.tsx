@@ -14,7 +14,7 @@ export class NpcLevelSelect extends Component<any, any> {
 			<>
 				<label htmlFor="level">Level</label>
 				<select id="level" onChange={this.handleChange} value={this.state.level}>
-					<option value="">Random</option>
+					<option key='blank' value=''>Random</option>
 					{[...Array(20)].map((a, index) => <option key={Math.random() + index} value={index + 1}>{index + 1}</option>)}
 				</select>
 			</>
