@@ -1,0 +1,63 @@
+.npc-options {
+	background-color: var(--white);
+	padding: 1rem 1rem 0;
+	border: 2px solid var(--deep-red);
+	border-radius: var(--border-radius);
+	max-width: 760px;
+	margin: 0 auto 1rem;
+
+	&__content {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-end;
+		flex-wrap: wrap;
+		margin: -0.5rem;
+	}
+
+	&__input {
+		flex: 1 1 200px;
+		margin: 0.5rem;
+
+		&--buttons {
+			display: flex;
+			justify-content: flex-end;
+		}
+	}
+
+	//TODO break these into a partial with BEM names
+
+	label:not(.checkbox) {
+		display: block;
+		color: var(--red);
+		font-size: 14px;
+		font-weight: 500;
+		padding-bottom: 0.25rem;
+	}
+
+	select {
+		font-size: 16px;
+		margin-bottom: 0.5rem;
+		padding: 0.5rem;
+		width: 100%;
+		color: var(--deep-red);
+		cursor: pointer;
+	}
+
+	option {
+		padding: 0.5rem;
+	}
+}
+
+@media (max-width: $breakpoint) {
+	.npc-options {
+		flex-direction: column;
+
+		&__input {
+			flex: 1 1 100%;
+
+			&--buttons {
+				flex-direction: column;
+			}
+		}
+	}
+}
