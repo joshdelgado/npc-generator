@@ -240,6 +240,10 @@ export class NpcGenerator extends Component<any, any> {
 		}
 	}
 
+	componentDidMount(): void {
+		this.generateNpc();
+	}
+
 	render() {
 		return (
 			<main className="app__content" >

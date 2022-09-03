@@ -38,6 +38,9 @@ export class NpcOptions extends Component<any, any> {
 	render() {
 		return (
 			<div className="npc-options">
+				<div className="npc-optons__header">
+					<h3>Advanced Options</h3>
+				</div>
 				<div className="npc-options__content">
 					<div className="npc-options__input">
 						<NpcLevelSelect value={this.state.level} callback={this.assignState}></NpcLevelSelect>
@@ -55,7 +58,7 @@ export class NpcOptions extends Component<any, any> {
 						<NpcAlignmentSelect value={this.state.alignment} callback={this.assignState}></NpcAlignmentSelect>
 					</div>
 					<div className="npc-options__input">
-						<NpcStatDistributionCheckbox value={this.state.statAlgo} callback={this.assignState}></NpcStatDistributionCheckbox>
+						{/* <NpcStatDistributionCheckbox value={this.state.statAlgo} callback={this.assignState}></NpcStatDistributionCheckbox> */}
 					</div>
 					<div className="npc-options__input npc-options__input--buttons">
 						<button className="button button--secondary" onClick={this.resetSelctions}>Reset</button>
