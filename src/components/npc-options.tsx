@@ -38,9 +38,9 @@ export class NpcOptions extends Component<any, any> {
 	render() {
 		return (
 			<div className="npc-options">
-				<div className="npc-optons__header">
+				{/* <div className="npc-optons__header">
 					<h3>Advanced Options</h3>
-				</div>
+				</div> */}
 				<div className="npc-options__content">
 					<div className="npc-options__input">
 						<NpcLevelSelect value={this.state.level} callback={this.assignState}></NpcLevelSelect>
