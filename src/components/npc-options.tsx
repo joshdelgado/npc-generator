@@ -4,7 +4,7 @@ import { NpcClassSelect } from './inputs/npc-class-select';
 import { NpcGenderSelect } from './inputs/npc-gender-select';
 import { NpcLevelSelect } from './inputs/npc-level-select';
 import { NpcRaceSelect } from './inputs/npc-race-select';
-import { NpcStatDistributionCheckbox } from './inputs/npc-stat-distribution-checkbox';
+// import { NpcStatDistributionCheckbox } from './inputs/npc-stat-distribution-checkbox';
 
 export class NpcOptions extends Component<any, any> {
 
