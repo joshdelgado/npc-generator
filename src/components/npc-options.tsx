@@ -25,8 +25,6 @@ export class NpcOptions extends Component<any, any> {
 	}
 
 	assignState = (value: string) => {
-		console.log(value);
-		// this stopped working because selections is nested and it's trying to assign at top level
 		this.setState(value, () => {
 			this.props.callback(this.state);
 		});
