@@ -9,10 +9,17 @@
 	&__content {
 		display: flex;
 		justify-content: space-between;
-		align-items: flex-end;
 		flex-wrap: wrap;
 		margin: -0.5rem;
 		height: auto;
+		overflow: hidden;
+	}
+
+	&__options {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-end;
+		flex-wrap: wrap;
 	}
 
 	&__input {
@@ -45,7 +52,7 @@
 		position: relative;
 		height: 1rem;
 		width: 1rem;
-		transition: all 350ms ease;
+		// transition: all 350ms ease;
 
 		&:before {
 			content: '';
@@ -93,17 +100,24 @@
 
 	&--open {
 		.npc-options {
-			&__header {
-				border-bottom: 0;
-			}
+			&__header {}
 
 			&__header-icon {
 				transform: rotate(45deg);
 			}
 
-			&__content {
+			&__options {
 				height: 0px;
 			}
+
+			&__input--buttons {
+				background-color: var(--white);
+				overflow: hidden;
+			}
+		}
+
+		.button--secondary {
+			display: none;
 		}
 	}
 }

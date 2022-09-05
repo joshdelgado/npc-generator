@@ -106,7 +106,6 @@ export class NpcGenerator extends Component<any, any> {
 		return Math.floor((score - 10) / 2);
 	}
 
-	// TODO update algo to target even numbers to maximize modifier bonuses
 	// TODO extend algo to target more than 2 ability scores
 	generateStats(npcClass: any, abilityBonuses: any, numOfAbi: number, level: number, statAlgo: boolean): any {
 		let stats: { [key: string]: { score: number, modifier: number } } = {},
