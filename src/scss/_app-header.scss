@@ -10,14 +10,81 @@
 		max-width: 1200px;
 		margin: 0 auto;
 		padding: 0 1rem;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 
 	&__title {
 		font-size: 1.75rem;
 		font-weight: 500;
 		text-shadow: 1px 2px var(--black);
+		text-align: center;
 	}
 }
+
+$size: 36px;
+
+.logo {
+	display: block;
+	position: relative;
+	height: $size;
+	width: $size;
+	border: 2px solid var(--gold);
+	border-radius: var(--border-radius);
+	// transform-origin: bottom left;
+	transform-origin: center;
+	margin-left: 0.5rem;
+	transition: all 0.5s ease;
+	cursor: pointer;
+
+	&:before {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		content: '';
+		height: $size * .333334;
+		width: $size * .25;
+		border: ($size * .166667) dotted var(--gold);
+		transform: translate(-50%, -50%);
+	}
+
+	&:nth-of-type(2) {
+		transform: scale(.9);
+		margin-left: 6px;
+		top: 2px;
+
+		&:hover {
+			transform: scale(.9) rotate(359deg);
+		}
+	}
+
+	&:nth-of-type(3) {
+		transform: scale(.81);
+		margin-left: 2px;
+		top: 3px;
+
+		&:hover {
+			transform: scale(.81) rotate(359deg);
+		}
+
+	}
+
+	&:nth-of-type(4) {
+		transform: scale(.72);
+		margin-left: -1px;
+		top: 5px;
+
+		&:hover {
+			transform: scale(.72) rotate(359deg);
+		}
+	}
+
+	&:hover {
+		transform: rotate(359deg);
+	}
+}
+
 
 @media(max-width: $breakpoint) {
 	.app-header {

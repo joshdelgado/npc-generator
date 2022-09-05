@@ -6,7 +6,11 @@ export class AppHeader extends Component<any, any> {
 		return (
 			<header className="app-header">
 				<div className="app-header__content">
-					<h2 className="app-header__title">Roll4d6</h2>
+					{/* <h2 className="app-header__title">Roll4d6</h2> */}
+					<div className="logo"></div>
+					<div className="logo"></div>
+					<div className="logo"></div>
+					<div className="logo"></div>
 				</div>
 			</header>
 		);
