@@ -1,6 +1,5 @@
 export const abilities: string[] = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
 
-// Taken from class summaries here https://www.dndbeyond.com/sources/basic-rules/classes
 export const classes: Map<string, any> = new Map<string, any>([
 	['barbarian', { statPriority: ['strength', 'constitution', 'dexterity', 'wisdom', 'charisma', 'intelligence'] }],
 	['bard', { statPriority: ['charisma', 'dexterity', 'constitution', 'strength', 'wisdom', 'intelligence'] }],
