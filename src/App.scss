@@ -2,6 +2,7 @@
 	--border-radius: 3px;
 	--box-shadow: 0 4px 8px 0px rgba(0, 0, 0, 0.2);
 	--spinner-size: 5rem;
+	--logo-size: 32px;
 
 	--white: #f9f9f9;
 	--yellow: #FFFEBD;
@@ -13,6 +14,7 @@
 	--text-color: #222222;
 }
 
+$logo-size: 36px; //36px minimum
 $breakpoint: 760px;
 $breakpoint-small: 460px;
 

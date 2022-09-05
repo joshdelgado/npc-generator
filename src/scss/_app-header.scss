@@ -1,87 +1,97 @@
 .app-header {
 	background-color: var(--red);
+	background-blend-mode: multiply;
+	background-size: 450px;
 	color: var(--yellow);
 	width: 100%;
 	padding: 1.25rem 0;
 	margin-bottom: 3rem;
 	box-shadow: var(--box-shadow);
 
+
 	&__content {
 		max-width: 1200px;
 		margin: 0 auto;
 		padding: 0 1rem;
 		display: flex;
+		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 	}
 
 	&__title {
-		font-size: 1.75rem;
+		font-size: 1.5rem;
+		letter-spacing: 3px;
 		font-weight: 500;
 		text-shadow: 1px 2px var(--black);
 		text-align: center;
+		padding-top: 0.75rem;
 	}
 }
 
-$size: 36px;
-
 .logo {
-	display: block;
+	display: flex;
+	justify-content: center;
 	position: relative;
-	height: $size;
-	width: $size;
-	border: 2px solid var(--gold);
-	border-radius: var(--border-radius);
-	// transform-origin: bottom left;
-	transform-origin: center;
-	margin-left: 0.5rem;
-	transition: all 0.5s ease;
-	cursor: pointer;
 
-	&:before {
-		position: absolute;
-		left: 50%;
-		top: 50%;
-		content: '';
-		height: $size * .333334;
-		width: $size * .25;
-		border: ($size * .166667) dotted var(--gold);
-		transform: translate(-50%, -50%);
-	}
+	&__die {
+		display: block;
+		position: relative;
+		height: $logo-size;
+		width: $logo-size;
+		background-color: var(--red);
+		border: 2px solid var(--gold);
+		border-radius: var(--border-radius);
+		transform-origin: center;
+		margin-left: 0.5rem;
+		transition: all 0.5s ease;
+		cursor: pointer;
 
-	&:nth-of-type(2) {
-		transform: scale(.9);
-		margin-left: 6px;
-		top: 2px;
-
-		&:hover {
-			transform: scale(.9) rotate(359deg);
-		}
-	}
-
-	&:nth-of-type(3) {
-		transform: scale(.81);
-		margin-left: 2px;
-		top: 3px;
-
-		&:hover {
-			transform: scale(.81) rotate(359deg);
+		&:before {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			content: '';
+			height: $logo-size * .333334;
+			width: $logo-size * .25;
+			border: ($logo-size * .166667) dotted var(--gold);
+			transform: translate(-50%, -50%);
 		}
 
-	}
+		&:nth-of-type(2) {
+			transform: scale(.9);
+			margin-left: 6px;
+			top: 2px;
 
-	&:nth-of-type(4) {
-		transform: scale(.72);
-		margin-left: -1px;
-		top: 5px;
+			&:hover {
+				transform: scale(.9) rotate(359deg);
+			}
+		}
+
+		&:nth-of-type(3) {
+			transform: scale(.81);
+			margin-left: 2px;
+			top: 4px;
+
+			&:hover {
+				transform: scale(.81) rotate(359deg);
+			}
+
+		}
+
+		&:nth-of-type(4) {
+			transform: scale(.72);
+			margin-left: -1px;
+			top: 6px;
+
+			&:hover {
+				transform: scale(.72) rotate(359deg);
+			}
+		}
 
 		&:hover {
-			transform: scale(.72) rotate(359deg);
+			transform: rotate(360deg);
 		}
-	}
-
-	&:hover {
-		transform: rotate(359deg);
 	}
 }
 
@@ -89,5 +99,9 @@ $size: 36px;
 @media(max-width: $breakpoint) {
 	.app-header {
 		margin-bottom: 2rem;
+
+		&__title {
+			display: none;
+		}
 	}
 }
