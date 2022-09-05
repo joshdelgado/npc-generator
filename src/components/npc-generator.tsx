@@ -109,7 +109,7 @@ export class NpcGenerator extends Component<any, any> {
 	// TODO update algo to target even numbers to maximize modifier bonuses
 	// TODO extend algo to target more than 2 ability scores
 	generateStats(npcClass: any, abilityBonuses: any, numOfAbi: number, level: number, statAlgo: boolean): any {
-		let stats: { [key: string]: {} } = {},
+		let stats: { [key: string]: { score: number, modifier: number } } = {},
 			ac: number = 10,
 			hitpoints = 0,
 			bonuses: Map<string, number> = new Map<string, number>([
@@ -165,9 +165,42 @@ export class NpcGenerator extends Component<any, any> {
 		unassignedStats.sort(function (a, b) { return a - b }).reverse();
 
 		// Assign generated stats to the object to be returned
+		let bonus0 = 0,
+			bonus1 = 0,
+			floatingBonus = false;
 		for (let i = 0; i < 6; i++) {
 			let ability: any = abilitiesInOrder[i],
-				score: number = unassignedStats[i];
+				score: number = unassignedStats[i],
+				bonus: number = bonuses.get(ability)!;
+
+			if (bonuses) {
+				if (i === 0) {
+					bonus0 = score + bonus;
+				}
+				if (i === 1) {
+					bonus1 = score + bonus;
+					if (bonus0 % 2 === 1 && bonus1 % 2 === 1) {
+						//remove one from 2 and gie 1
+						bonuses.set(ability, bonuses.get(ability)! - 1);
+						bonuses.set(abilitiesInOrder[0], bonuses.get(abilitiesInOrder[0])! + 1);
+						stats[abilitiesInOrder[0]] = { score: stats[abilitiesInOrder[0]].score + 1, modifier: this.getModifier(stats[abilitiesInOrder[0]].score + 1) };
+					}
+					if (bonus0 % 2 === 1 && bonus1 % 2 === 0) {
+						floatingBonus = true;
+						bonuses.set(abilitiesInOrder[0], bonuses.get(abilitiesInOrder[0])! - 1);
+						stats[abilitiesInOrder[0]].score = stats[abilitiesInOrder[0]].score - 1;
+					}
+					if (bonus0 % 2 === 0 && bonus1 % 2 === 1) {
+						floatingBonus = true;
+						bonuses.set(ability, bonuses.get(ability)! - 1);
+						// take away from whichever is odd and continue
+					}
+				}
+				if (floatingBonus === true && i > 1 && score % 2 === 1) {
+					floatingBonus = false;
+					score += 1;
+				}
+			}
 
 			if (bonuses && bonuses.has(ability)) {
 				// @ts-ignore
