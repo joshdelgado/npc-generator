@@ -12,11 +12,18 @@ export class NpcCard extends Component<any, any> {
 
 	render() {
 		const npc = this.props.npcData,
-			loaded = this.props.loaded;
-		if (!loaded) {
+			loaded = this.props.loaded,
+			firstLoad = this.props.firstLoad;
+		if (firstLoad) {
+			return (
+				<div className="npc-card npc-card--first-load">
+					<div className="npc-card__content">
+						<p>This is where a description will go. It wil be pretty short. I can't think of what to write here because I slept like absolute shit last night and this is all I got.</p>
+					</div>
+				</div>)
+		} else if (!loaded) {
 			return (
 				<div className="npc-card"><div className="npc-card__spinner"></div></div>
-
 			)
 		}
 		console.log('NPC State', this.props);

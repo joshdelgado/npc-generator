@@ -4,11 +4,12 @@ import { NpcClassSelect } from './inputs/npc-class-select';
 import { NpcGenderSelect } from './inputs/npc-gender-select';
 import { NpcLevelSelect } from './inputs/npc-level-select';
 import { NpcRaceSelect } from './inputs/npc-race-select';
-// import { NpcStatDistributionCheckbox } from './inputs/npc-stat-distribution-checkbox';
+import { NpcStatDistributionCheckbox } from './inputs/npc-stat-distribution-checkbox';
 
 export class NpcOptions extends Component<any, any> {
 
 	state = {
+		open: false,
 		level: '',
 		gender: '',
 		race: '',
@@ -19,7 +20,13 @@ export class NpcOptions extends Component<any, any> {
 
 	ogState = this.state;
 
+	toggleOptions = (): void => {
+		this.setState({ open: !this.state.open });
+	}
+
 	assignState = (value: string) => {
+		console.log(value);
+		// this stopped working because selections is nested and it's trying to assign at top level
 		this.setState(value, () => {
 			this.props.callback(this.state);
 		});
@@ -37,10 +44,11 @@ export class NpcOptions extends Component<any, any> {
 
 	render() {
 		return (
-			<div className="npc-options">
-				{/* <div className="npc-optons__header">
-					<h3>Advanced Options</h3>
-				</div> */}
+			<div className={this.state.open ? 'npc-options npc-options--open' : 'npc-options'}>
+				<div className="npc-options__header" onClick={this.toggleOptions} >
+					<h3 className="npc-options__header-title">Advanced Options</h3>
+					<span className="npc-options__header-icon"></span>
+				</div >
 				<div className="npc-options__content">
 					<div className="npc-options__input">
 						<NpcLevelSelect value={this.state.level} callback={this.assignState}></NpcLevelSelect>
@@ -58,14 +66,14 @@ export class NpcOptions extends Component<any, any> {
 						<NpcAlignmentSelect value={this.state.alignment} callback={this.assignState}></NpcAlignmentSelect>
 					</div>
 					<div className="npc-options__input">
-						{/* <NpcStatDistributionCheckbox value={this.state.statAlgo} callback={this.assignState}></NpcStatDistributionCheckbox> */}
+						<NpcStatDistributionCheckbox value={this.state.statAlgo} callback={this.assignState}></NpcStatDistributionCheckbox>
 					</div>
 					<div className="npc-options__input npc-options__input--buttons">
 						<button className="button button--secondary" onClick={this.resetSelctions}>Reset</button>
 						<button className="button" onClick={this.handleSubmit}>Generate NPC</button>
 					</div>
 				</div>
-			</div>
+			</div >
 		)
 	}
 }

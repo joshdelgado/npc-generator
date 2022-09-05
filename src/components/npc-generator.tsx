@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { alignments } from '../consts/alignments';
-import { classes } from '../consts/consts';
+import { abilities, classes } from '../consts/consts';
 import { gods } from '../consts/gods';
 import { adjectives, traits, religiousAdjective, socioeconomic, traits2, quirks } from '../consts/npc-bio';
 import { races } from '../consts/races';
 import { randomNumber, getRandomMapKey, getRandomNumberStandardDist } from '../utility/functions';
 import { NpcCard } from './npc-card';
 import { NpcOptions } from './npc-options';
+import { PreFooter } from './pre-footer';
 
 const baseUrl: string = 'https://www.dnd5eapi.co/api/';
-const abilities: string[] = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
 
 export class NpcGenerator extends Component<any, any> {
 
@@ -23,6 +23,7 @@ export class NpcGenerator extends Component<any, any> {
 				race: '',
 				class: '',
 				alignment: '',
+				statAlgo: false
 			},
 			npc: {
 				name: null,
@@ -38,7 +39,8 @@ export class NpcGenerator extends Component<any, any> {
 					charisma: { score: null, modifier: null },
 				}
 			},
-			loaded: false
+			loaded: false,
+			firstLoad: true
 		};
 	}
 
@@ -104,19 +106,20 @@ export class NpcGenerator extends Component<any, any> {
 		return Math.floor((score - 10) / 2);
 	}
 
-	generateStats(hitDie: number, abilityBonuses: any, numOfAbi: number, level: number): any {
+	generateStats(npcClass: any, abilityBonuses: any, numOfAbi: number, level: number, statAlgo: boolean): any {
 		let stats: { [key: string]: {} } = {},
 			ac: number = 10,
 			hitpoints = 0,
 			bonuses: Map<string, number> = new Map<string, number>([
-				['str', 0],
-				['dex', 0],
-				['con', 0],
-				['int', 0],
-				['wis', 0],
-				['cha', 0],
+				['strength', 0],
+				['dexterity', 0],
+				['constitution', 0],
+				['intelligence', 0],
+				['wisdom', 0],
+				['charisma', 0],
 			]),
-			availableAbi = numOfAbi * 2;
+			availableAbi = numOfAbi * 2,
+			abilitiesInOrder = statAlgo === true ? classes.get(npcClass.index).statPriority : abilities;
 
 		// If there are Ability bonuses, loop through and set them to the bonus map
 		if (abilityBonuses) {
@@ -126,25 +129,53 @@ export class NpcGenerator extends Component<any, any> {
 		}
 
 		// Distribute level-based bonuses to bonus map
-		while (availableAbi > 0) {
-			let randomStat = abilities[randomNumber(0, abilities.length - 1)].substring(0, 3);
-			bonuses.set(randomStat, bonuses.get(randomStat)! + 1);
-			availableAbi--;
+		if (!statAlgo) {
+			// Do it randomly
+			while (availableAbi > 0) {
+				let randomStat = abilitiesInOrder[randomNumber(0, abilitiesInOrder.length - 1)].substring(0, 3);
+				bonuses.set(randomStat, bonuses.get(randomStat)! + 1);
+				availableAbi--;
+			}
+		} else {
+			// Do it based on a class' stat priority
+			// TODO maybe change this to top 3 stats? Or top 2 minus con but always include con
+			for (let i = 0; i < 2; i++) {
+				let ability = abilitiesInOrder[i],
+					amountToAssign: number;
+
+				if (i === 0) {
+					amountToAssign = randomNumber(Math.floor(availableAbi / 3), availableAbi);
+					availableAbi -= amountToAssign;
+				} else {
+					amountToAssign = availableAbi;
+				}
+
+				bonuses.set(ability, bonuses.get(ability)! + amountToAssign);
+			}
 		}
 
-		abilities.forEach((key: string) => {
-			let score: number = this.generateStat(),
-				keyTrunc: string = key.substring(0, 3);
+		// Generate 6 stats and reorder stats highest to lowest
+		// I could assign in reverse but I'm not doing that right now
+		let unassignedStats: number[] = [];
+		for (let i = 0; i < 6; i++) {
+			unassignedStats.push(this.generateStat());
+		}
+		unassignedStats.sort(function (a, b) { return a - b }).reverse();
 
-			if (bonuses && bonuses.has(keyTrunc)) {
+		// Assign generated stats to the object to be returned
+		for (let i = 0; i < 6; i++) {
+			let ability: any = abilitiesInOrder[i],
+				score: number = unassignedStats[i];
+
+			if (bonuses && bonuses.has(ability)) {
 				// @ts-ignore
-				score += bonuses.get(keyTrunc);
+				score += bonuses.get(ability);
 			}
 
-			if (key === 'dexterity') { ac = this.getArmorClass(score); }
-			if (key === 'constitution') { hitpoints = this.getHitpoints(hitDie, score, level); }
-			stats[key] = { score: score, modifier: this.getModifier(score) };
-		});
+			if (ability === 'dexterity') { ac = this.getArmorClass(score); }
+			if (ability === 'constitution') { hitpoints = this.getHitpoints(npcClass.hit_die, score, level); }
+			stats[ability] = { score: score, modifier: this.getModifier(score) };
+		}
 
 		return {
 			abilityScores: stats,
@@ -183,9 +214,9 @@ export class NpcGenerator extends Component<any, any> {
 	}
 
 	generateNpc = () => {
-		this.setState({ loaded: false });
+		this.setState({ loaded: false, firstLoad: false });
 		const selections = this.state.userSelections;
-		let randomClass = selections.class || classes[randomNumber(0, classes.length)];
+		let randomClass = selections.class || getRandomMapKey(classes);
 		let randomRace = selections.race || getRandomMapKey(races);
 		let randomAlignment = selections.alignment || getRandomMapKey(alignments)
 		let level = selections.level || randomNumber(1, 20);
@@ -202,7 +233,7 @@ export class NpcGenerator extends Component<any, any> {
 				gender = selections.gender || this.getNpcGender(),
 				name = this.getNpcName(r[0].race.index, gender),
 				description = this.generateDescription(name, r[0].race, r[3].alignment),
-				stats = this.generateStats(r[1].class.hit_die, r[0].race.ability_bonuses, r[2].level.ability_score_bonuses, level);
+				stats = this.generateStats(r[1].class, r[0].race.ability_bonuses, r[2].level.ability_score_bonuses, level, selections.statAlgo);
 
 			this.setState({
 				npc: {
@@ -240,15 +271,12 @@ export class NpcGenerator extends Component<any, any> {
 		}
 	}
 
-	componentDidMount(): void {
-		this.generateNpc();
-	}
-
 	render() {
 		return (
 			<main className="app__content" >
 				<NpcOptions generateNpc={this.generateNpc} callback={this.updateOptions}></NpcOptions>
-				<NpcCard loaded={this.state.loaded} npcData={this.state.npc} userSelections={this.state.userSelections}></NpcCard>
+				<NpcCard firstLoad={this.state.firstLoad} loaded={this.state.loaded} npcData={this.state.npc} userSelections={this.state.userSelections}></NpcCard>
+				<PreFooter></PreFooter>
 			</main>
 		);
 	}

@@ -14,7 +14,7 @@ export class NpcClassSelect extends Component<any, any> {
 				<label htmlFor="class">Class</label>
 				<select id="class" onChange={this.handleChange} value={this.props.value}>
 					<option key='blank' value=''>Random</option>
-					{classes.map((c) => (
+					{Array.from(classes.keys()).map((c) => (
 						<option key={c.toLowerCase()} value={c.toLowerCase()}>
 							{capitalize(c)}
 						</option>

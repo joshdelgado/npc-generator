@@ -1,0 +1,10 @@
+.pre-footer {
+	max-width: 760px;
+	margin: 0 auto 1rem;
+	border: 1px solid black;
+
+	&__content {
+		text-align: center;
+		padding: 1rem;
+	}
+}
