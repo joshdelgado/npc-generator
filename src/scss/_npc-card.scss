@@ -154,7 +154,7 @@
 		.npc-card {
 
 			&__content {
-				padding: 3rem;
+				padding: 5rem 3rem;
 				max-width: 600px;
 				margin: 0 auto;
 				line-height: 1.5;
@@ -239,6 +239,20 @@
 
 			li {
 				flex: 1 1 calc(100% / 3);
+			}
+		}
+
+		&--first-load {
+			min-height: 0;
+
+			.npc-card {
+
+				&__content {
+					padding: 2rem 1rem;
+					max-width: 600px;
+					margin: 0 auto;
+					line-height: 1.5;
+				}
 			}
 		}
 	}

@@ -44,7 +44,10 @@ export class NpcOptions extends Component<any, any> {
 		return (
 			<div className={this.state.closed ? 'npc-options npc-options--open' : 'npc-options'}>
 				<div className="npc-options__header" onClick={this.toggleOptions} >
-					<h3 className="npc-options__header-title">Random NPC For You BB</h3>
+					<div className="npc-options__header-title-area">
+						<h3 className="npc-options__header-title">Roll4d6</h3>
+						<span className="npc-options__header-subtitle">A Random NPC Generator JUST For You bb</span>
+					</div>
 					<span className="npc-options__header-icon"></span>
 				</div >
 				<div className="npc-options__content">

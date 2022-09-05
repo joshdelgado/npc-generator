@@ -18,7 +18,7 @@ export class NpcCard extends Component<any, any> {
 			return (
 				<div className="npc-card npc-card--first-load">
 					<div className="npc-card__content">
-						<p>This is where a description will go. It wil be pretty short. I can't think of what to write here because I slept like absolute shit last night and this is all I got.</p>
+						<p>Click <strong>Generate Npc</strong> above to get a totally random npc for whatever you need. If you have some npc criteria in mind, like race or class, click the <strong>+ button</strong> to reveal more options.</p>
 					</div>
 				</div>)
 		} else if (!loaded) {

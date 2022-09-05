@@ -42,10 +42,24 @@
 		cursor: pointer;
 	}
 
+	&__header-title-area {
+		display: flex;
+		justify-content: flex-start;
+		align-items: baseline;
+	}
+
 	&__header-title {
 		margin: 0;
 		color: var(--red);
 		font-weight: 500;
+	}
+
+	&__header-subtitle {
+		color: var(--red);
+		font-size: 0.75rem;
+		border-left: 1px solid var(--deep-red);
+		padding-left: 0.5rem;
+		margin-left: 0.5rem;
 	}
 
 	&__header-icon {
@@ -125,6 +139,10 @@
 @media (max-width: $breakpoint) {
 	.npc-options {
 		flex-direction: column;
+
+		&__header-subtitle {
+			display: none;
+		}
 
 		&__input {
 			flex: 1 1 100%;
