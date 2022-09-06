@@ -21,7 +21,6 @@ export class Logo extends Component<any, any> {
 }
 
 function Die(props: any) {
-	console.log(props);
 	return (
 		<div className={props.modClass ? "logo__die logo__die--" + props.modClass : 'logo__die'}>
 			<div className="logo__die-inner">
