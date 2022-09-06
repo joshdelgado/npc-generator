@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Logo } from './logo';
 
 export class AppHeader extends Component<any, any> {
 
@@ -6,12 +7,7 @@ export class AppHeader extends Component<any, any> {
 		return (
 			<header className="app-header" style={{ backgroundImage: "url(img/grey-sandbag.webp)" }}>
 				<div className="app-header__content">
-					<div className="logo">
-						<div className="logo__die"></div>
-						<div className="logo__die"></div>
-						<div className="logo__die"></div>
-						<div className="logo__die"></div>
-					</div>
+					<Logo></Logo>
 				</div>
 			</header>
 		);

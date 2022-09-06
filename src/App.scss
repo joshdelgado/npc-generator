@@ -14,12 +14,12 @@
 	--text-color: #222222;
 }
 
-$logo-size: 36px; //36px minimum
 $breakpoint: 760px;
 $breakpoint-small: 460px;
 
 * {
 	box-sizing: border-box;
+	font-family: 'Nunito', Arial, Helvetica, sans-serif;
 }
 
 .app {
@@ -52,7 +52,7 @@ $breakpoint-small: 460px;
 a {
 	color: var(--gold);
 	text-decoration: none;
-	font-weight: 500;
+	font-weight: 600;
 	transition: all 100ms ease;
 
 	&:hover {

@@ -18,7 +18,14 @@ export class NpcOptions extends Component<any, any> {
 		statAlgo: false
 	}
 
-	ogState = this.state;
+	cleanFormState = {
+		level: '',
+		gender: '',
+		race: '',
+		class: '',
+		alignment: '',
+		statAlgo: false
+	};
 
 	toggleOptions = (): void => {
 		this.setState({ closed: !this.state.closed });
@@ -31,7 +38,7 @@ export class NpcOptions extends Component<any, any> {
 	}
 
 	resetSelctions = () => {
-		this.setState(this.ogState, () => {
+		this.setState(this.cleanFormState, () => {
 			this.props.callback(this.state);
 		});
 	}
@@ -46,7 +53,7 @@ export class NpcOptions extends Component<any, any> {
 				<div className="npc-options__header" onClick={this.toggleOptions} >
 					<div className="npc-options__header-title-area">
 						<h3 className="npc-options__header-title">Roll4d6</h3>
-						<span className="npc-options__header-subtitle">A Random NPC Generator JUST For You bb</span>
+						<span className="npc-options__header-subtitle">A Random NPC Generator JUST For You ❤️</span>
 					</div>
 					<span className="npc-options__header-icon"></span>
 				</div >
