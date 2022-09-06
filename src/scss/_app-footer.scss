@@ -5,20 +5,20 @@
 	margin-top: auto;
 
 	&__content {
+		display: flex;
+		justify-content: space-between;
 		padding: 0 1rem;
 		max-width: 1200px;
 		margin: 0 auto;
 		color: var(--white);
-	}
-
-	p {
-		text-align: right;
-		margin: 0;
 		font-size: 14px;
 	}
 
-	a {
-		color: var(--gold);
-		text-decoration: none;
+	&__spacer {
+		opacity: 0;
+	}
+
+	&__credit {
+		text-align: right;
 	}
 }

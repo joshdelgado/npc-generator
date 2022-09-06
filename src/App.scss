@@ -2,6 +2,7 @@
 	--border-radius: 3px;
 	--box-shadow: 0 4px 8px 0px rgba(0, 0, 0, 0.2);
 	--spinner-size: 5rem;
+	--logo-size: 32px;
 
 	--white: #f9f9f9;
 	--yellow: #FFFEBD;
@@ -13,6 +14,7 @@
 	--text-color: #222222;
 }
 
+$logo-size: 36px; //36px minimum
 $breakpoint: 760px;
 $breakpoint-small: 460px;
 
@@ -47,11 +49,24 @@ $breakpoint-small: 460px;
 	}
 }
 
+a {
+	color: var(--gold);
+	text-decoration: none;
+	font-weight: 500;
+	transition: all 100ms ease;
+
+	&:hover {
+		opacity: 0.7;
+	}
+}
+
 @import "scss/app-header";
 @import "scss/app-footer";
+@import "scss/pre-footer";
 @import "scss/npc-options";
 @import "scss/npc-card";
 @import "scss/npc-stat";
+@import "scss/logo";
 @import "scss/buttons";
 @import "scss/checkbox";
 

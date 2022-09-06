@@ -9,9 +9,17 @@
 	&__content {
 		display: flex;
 		justify-content: space-between;
-		align-items: flex-end;
 		flex-wrap: wrap;
 		margin: -0.5rem;
+		height: auto;
+		overflow: hidden;
+	}
+
+	&__options {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-end;
+		flex-wrap: wrap;
 	}
 
 	&__input {
@@ -21,6 +29,67 @@
 		&--buttons {
 			display: flex;
 			justify-content: flex-end;
+		}
+	}
+
+	&__header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding-bottom: 1rem;
+		border-bottom: 1px solid var(--deep-red);
+		margin-bottom: 1rem;
+		cursor: pointer;
+	}
+
+	&__header-title-area {
+		display: flex;
+		justify-content: flex-start;
+		align-items: baseline;
+	}
+
+	&__header-title {
+		margin: 0;
+		color: var(--red);
+		font-weight: 500;
+		font-size: 1.5rem;
+	}
+
+	&__header-subtitle {
+		color: var(--red);
+		font-size: 1rem;
+		border-left: 1px solid var(--deep-red);
+		padding-left: 0.5rem;
+		margin-left: 0.5rem;
+		padding-top: 2px;
+		position: relative;
+		top: -1px;
+	}
+
+	&__header-icon {
+		position: relative;
+		height: 1rem;
+		width: 1rem;
+		// transition: all 350ms ease;
+
+		&:before {
+			content: '';
+			height: 1.15rem;
+			width: 2px;
+			background-color: var(--deep-red);
+			position: absolute;
+			left: 50%;
+			transform: translateX(-50%) rotate(45deg);
+		}
+
+		&:after {
+			content: '';
+			height: 1.15rem;
+			width: 2px;
+			background-color: var(--deep-red);
+			position: absolute;
+			left: 50%;
+			transform: translateX(-50%) rotate(-45deg);
 		}
 	}
 
@@ -46,11 +115,38 @@
 	option {
 		padding: 0.5rem;
 	}
+
+	&--open {
+		.npc-options {
+			&__header {}
+
+			&__header-icon {
+				transform: rotate(45deg);
+			}
+
+			&__options {
+				height: 0px;
+			}
+
+			&__input--buttons {
+				background-color: var(--white);
+				overflow: hidden;
+			}
+		}
+
+		.button--secondary {
+			display: none;
+		}
+	}
 }
 
 @media (max-width: $breakpoint) {
 	.npc-options {
 		flex-direction: column;
+
+		&__header-subtitle {
+			display: none;
+		}
 
 		&__input {
 			flex: 1 1 100%;

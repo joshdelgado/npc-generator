@@ -12,14 +12,20 @@ export class NpcCard extends Component<any, any> {
 
 	render() {
 		const npc = this.props.npcData,
-			loaded = this.props.loaded;
-		if (!loaded) {
+			loaded = this.props.loaded,
+			firstLoad = this.props.firstLoad;
+		if (firstLoad) {
+			return (
+				<div className="npc-card npc-card--first-load">
+					<div className="npc-card__content">
+						<p>Click <strong>Generate Npc</strong> above to get a totally random npc for whatever you need. If you have some npc criteria in mind, like race or class, click the <strong>+ button</strong> to reveal more options.</p>
+					</div>
+				</div>)
+		} else if (!loaded) {
 			return (
 				<div className="npc-card"><div className="npc-card__spinner"></div></div>
-
 			)
 		}
-		console.log('NPC State', this.props);
 		return (
 			<div className="npc-card" >
 				<div className="npc-card__header">

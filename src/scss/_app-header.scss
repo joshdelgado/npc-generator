@@ -1,26 +1,32 @@
 .app-header {
 	background-color: var(--red);
+	background-blend-mode: multiply;
+	background-size: 450px;
 	color: var(--yellow);
 	width: 100%;
 	padding: 1.25rem 0;
-	margin-bottom: 3rem;
+	margin-bottom: 2rem;
 	box-shadow: var(--box-shadow);
+
 
 	&__content {
 		max-width: 1200px;
 		margin: 0 auto;
 		padding: 0 1rem;
-	}
-
-	&__title {
-		font-size: 1.75rem;
-		font-weight: 500;
-		text-shadow: 1px 2px var(--black);
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
 	}
 }
+
 
 @media(max-width: $breakpoint) {
 	.app-header {
 		margin-bottom: 2rem;
+
+		&__title {
+			display: none;
+		}
 	}
 }
