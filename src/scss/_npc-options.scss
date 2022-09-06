@@ -5,7 +5,6 @@
 	border-radius: var(--border-radius);
 	max-width: 760px;
 	margin: 0 auto 1rem;
-	overflow: hidden;
 
 	&__content {
 		display: flex;
@@ -13,7 +12,6 @@
 		flex-wrap: wrap;
 		margin: 0 -0.5rem;
 		height: auto;
-		overflow: hidden;
 	}
 
 	&__options {
@@ -21,6 +19,7 @@
 		justify-content: space-between;
 		align-items: flex-end;
 		flex-wrap: wrap;
+		overflow: hidden;
 	}
 
 	&__input {

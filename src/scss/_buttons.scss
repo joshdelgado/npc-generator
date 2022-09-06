@@ -15,11 +15,10 @@
 		transform: translateY(2px);
 	}
 
-	&:active,
-	&:focus {
+	&:active {
 		color: var(--yellow);
 		background-color: var(--red);
-		border: 2px solid var(--red);
+		border-color: var(--red);
 	}
 
 	&--secondary {
@@ -32,6 +31,12 @@
 		&:hover {
 			color: var(--deep-red);
 			transform: none;
+		}
+
+		&:active {
+			color: var(--red);
+			background-color: transparent;
+			border-color: transparent;
 		}
 	}
 

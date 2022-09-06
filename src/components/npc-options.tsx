@@ -18,7 +18,14 @@ export class NpcOptions extends Component<any, any> {
 		statAlgo: false
 	}
 
-	ogState = this.state;
+	cleanFormState = {
+		level: '',
+		gender: '',
+		race: '',
+		class: '',
+		alignment: '',
+		statAlgo: false
+	};
 
 	toggleOptions = (): void => {
 		this.setState({ closed: !this.state.closed });
@@ -31,7 +38,7 @@ export class NpcOptions extends Component<any, any> {
 	}
 
 	resetSelctions = () => {
-		this.setState(this.ogState, () => {
+		this.setState(this.cleanFormState, () => {
 			this.props.callback(this.state);
 		});
 	}
