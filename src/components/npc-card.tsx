@@ -26,7 +26,6 @@ export class NpcCard extends Component<any, any> {
 				<div className="npc-card"><div className="npc-card__spinner"></div></div>
 			)
 		}
-		console.log('NPC State', this.props);
 		return (
 			<div className="npc-card" >
 				<div className="npc-card__header">
