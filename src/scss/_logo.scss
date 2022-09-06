@@ -135,3 +135,12 @@ $animation: goAway 250ms forwards;
 		}
 	}
 }
+
+@media (max-width: $breakpoint) {
+	.logo {
+		&__die-inner {
+			margin-bottom: 0;
+			transform: translateY(0);
+		}
+	}
+}
