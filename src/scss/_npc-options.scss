@@ -5,6 +5,7 @@
 	border-radius: var(--border-radius);
 	max-width: 760px;
 	margin: 0 auto 1rem;
+	overflow: hidden;
 
 	&__content {
 		display: flex;
@@ -51,7 +52,7 @@
 	&__header-title {
 		margin: 0;
 		color: var(--red);
-		font-weight: 500;
+		font-weight: 600;
 		font-size: 1.5rem;
 	}
 
@@ -99,7 +100,7 @@
 		display: block;
 		color: var(--red);
 		font-size: 14px;
-		font-weight: 500;
+		font-weight: 700;
 		padding-bottom: 0.25rem;
 	}
 
