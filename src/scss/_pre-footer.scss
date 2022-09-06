@@ -11,34 +11,50 @@
 		padding: 1rem;
 	}
 
-	&__cta {
-		span {
-			display: block;
-			font-size: 0.75rem;
-		}
-
-		&:last-of-type {
-			span {
-				display: inline-block;
-				font-size: 1.25rem;
-				text-shadow: none;
-			}
-		}
-	}
-
 	&__wallets {
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		flex-wrap: wrap;
-		margin: 0.5rem 0;
+		margin: 0.5rem 0 2rem;
 
-		img {
-			max-width: 12rem;
-			padding: 0.5rem;
+		p {
+			flex: 0 0 100%;
+
+			span {
+				display: block;
+				font-size: 0.75rem;
+			}
+		}
+
+		span {
+			flex: 1 1 100%;
+			font-size: 1rem;
 		}
 	}
 
+	&__qr-code {
+		max-width: 12rem;
+		margin: 0.5rem;
+		border-radius: 1rem;
+		box-shadow: var(--box-shadow);
+		transition: all 200ms ease;
+		cursor: pointer;
+
+		&:hover {
+			transform: translateY(2px);
+		}
+
+	}
+
+	&__cta {
+
+		span {
+			display: inline-block;
+			font-size: 1.25rem;
+			text-shadow: none;
+		}
+	}
 }
 
 @media (max-width: $breakpoint) {
