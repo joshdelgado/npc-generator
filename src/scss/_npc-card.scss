@@ -8,19 +8,53 @@
 	}
 }
 
+.fadeOut {
+	opacity: 0;
+	transition-delay: 0ms;
+}
+
 .npc-card {
 	position: relative;
-	display: flex;
-	justify-content: space-between;
-	flex-wrap: wrap;
 	background-color: var(--white);
-	min-height: 592px;
-	padding: 1rem;
+	max-height: 1000px;
 	border: 2px solid var(--deep-red);
 	border-radius: var(--border-radius);
 	max-width: 760px;
 	margin: 0 auto 1rem;
 	box-shadow: var(--box-shadow);
+	transition: all 500ms ease;
+	overflow: hidden;
+
+	&__spinner {
+		position: absolute;
+		left: calc(50% - (var(--spinner-size) / 2));
+		top: calc(50% - (var(--spinner-size) / 2));
+		height: var(--spinner-size);
+		width: var(--spinner-size);
+		border: 8px solid var(--red);
+		border-radius: 100%;
+		transition: opacity 350ms ease;
+		// transition-delay: 500ms;
+		border-bottom-color: transparent;
+		animation: spinner 1.5s infinite linear;
+	}
+
+	&__content {
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		padding: 1rem;
+		transition: opacity 350ms ease;
+		// transition-delay: 500ms;
+
+		&--first-load {
+			padding: 5rem 3rem;
+			max-width: 600px;
+			margin: 0 auto;
+			line-height: 1.5;
+			color: var(--deep-red);
+		}
+	}
 
 	&__header {
 		display: flex;
@@ -137,30 +171,14 @@
 		}
 	}
 
-	&__spinner {
-		position: absolute;
-		left: calc(50% - (var(--spinner-size) / 2));
-		top: calc(50% - (var(--spinner-size) / 2));
-		height: var(--spinner-size);
-		width: var(--spinner-size);
-		border: 8px solid var(--red);
-		border-radius: 100%;
-		border-bottom-color: transparent;
-		animation: spinner 1.5s infinite linear;
+	&--loading {
+		height: 50vh;
+		max-height: 300px;
 	}
 
-	&--first-load {
-		min-height: 0;
 
-		.npc-card {
-			&__content {
-				padding: 5rem 3rem;
-				max-width: 600px;
-				margin: 0 auto;
-				line-height: 1.5;
-				color: var(--deep-red);
-			}
-		}
+	&--first-load {
+		max-height: 200px;
 	}
 }
 
@@ -177,6 +195,15 @@
 			width: 100%;
 			margin-bottom: 0;
 			order: 2;
+		}
+
+		&__content {
+			&--first-load {
+				padding: 2rem 1rem;
+				max-width: 600px;
+				margin: 0 auto;
+				line-height: 1.5;
+			}
 		}
 
 		&__name {
@@ -240,20 +267,6 @@
 
 			li {
 				flex: 1 1 calc(100% / 3);
-			}
-		}
-
-		&--first-load {
-			min-height: 0;
-
-			.npc-card {
-
-				&__content {
-					padding: 2rem 1rem;
-					max-width: 600px;
-					margin: 0 auto;
-					line-height: 1.5;
-				}
 			}
 		}
 	}

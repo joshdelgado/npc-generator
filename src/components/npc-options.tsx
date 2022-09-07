@@ -48,6 +48,7 @@ export class NpcOptions extends Component<any, any> {
 	}
 
 	render() {
+		let disableForm = this.props.disableForm;
 		return (
 			<div className={this.state.closed ? 'npc-options npc-options--closed' : 'npc-options'}>
 				<div className="npc-options__header" onClick={this.toggleOptions} >
@@ -79,8 +80,8 @@ export class NpcOptions extends Component<any, any> {
 						</div>
 					</div>
 					<div className="npc-options__input npc-options__input--buttons">
-						<button className="button button--secondary" onClick={this.resetSelctions}>Reset</button>
-						<button className="button" onClick={this.handleSubmit}>Generate NPC</button>
+						<button className={"button button--secondary " + (disableForm ? 'button--disabled' : null)} onClick={this.resetSelctions}>Reset</button>
+						<button className={"button " + (disableForm ? 'button--disabled' : null)} onClick={this.handleSubmit}>Generate NPC</button>
 					</div>
 				</div>
 			</div >

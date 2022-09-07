@@ -198,7 +198,8 @@ $transition-speed: 500ms;
 
 			.button--secondary {
 				display: block;
-				margin-bottom: -44px;
+				margin-bottom: -38px;
+				pointer-events: none;
 			}
 		}
 	}
