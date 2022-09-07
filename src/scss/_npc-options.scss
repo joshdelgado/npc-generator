@@ -1,3 +1,5 @@
+$transition-speed: 500ms;
+
 .npc-options {
 	background-color: var(--white);
 	padding: 1rem 1rem 0;
@@ -19,7 +21,9 @@
 		justify-content: space-between;
 		align-items: flex-end;
 		flex-wrap: wrap;
+		max-height: 170px;
 		overflow: hidden;
+		transition: all $transition-speed ease;
 	}
 
 	&__input {
@@ -70,7 +74,7 @@
 		position: relative;
 		height: 1rem;
 		width: 1rem;
-		// transition: all 350ms ease;
+		transition: all $transition-speed ease;
 
 		&:before {
 			content: '';
@@ -116,16 +120,15 @@
 		padding: 0.5rem;
 	}
 
-	&--open {
+	&--closed {
 		.npc-options {
-			&__header {}
 
 			&__header-icon {
 				transform: rotate(45deg);
 			}
 
 			&__options {
-				height: 0px;
+				max-height: 0px;
 			}
 
 			&__input--buttons {
@@ -148,11 +151,54 @@
 			display: none;
 		}
 
-		&__input {
-			flex: 1 1 100%;
+		&__options {
+			max-height: 300px;
+		}
 
+		&__input {
+			flex: 1 1 calc(50% - 2rem);
+		}
+	}
+}
+
+
+@media (max-width: $breakpoint-small) {
+	.npc-options {
+
+		&__options {
+			max-height: 350px;
+		}
+
+		&__input {
 			&--buttons {
 				flex-direction: column;
+				margin-top: 0;
+			}
+
+			&:last-of-type {
+				flex: 1 1 100%;
+			}
+
+		}
+
+		.button--secondary {
+			margin-right: 0;
+			transition: margin $transition-speed ease;
+		}
+
+		&--closed {
+			.npc-options {
+				&__input {
+					&--buttons {
+						flex-direction: column;
+						margin-top: inherit
+					}
+				}
+			}
+
+			.button--secondary {
+				display: block;
+				margin-bottom: -44px;
 			}
 		}
 	}

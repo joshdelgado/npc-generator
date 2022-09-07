@@ -27,7 +27,8 @@ export class NpcCard extends Component<any, any> {
 			)
 		}
 		return (
-			<div className="npc-card" >
+			<div className="npc-card">
+				<div className="npc-card__spinner"></div>
 				<div className="npc-card__header">
 					<div className="npc-card__titles">
 						<h2 className="npc-card__name">{npc.name}<NpcGenderIcon gender={npc.attributes.gender}></NpcGenderIcon></h2>

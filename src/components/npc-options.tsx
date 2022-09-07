@@ -49,7 +49,7 @@ export class NpcOptions extends Component<any, any> {
 
 	render() {
 		return (
-			<div className={this.state.closed ? 'npc-options npc-options--open' : 'npc-options'}>
+			<div className={this.state.closed ? 'npc-options npc-options--closed' : 'npc-options'}>
 				<div className="npc-options__header" onClick={this.toggleOptions} >
 					<div className="npc-options__header-title-area">
 						<h3 className="npc-options__header-title">Roll4d6</h3>
