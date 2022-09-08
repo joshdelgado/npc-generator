@@ -10,7 +10,7 @@ export class NpcCard extends Component<any, any> {
 		parentClasses: 'npc-card npc-card--first-load',
 		firstLoadState: 'active',
 		spinnerState: 'hidden',
-		npcState: 'hidden',
+		npcState: 'hidden gone',
 	}
 	componentDidUpdate = (oldProps: any) => {
 		if (oldProps.userSelections !== this.props.userSelections) {
@@ -21,7 +21,6 @@ export class NpcCard extends Component<any, any> {
 		if (oldProps.firstLoad === true && this.props.firstLoad === false) {
 			this.setState({ firstLoadState: 'active hidden', parentClasses: 'npc-card npc-card--spinner' }, () => {
 				setTimeout(() => {
-					// firstLoad is false, showing spinner
 					this.setState({ firstLoadState: 'hidden gone', spinnerState: 'active' })
 				}, 500);
 			});
@@ -29,9 +28,8 @@ export class NpcCard extends Component<any, any> {
 		}
 		// from spinner to npc
 		if (oldProps.loaded === false && this.props.loaded === true) {
-			this.setState({ spinnerState: 'active hidden', npcState: 'hidden', parentClasses: 'npc-card', loaded: true }, () => {
+			this.setState({ spinnerState: 'active hidden', npcState: 'hidden', firstLoadState: 'hidden gone', parentClasses: 'npc-card', loaded: true }, () => {
 				setTimeout(() => {
-					// loaded is true, showing npc
 					this.setState({ spinnerState: 'hidden', npcState: 'active' })
 				}, 500);
 			});
@@ -39,9 +37,8 @@ export class NpcCard extends Component<any, any> {
 		}
 		//from npc to spinner
 		if (oldProps.loaded === true && this.props.loaded === false) {
-			this.setState({ npcState: 'active hidden', spinnerState: 'hidden', parentClasses: 'npc-card npc-card--spinner' }, () => {
+			this.setState({ npcState: 'active hidden', spinnerState: 'hidden', firstLoadState: 'hidden gone', parentClasses: 'npc-card npc-card--spinner' }, () => {
 				setTimeout(() => {
-					// loaded is false, showing spinner
 					this.setState({ npcState: 'hidden', spinnerState: 'active' })
 				}, 500);
 			});
@@ -94,7 +91,7 @@ export class NpcCard extends Component<any, any> {
 							<NpcAbilityScore label="Intelligence" score={npc.abilityScores.intelligence}></NpcAbilityScore>
 							<NpcAbilityScore label="Wisdom" score={npc.abilityScores.wisdom}></NpcAbilityScore>
 							<NpcAbilityScore label="Charisma" score={npc.abilityScores.charisma}></NpcAbilityScore>
-						</ul></>) : (<div className="secret"></div>)}
+						</ul></>) : (<></>)}
 				</div>
 			</div>
 		)
