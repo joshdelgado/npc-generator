@@ -1,0 +1,20 @@
+label:not(.checkbox) {
+	display: block;
+	color: var(--red);
+	font-size: 14px;
+	font-weight: 700;
+	padding-bottom: 0.25rem;
+}
+
+select {
+	font-size: 16px;
+	margin-bottom: 0.5rem;
+	padding: 0.5rem;
+	width: 100%;
+	color: var(--deep-red);
+	cursor: pointer;
+}
+
+option {
+	padding: 0.5rem;
+}

@@ -66,3 +66,13 @@
 		}
 	}
 }
+
+@media (max-width: $breakpoint-small) {
+	.pre-footer {
+		&__wallets {
+			img {
+				max-width: calc(50% - 1rem);
+			}
+		}
+	}
+}

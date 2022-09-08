@@ -21,6 +21,13 @@
 		border-color: var(--red);
 	}
 
+	&--disabled {
+		background-color: gray;
+		border-color: gray;
+		color: darkgray;
+		pointer-events: none;
+	}
+
 	&--secondary {
 		font-size: 14px;
 		margin-right: 1rem;
@@ -38,12 +45,11 @@
 			background-color: transparent;
 			border-color: transparent;
 		}
-	}
 
-	&--disabled {
-		background-color: gray;
-		border-color: gray;
-		color: darkgray;
+		&.button--disabled {
+			color: darkgray;
+			pointer-events: none;
+		}
 	}
 }
 

@@ -39,8 +39,12 @@ export class NpcGenerator extends Component<any, any> {
 					charisma: { score: null, modifier: null },
 				}
 			},
+			attributes: {
+				gender: null,
+			},
 			loaded: false,
-			firstLoad: true
+			firstLoad: true,
+			disableForm: false
 		};
 	}
 
@@ -248,7 +252,7 @@ export class NpcGenerator extends Component<any, any> {
 	}
 
 	generateNpc = () => {
-		this.setState({ loaded: false, firstLoad: false });
+		this.setState({ loaded: false, firstLoad: false, disableForm: true });
 		const selections = this.state.userSelections;
 		let randomClass = selections.class || getRandomMapKey(classes);
 		let randomRace = selections.race || getRandomMapKey(races);
@@ -269,29 +273,29 @@ export class NpcGenerator extends Component<any, any> {
 				description = this.generateDescription(name, r[0].race, r[3].alignment),
 				stats = this.generateStats(r[1].class, r[0].race.ability_bonuses, r[2].level.ability_score_bonuses, level, selections.statAlgo);
 
-			this.setState({
-				npc: {
-					race: r[0].race,
-					class: r[1].class,
-					level: r[2].level,
-					name: name,
-					abilityScores: stats.abilityScores,
-					armorClass: stats.armorClass,
-					hitpoints: stats.hitpoints,
-					attributes: {
-						age: age,
-						height: height,
-						weight: weight,
-						alignment: r[3].alignment,
-						gender: gender
+			setTimeout(() => {
+				this.setState({
+					npc: {
+						race: r[0].race,
+						class: r[1].class,
+						level: r[2].level,
+						name: name,
+						abilityScores: stats.abilityScores,
+						armorClass: stats.armorClass,
+						hitpoints: stats.hitpoints,
+						attributes: {
+							age: age,
+							height: height,
+							weight: weight,
+							alignment: r[3].alignment,
+							gender: gender
+						},
+						description: description
 					},
-					description: description
-				}
-			}, () => {
-				setTimeout(() => {
-					this.setState({ loaded: true })
-				}, randomNumber(1000, 3000));
-			});
+					loaded: true,
+					disableForm: false
+				});
+			}, randomNumber(2000, 3500));
 		});
 	}
 
@@ -308,7 +312,7 @@ export class NpcGenerator extends Component<any, any> {
 	render() {
 		return (
 			<main className="app__content" >
-				<NpcOptions generateNpc={this.generateNpc} callback={this.updateOptions}></NpcOptions>
+				<NpcOptions disableForm={this.state.disableForm} generateNpc={this.generateNpc} callback={this.updateOptions}></NpcOptions>
 				<NpcCard firstLoad={this.state.firstLoad} loaded={this.state.loaded} npcData={this.state.npc} userSelections={this.state.userSelections}></NpcCard>
 				<PreFooter></PreFooter>
 			</main>

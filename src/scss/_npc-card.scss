@@ -1,26 +1,47 @@
-@keyframes spinner {
-	0% {
-		transform: rotate(0deg);
-	}
-
-	100% {
-		transform: rotate(360deg);
-	}
-}
-
 .npc-card {
 	position: relative;
 	display: flex;
-	justify-content: space-between;
-	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
 	background-color: var(--white);
-	min-height: 592px;
-	padding: 1rem;
+	max-height: 1000px;
 	border: 2px solid var(--deep-red);
 	border-radius: var(--border-radius);
 	max-width: 760px;
 	margin: 0 auto 1rem;
 	box-shadow: var(--box-shadow);
+	transition: all 500ms ease;
+	overflow: hidden;
+
+	&__first-load {
+		padding: 3rem;
+		max-width: 600px;
+		line-height: 1.5;
+		color: var(--deep-red);
+		transition: opacity 500ms ease;
+	}
+
+	&__spinner {
+		position: absolute;
+		left: calc(50% - (var(--spinner-size) / 2));
+		top: calc(50% - (var(--spinner-size) / 2));
+		height: var(--spinner-size);
+		width: var(--spinner-size);
+		border: 8px solid var(--red);
+		border-radius: 100%;
+		transition: opacity 500ms ease;
+		border-bottom-color: transparent;
+		animation: spinner 1.5s infinite linear;
+	}
+
+	&__npc {
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		padding: 1rem;
+		min-height: 400px;
+		transition: opacity 500ms ease;
+	}
 
 	&__header {
 		display: flex;
@@ -137,35 +158,20 @@
 		}
 	}
 
-	&__spinner {
-		position: absolute;
-		left: calc(50% - (var(--spinner-size) / 2));
-		top: calc(50% - (var(--spinner-size) / 2));
-		height: var(--spinner-size);
-		width: var(--spinner-size);
-		border: 8px solid var(--red);
-		border-radius: 100%;
-		border-bottom-color: transparent;
-		animation: spinner 1.5s infinite linear;
+	&--first-load {
+		height: 320px;
+		max-height: 320px;
 	}
 
-	&--first-load {
-		min-height: 0;
-
-		.npc-card {
-			&__content {
-				padding: 5rem 3rem;
-				max-width: 600px;
-				margin: 0 auto;
-				line-height: 1.5;
-				color: var(--deep-red);
-			}
-		}
+	&--spinner {
+		height: 50vh;
+		max-height: 240px;
 	}
 }
 
 @media (max-width: $breakpoint) {
 	.npc-card {
+		max-height: 1500px;
 		margin-bottom: 3rem;
 
 		&__header {
@@ -177,6 +183,13 @@
 			width: 100%;
 			margin-bottom: 0;
 			order: 2;
+		}
+
+		&__first-load {
+			padding: 2rem 1rem;
+			max-width: 600px;
+			margin: 0 auto;
+			line-height: 1.5;
 		}
 
 		&__name {
@@ -244,17 +257,19 @@
 		}
 
 		&--first-load {
-			min-height: 0;
-
-			.npc-card {
-
-				&__content {
-					padding: 2rem 1rem;
-					max-width: 600px;
-					margin: 0 auto;
-					line-height: 1.5;
-				}
-			}
+			max-height: 320px;
 		}
 	}
+}
+
+.active {
+	opacity: 1;
+}
+
+.hidden {
+	opacity: 0;
+}
+
+.gone {
+	display: none !important;
 }
