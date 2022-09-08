@@ -39,6 +39,9 @@ export class NpcGenerator extends Component<any, any> {
 					charisma: { score: null, modifier: null },
 				}
 			},
+			attributes: {
+				gender: null,
+			},
 			loaded: false,
 			firstLoad: true,
 			disableForm: false
