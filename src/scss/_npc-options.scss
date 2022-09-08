@@ -97,29 +97,6 @@ $transition-speed: 500ms;
 		}
 	}
 
-	//TODO break these into a partial with BEM names
-
-	label:not(.checkbox) {
-		display: block;
-		color: var(--red);
-		font-size: 14px;
-		font-weight: 700;
-		padding-bottom: 0.25rem;
-	}
-
-	select {
-		font-size: 16px;
-		margin-bottom: 0.5rem;
-		padding: 0.5rem;
-		width: 100%;
-		color: var(--deep-red);
-		cursor: pointer;
-	}
-
-	option {
-		padding: 0.5rem;
-	}
-
 	&--closed {
 		.npc-options {
 
@@ -135,10 +112,11 @@ $transition-speed: 500ms;
 				background-color: var(--white);
 				overflow: hidden;
 			}
-		}
 
-		.button--secondary {
-			display: none;
+			&__reset {
+				opacity: 0;
+				pointer-events: none;
+			}
 		}
 	}
 }
@@ -181,7 +159,7 @@ $transition-speed: 500ms;
 
 		}
 
-		.button--secondary {
+		&__reset {
 			margin-right: 0;
 			transition: margin $transition-speed ease;
 		}
@@ -194,12 +172,12 @@ $transition-speed: 500ms;
 						margin-top: inherit
 					}
 				}
-			}
 
-			.button--secondary {
-				display: block;
-				margin-bottom: -38px;
-				pointer-events: none;
+				&__reset {
+					display: block;
+					margin-bottom: -38px;
+					pointer-events: none;
+				}
 			}
 		}
 	}

@@ -1,15 +1,3 @@
-.active {
-	opacity: 1;
-}
-
-.hidden {
-	opacity: 0;
-}
-
-.gone {
-	display: none !important;
-}
-
 .npc-card {
 	position: relative;
 	display: flex;
@@ -271,4 +259,16 @@
 			max-height: 320px;
 		}
 	}
+}
+
+.active {
+	opacity: 1;
+}
+
+.hidden {
+	opacity: 0;
+}
+
+.gone {
+	display: none !important;
 }
