@@ -29,6 +29,7 @@ export class NpcOptions extends Component<any, any> {
 
 	toggleOptions = (): void => {
 		this.setState({ closed: !this.state.closed });
+		this.resetSelctions();
 	}
 
 	assignState = (value: string) => {
