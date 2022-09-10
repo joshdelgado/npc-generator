@@ -76,7 +76,7 @@ export class NpcCard extends Component<any, any> {
 		return (
 			<div className={this.state.parentClasses}>
 				<div className={`npc-card__first-load ${this.state.firstLoadState}`}>
-					<p>Click <strong>Generate Npc</strong> above to get a totally random npc for whatever you need. If you have some npc criteria in mind, like race or class, click the <strong>+ button</strong> to reveal more options.</p>
+					<p>Click <strong>Generate Npc</strong> above to get a totally random npc for whatever you need. If you have some npc criteria in mind, like race or class, click the <strong>down angle</strong> to reveal more options.</p>
 				</div>
 				<div className={`npc-card__spinner ${this.state.spinnerState}`}></div>
 				<div className={`npc-card__npc ${this.state.npcState}`}>

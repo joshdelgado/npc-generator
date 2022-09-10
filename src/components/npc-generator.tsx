@@ -92,7 +92,8 @@ export class NpcGenerator extends Component<any, any> {
 	}
 
 	getNpcName = (race: string, gender: string): any => {
-		if (gender !== 'male' && gender !== 'female') {
+		console.log(gender);
+		if (gender !== 'Male' && gender !== 'Female') {
 			gender = this.getNpcGender();
 		}
 
@@ -107,10 +108,6 @@ export class NpcGenerator extends Component<any, any> {
 			virtue = races.get(race)!.names.get('virtue')![rand3];
 		}
 
-		let returnName = first;
-		if (last) { returnName = returnName + " " + last; }
-
-		// return returnName;
 		return {
 			first: first,
 			surname: last,
