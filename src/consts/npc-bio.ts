@@ -85,5 +85,14 @@ export const quirks: string[] = [
 ];
 
 export const plotHooks: string[] = [
-	''
+	'Goblins have been terrorizing my tavern. If you take care of the problem I will give you all the gold I can spare.',
+	'I\'ve... lost my wedding ring... Please, can you find it for me? DON\'T let my wife find out.',
+	'The children in the town claim to have a new friend who lives in a CAVE outside of town! None of the adults have ever seen him but the kids are all obsessed.',
+	'You seem like a... covert group. Find out what my competition is working on and I\'ll make it work your while.',
+	'My grandmother refuses to leave her cottage. I told her it isn\'t safe with all these creatures running about. Please bring her home to me.',
+	'My daughter... she\'s sick. Very sick. She needs medicine but the shaman hasn\'t been seen in weeks. Please help me. Help her...',
+	'My husband was meant to be home days ago. He went hunting last week but no one has seen him. Could you please find him for me? I\'m beginning to worry',
+	'I was sent to kill you but... perhaps you might be more use to me alive. Speak.',
+	'The rich old couple at the center of town used to be the lifeblood of our community but... they haven\'t left their home in weeks.',
+	'Those vile criminals come to us every fornight and demand coin for "protection". Protection from what? Everything was calm and quiet until they showed up. I fear I will run out of money to pay them soon...',
 ];

@@ -80,20 +80,21 @@ export class NpcCard extends Component<any, any> {
 				</div>
 				<div className={`npc-card__spinner ${this.state.spinnerState}`}></div>
 				<div className={`npc-card__npc ${this.state.npcState}`}>
-					{this.state.loaded ? (<><div className="npc-card__header">
-						<div className="npc-card__titles">
-							{this.renderNpcName(npc, hasTranslation, hasVirtueName)}
-							<ol className="npc-card__info">
-								<li className="npc-card__value">{npc.race.name}</li>
-								<li className="npc-card__value">{npc.class.name}</li>
+					{this.state.loaded ? (<>
+						<div className="npc-card__header">
+							<div className="npc-card__titles">
+								{this.renderNpcName(npc, hasTranslation, hasVirtueName)}
+								<ol className="npc-card__info">
+									<li className="npc-card__value">{npc.race.name}</li>
+									<li className="npc-card__value">{npc.class.name}</li>
+								</ol>
+							</div>
+							<ol className="npc-card__sturdiness">
+								<li><span>Level</span>{npc.level.level}</li>
+								<li><span>HP</span>{npc.hitpoints}</li>
+								<li><span>AC</span>{npc.armorClass}</li>
 							</ol>
 						</div>
-						<ol className="npc-card__sturdiness">
-							<li><span>Level</span>{npc.level.level}</li>
-							<li><span>HP</span>{npc.hitpoints}</li>
-							<li><span>AC</span>{npc.armorClass}</li>
-						</ol>
-					</div>
 						<div className="npc-card__image" >
 							<img src={`${process.env.PUBLIC_URL}/img/${npc.race.index}.png`} alt={npc.race.name} />
 						</div>
@@ -115,7 +116,12 @@ export class NpcCard extends Component<any, any> {
 							<NpcAbilityScore label="Intelligence" score={npc.abilityScores.intelligence}></NpcAbilityScore>
 							<NpcAbilityScore label="Wisdom" score={npc.abilityScores.wisdom}></NpcAbilityScore>
 							<NpcAbilityScore label="Charisma" score={npc.abilityScores.charisma}></NpcAbilityScore>
-						</ul></>) : (<></>)}
+						</ul>
+						<div className="npc-card__plothook">
+							<h4 className="npc-card__plothook-title">Plothook</h4>
+							<p className="npc-card__plothook-text">"{npc.plothook}" <strong>-&nbsp;{npc.fullName}</strong></p>
+						</div>
+					</>) : (<></>)}
 				</div>
 			</div>
 		)

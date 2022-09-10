@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { alignments } from '../consts/alignments';
 import { abilities, classes } from '../consts/consts';
 import { gods } from '../consts/gods';
-import { adjectives, traits, religiousAdjective, socioeconomic, traits2, quirks } from '../consts/npc-bio';
+import { adjectives, traits, religiousAdjective, socioeconomic, traits2, quirks, plotHooks } from '../consts/npc-bio';
 import { races } from '../consts/races';
 import { randomNumber, getRandomMapKey, getRandomNumberStandardDist } from '../utility/functions';
 import { NpcCard } from './npc-card';
@@ -37,10 +37,11 @@ export class NpcGenerator extends Component<any, any> {
 					wisdom: { score: null, modifier: null },
 					constitution: { score: null, modifier: null },
 					charisma: { score: null, modifier: null },
-				}
-			},
-			attributes: {
-				gender: null,
+				},
+				attributes: {
+					gender: null,
+				},
+				plothook: null
 			},
 			loaded: false,
 			firstLoad: true,
@@ -282,7 +283,8 @@ export class NpcGenerator extends Component<any, any> {
 				gender = selections.gender || this.getNpcGender(),
 				name = this.getNpcName(r[0].race.index, gender),
 				description = this.generateDescription(name.fullName, r[0].race, r[3].alignment),
-				stats = this.generateStats(r[1].class, r[0].race.ability_bonuses, r[2].level.ability_score_bonuses, level, selections.statAlgo);
+				stats = this.generateStats(r[1].class, r[0].race.ability_bonuses, r[2].level.ability_score_bonuses, level, selections.statAlgo),
+				plothook = plotHooks[randomNumber(0, plotHooks.length)];
 
 			setTimeout(() => {
 				this.setState({
@@ -304,7 +306,8 @@ export class NpcGenerator extends Component<any, any> {
 							alignment: r[3].alignment,
 							gender: gender
 						},
-						description: description
+						description: description,
+						plothook: plothook
 					},
 					loaded: true,
 					disableForm: false
