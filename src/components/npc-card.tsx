@@ -117,10 +117,11 @@ export class NpcCard extends Component<any, any> {
 							<NpcAbilityScore label="Wisdom" score={npc.abilityScores.wisdom}></NpcAbilityScore>
 							<NpcAbilityScore label="Charisma" score={npc.abilityScores.charisma}></NpcAbilityScore>
 						</ul>
-						<div className="npc-card__plothook">
-							<h4 className="npc-card__plothook-title">Plothook</h4>
-							<p className="npc-card__plothook-text">"{npc.plothook}" <strong>-&nbsp;{npc.fullName}</strong></p>
-						</div>
+						{npc.plotHook ? (
+							<div className="npc-card__plothook">
+								<h4 className="npc-card__plothook-title">Plothook</h4>
+								<p className="npc-card__plothook-text">"{npc.plotHook}" <strong>-&nbsp;{npc.fullName}</strong></p>
+							</div>) : (<></>)}
 					</>) : (<></>)}
 				</div>
 			</div>

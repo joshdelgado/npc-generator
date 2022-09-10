@@ -23,7 +23,8 @@ export class NpcGenerator extends Component<any, any> {
 				race: '',
 				class: '',
 				alignment: '',
-				statAlgo: false
+				statAlgo: false,
+				plotHook: false
 			},
 			npc: {
 				name: null,
@@ -41,7 +42,7 @@ export class NpcGenerator extends Component<any, any> {
 				attributes: {
 					gender: null,
 				},
-				plothook: null
+				plotHook: null
 			},
 			loaded: false,
 			firstLoad: true,
@@ -276,7 +277,6 @@ export class NpcGenerator extends Component<any, any> {
 		let npcAlignment = this.getNpcData('alignment', 'alignments/' + randomAlignment);
 
 		Promise.all([npcRace, npcClass, npcLevel, npcAlignment]).then((r) => {
-
 			const age = this.getAge(r[0].race),
 				height = this.getHeight(r[0].race),
 				weight = this.getWeight(r[0].race),
@@ -284,7 +284,7 @@ export class NpcGenerator extends Component<any, any> {
 				name = this.getNpcName(r[0].race.index, gender),
 				description = this.generateDescription(name.fullName, r[0].race, r[3].alignment),
 				stats = this.generateStats(r[1].class, r[0].race.ability_bonuses, r[2].level.ability_score_bonuses, level, selections.statAlgo),
-				plothook = plotHooks[randomNumber(0, plotHooks.length)];
+				plotHook = this.state.userSelections.plotHook ? plotHooks[randomNumber(0, plotHooks.length)] : null;
 
 			setTimeout(() => {
 				this.setState({
@@ -307,7 +307,7 @@ export class NpcGenerator extends Component<any, any> {
 							gender: gender
 						},
 						description: description,
-						plothook: plothook
+						plotHook: plotHook
 					},
 					loaded: true,
 					disableForm: false

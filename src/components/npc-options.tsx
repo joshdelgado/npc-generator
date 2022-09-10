@@ -3,6 +3,7 @@ import { NpcAlignmentSelect } from './inputs/npc-alignment-select';
 import { NpcClassSelect } from './inputs/npc-class-select';
 import { NpcGenderSelect } from './inputs/npc-gender-select';
 import { NpcLevelSelect } from './inputs/npc-level-select';
+import { NpcPlotHookCheckbox } from './inputs/npc-plot-hook-checkbox';
 import { NpcRaceSelect } from './inputs/npc-race-select';
 import { NpcStatDistributionCheckbox } from './inputs/npc-stat-distribution-checkbox';
 
@@ -15,7 +16,8 @@ export class NpcOptions extends Component<any, any> {
 		race: '',
 		class: '',
 		alignment: '',
-		statAlgo: false
+		statAlgo: false,
+		plotHook: false
 	}
 
 	cleanFormState = {
@@ -24,7 +26,8 @@ export class NpcOptions extends Component<any, any> {
 		race: '',
 		class: '',
 		alignment: '',
-		statAlgo: false
+		statAlgo: false,
+		plotHook: false
 	};
 
 	toggleOptions = (): void => {
@@ -78,6 +81,9 @@ export class NpcOptions extends Component<any, any> {
 						</div>
 						<div className="npc-options__input">
 							<NpcStatDistributionCheckbox value={this.state.statAlgo} callback={this.assignState}></NpcStatDistributionCheckbox>
+						</div>
+						<div className="npc-options__input">
+							<NpcPlotHookCheckbox value={this.state.plotHook} callback={this.assignState}></NpcPlotHookCheckbox>
 						</div>
 					</div>
 					<div className="npc-options__input npc-options__input--buttons">
