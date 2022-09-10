@@ -89,21 +89,32 @@ export class NpcGenerator extends Component<any, any> {
 		return getRandomNumberStandardDist(races.get(race.index)!.weight.min, races.get(race.index)!.weight.max, 1);
 	}
 
-	getNpcName = (race: string, gender: string): string => {
+	getNpcName = (race: string, gender: string): any => {
 		if (gender !== 'male' && gender !== 'female') {
 			gender = this.getNpcGender();
 		}
+
 		const rand1 = Math.floor(Math.random() * races.get(race)!.names.get(gender.toLowerCase())!.length),
-			rand2 = Math.floor(Math.random() * races.get(race)!.names.get('surname')!.length);
-
-		let last = races.get(race)!.names.get('surname')![rand2],
+			rand2 = Math.floor(Math.random() * races.get(race)!.names.get('surname')!.length),
+			last = races.get(race)!.names.get('surname')![rand2],
 			first = races.get(race)!.names.get(gender.toLowerCase())![rand1];
+		let virtue: string | null = null;
 
+		if (race === 'tiefling') {
+			const rand3 = Math.floor(Math.random() * races.get(race)!.names.get('virtue')!.length);
+			virtue = races.get(race)!.names.get('virtue')![rand3];
+		}
 
 		let returnName = first;
 		if (last) { returnName = returnName + " " + last; }
 
-		return returnName;
+		// return returnName;
+		return {
+			first: first,
+			surname: last,
+			fullName: last ? first + " " + last : first,
+			virtueName: virtue ? virtue : null
+		}
 	}
 
 	getModifier(score: number): number {
@@ -270,7 +281,7 @@ export class NpcGenerator extends Component<any, any> {
 				weight = this.getWeight(r[0].race),
 				gender = selections.gender || this.getNpcGender(),
 				name = this.getNpcName(r[0].race.index, gender),
-				description = this.generateDescription(name, r[0].race, r[3].alignment),
+				description = this.generateDescription(name.fullName, r[0].race, r[3].alignment),
 				stats = this.generateStats(r[1].class, r[0].race.ability_bonuses, r[2].level.ability_score_bonuses, level, selections.statAlgo);
 
 			setTimeout(() => {
@@ -279,7 +290,10 @@ export class NpcGenerator extends Component<any, any> {
 						race: r[0].race,
 						class: r[1].class,
 						level: r[2].level,
-						name: name,
+						firstName: name.first,
+						surname: name.surname,
+						fullName: name.fullName,
+						virtueName: name.virtueName,
 						abilityScores: stats.abilityScores,
 						armorClass: stats.armorClass,
 						hitpoints: stats.hitpoints,

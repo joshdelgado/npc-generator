@@ -33,6 +33,7 @@ $transition-speed: 500ms;
 		&--buttons {
 			display: flex;
 			justify-content: flex-end;
+			margin-bottom: 0;
 		}
 	}
 
@@ -111,6 +112,7 @@ $transition-speed: 500ms;
 			&__input--buttons {
 				background-color: var(--white);
 				overflow: hidden;
+				margin-top: 0rem;
 			}
 
 			&__reset {

@@ -1,5 +1,18 @@
 import { SimpleRange } from "../interfaces/simple-range";
 
+export const elvenTranslations: Map<string, string> = new Map<string, string>([
+	['Amakiir', 'Gemflower'],
+	['Amastacia', 'Starflower'],
+	['Galanodel', 'Moonwhisper'],
+	['Holimion', 'Diamonddew'],
+	['Ilphelkiir', 'Gemblossom'],
+	['Liadon', 'Silverfrond'],
+	['Meliamne', 'Oakenheel'],
+	['Naïlo', 'Nightbreeze'],
+	['Siannodel', 'Moonbrook'],
+	['Xiloscient', 'Goldpetal']
+]);
+
 const allNames: Map<string, Map<string, string[]>> = new Map<string, Map<string, string[]>>([
 	['dragonborn', new Map<string, string[]>([
 		['male', ['Arjhan', 'Balasar', 'Bharash', 'Donaar', 'Ghesh', 'Heskan', 'Kriv', 'Medrash', 'Mehen', 'Nadarr', 'Pandjed', 'Patrin', 'Rhogar', 'Shamash', 'Shedinn', 'Tarhun', 'Torinn']],
@@ -14,7 +27,7 @@ const allNames: Map<string, Map<string, string[]>> = new Map<string, Map<string,
 	['elf', new Map<string, string[]>([
 		['male', ['Adran', 'Aelar', 'Aramil', 'Arannis', 'Aust', 'Beiro', 'Berrian', 'Carric', 'Enialis', 'Erdan', 'Erevan', 'Galinndan', 'Hadarai', 'Heian', 'Himo', 'Immeral', 'Ivellios', 'Laucian', 'Mindartis', 'Paelias', 'Peren', 'Quarion', 'Riardon', 'Rolen', 'Soveliss', 'Thamior', 'Tharivol', 'Theren', 'Varis']],
 		['female', ['Adrie', 'Althaea', 'Anastrianna', 'Andraste', 'Antinua', 'Bethrynna', 'Birel', 'Caelynn', 'Drusilia', 'Enna', 'Felosial', 'Ielenia', 'Jelenneth', 'Keyleth', 'Leshanna', 'Lia', 'Meriele', 'Mialee', 'Naivara', 'Quelenna', 'Quillathe', 'Sariel', 'Shanairra', 'Shava', 'Silaqui', 'Theirastra', 'Thia', 'Vadania', 'Valanthe', 'Xanaphia']],
-		['surname', ['Amakiir (Gemflower)', 'Amastacia (Starflower)', 'Galanodel (Moonwhisper)', 'Holimion (Diamonddew)', 'Ilphelkiir (Gemblossom)', 'Liadon (Silverfrond)', 'Meliamne (Oakenheel)', 'Naïlo (Nightbreeze)', 'Siannodel (Moonbrook)', 'Xiloscient (Goldpetal)']]
+		['surname', ['Amakiir', 'Amastacia', 'Galanodel', 'Holimion', 'Ilphelkiir', 'Liadon', 'Meliamne', 'Naïlo', 'Siannodel', 'Xiloscient']]
 	])],
 	['gnome', new Map<string, string[]>([
 		['male', ['Alston', 'Alvyn', 'Boddynock', 'Brocc', 'Burgell', 'Dimble', 'Eldon', 'Erky', 'Fonkin', 'Frug', 'Gerbo', 'Gimble', 'Glim', 'Jebeddo', 'Kellen', 'Namfoodle', 'Orryn', 'Roondar', 'Seebo', 'Sindri', 'Warryn', 'Wrenn', 'Zook']],
@@ -38,7 +51,7 @@ const allNames: Map<string, Map<string, string[]>> = new Map<string, Map<string,
 	['tiefling', new Map<string, string[]>([
 		['male', ['Akmenos', 'Amnon', 'Barakas', 'Damakos', 'Ekemon', 'Iados', 'Kairon', 'Leucis', 'Melech', 'Mordai', 'Morthos', 'Pelaios', 'Skamos', 'Therai']],
 		['female', ['Akta', 'Anakis', 'Bryseis', 'Criella', 'Damaia', 'Ea', 'Kallista', 'Lerissa', 'Makaria', 'Nemeia', 'Orianna', 'Phelaia', 'Rieta']],
-		['surname', ['Art', 'Carrion', 'Chant', 'Creed', 'Despair', 'Excellence', 'Fear', 'Glory', 'Hope', 'Ideal', 'Music', 'Nowhere', 'Open', 'Poetry', 'Quest', 'Random', 'Reverence', 'Sorrow', 'Temerity', 'Torment', 'Weary']]
+		['virtue', ['Art', 'Carrion', 'Chant', 'Creed', 'Despair', 'Excellence', 'Fear', 'Glory', 'Hope', 'Ideal', 'Music', 'Nowhere', 'Open', 'Poetry', 'Quest', 'Random', 'Reverence', 'Sorrow', 'Temerity', 'Torment', 'Weary']]
 	])],
 ]);
 
@@ -60,8 +73,8 @@ class RaceInfo {
 		this.weight.max = maxWeight;
 	}
 
-	setNames(name: string): void {
-		switch (name) {
+	setNames(race: string): void {
+		switch (race) {
 			case 'dragonborn':
 				this.names.set('male', allNames.get('dragonborn')?.get('male')!);
 				this.names.set('female', allNames.get('dragonborn')?.get('female')!);
@@ -76,7 +89,6 @@ class RaceInfo {
 				this.names.set('male', allNames.get('elf')?.get('male')!);
 				this.names.set('female', allNames.get('elf')?.get('female')!);
 				this.names.set('surname', allNames.get('elf')?.get('surname')!);
-				// TODO split last names and common versions
 				break;
 			case 'gnome':
 				this.names.set('male', allNames.get('gnome')?.get('male')!);
@@ -106,7 +118,8 @@ class RaceInfo {
 			case 'tiefling':
 				this.names.set('male', allNames.get('tiefling')?.get('male')!);
 				this.names.set('female', allNames.get('tiefling')?.get('female')!);
-				this.names.set('surname', allNames.get('tiefling')?.get('surname')!);
+				this.names.set('surname', [...Array(1).fill('')]);
+				this.names.set('virtue', allNames.get('tiefling')?.get('virtue')!);
 				break;
 			default:
 				this.names.set('male', ['Josh', 'Mike', 'Pat', 'Justin', 'Hector The Well Endowed', 'Marrrrrr']);

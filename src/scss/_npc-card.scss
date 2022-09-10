@@ -56,15 +56,26 @@
 	}
 
 	&__name {
+		display: inline-block;
 		font-size: 2.5rem;
 		padding-bottom: 0.5rem;
 		color: var(--red);
+		transition: color 200ms ease;
+
+		&--has-tooltip {
+			cursor: pointer;
+
+			&:hover {
+				color: var(--deep-red);
+			}
+		}
 	}
 
 	&__gender-symbol {
+		display: inline-block;
 		height: 1.5rem;
 		width: 1.5rem;
-		margin-left: 1rem;
+		margin-left: 0.5rem;
 	}
 
 	&__info {

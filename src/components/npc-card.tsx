@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { elvenTranslations } from '../consts/races';
 import { NpcGenderIcon } from './gender-icon';
 import { NpcAbilityScore } from './npc-ability-score';
 
@@ -12,6 +13,7 @@ export class NpcCard extends Component<any, any> {
 		spinnerState: 'hidden',
 		npcState: 'hidden gone',
 	}
+
 	componentDidUpdate = (oldProps: any) => {
 		if (oldProps.userSelections !== this.props.userSelections) {
 			this.setState({ userSelections: this.props.userSelections });
@@ -46,8 +48,30 @@ export class NpcCard extends Component<any, any> {
 		}
 	}
 
+	renderNpcName = (npc: any, hasTranslation: boolean, hasVirtueName: boolean): any => {
+		let classes = 'npc-card__name',
+			title: string | undefined = undefined;
+
+		if (hasTranslation) {
+			classes += ' npc-card__name--has-tooltip';
+			title = 'Common translation: ' + npc.firstName + ' ' + elvenTranslations.get(npc.surname);
+		}
+
+		if (hasVirtueName) {
+			classes += ' npc-card__name--has-tooltip';
+			title = 'Virtue name: ' + npc.virtueName;
+		}
+
+		return (<>
+			<h2 className={classes} title={title}>{npc.fullName}</h2>
+			<NpcGenderIcon gender={npc.attributes.gender}></NpcGenderIcon>
+		</>);
+	}
+
 	render() {
-		const npc = this.props.npcData;
+		const npc = this.props.npcData,
+			hasTranslation = elvenTranslations.has(npc.surname),
+			hasVirtueName = !!npc.virtueName;
 
 		return (
 			<div className={this.state.parentClasses}>
@@ -58,7 +82,7 @@ export class NpcCard extends Component<any, any> {
 				<div className={`npc-card__npc ${this.state.npcState}`}>
 					{this.state.loaded ? (<><div className="npc-card__header">
 						<div className="npc-card__titles">
-							<h2 className="npc-card__name">{npc.name}<NpcGenderIcon gender={npc.attributes.gender}></NpcGenderIcon></h2>
+							{this.renderNpcName(npc, hasTranslation, hasVirtueName)}
 							<ol className="npc-card__info">
 								<li className="npc-card__value">{npc.race.name}</li>
 								<li className="npc-card__value">{npc.class.name}</li>
