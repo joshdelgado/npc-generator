@@ -17,7 +17,7 @@ export function NpcName(props: any) {
 	}
 
 	return (<>
-		<h2 className={classes} title={title}>{props.npc.fullName}</h2>
+		<h3 className={classes} title={title}>{props.npc.fullName}</h3>
 		<NpcGenderIcon gender={props.npc.attributes.gender}></NpcGenderIcon>
 	</>);
 }
