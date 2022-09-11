@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { elvenTranslations } from '../consts/races';
-import { NpcGenderIcon } from './gender-icon';
 import { NpcAbilityScore } from './npc-ability-score';
+import { NpcName } from './npc-name';
 
 export class NpcCard extends Component<any, any> {
 
@@ -48,30 +47,8 @@ export class NpcCard extends Component<any, any> {
 		}
 	}
 
-	renderNpcName = (npc: any, hasTranslation: boolean, hasVirtueName: boolean): any => {
-		let classes = 'npc-card__name',
-			title: string | undefined = undefined;
-
-		if (hasTranslation) {
-			classes += ' npc-card__name--has-tooltip';
-			title = 'Common translation: ' + npc.firstName + ' ' + elvenTranslations.get(npc.surname);
-		}
-
-		if (hasVirtueName) {
-			classes += ' npc-card__name--has-tooltip';
-			title = 'Virtue name: ' + npc.virtueName;
-		}
-
-		return (<>
-			<h2 className={classes} title={title}>{npc.fullName}</h2>
-			<NpcGenderIcon gender={npc.attributes.gender}></NpcGenderIcon>
-		</>);
-	}
-
 	render() {
-		const npc = this.props.npcData,
-			hasTranslation = elvenTranslations.has(npc.surname),
-			hasVirtueName = !!npc.virtueName;
+		const npc = this.props.npcData;
 
 		return (
 			<div className={this.state.parentClasses}>
@@ -83,7 +60,7 @@ export class NpcCard extends Component<any, any> {
 					{this.state.loaded ? (<>
 						<div className="npc-card__header">
 							<div className="npc-card__titles">
-								{this.renderNpcName(npc, hasTranslation, hasVirtueName)}
+								<NpcName npc={npc}></NpcName>
 								<ol className="npc-card__info">
 									<li className="npc-card__value">{npc.race.name}</li>
 									<li className="npc-card__value">{npc.class.name}</li>
