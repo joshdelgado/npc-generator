@@ -2,7 +2,7 @@ $transition-speed: 500ms;
 
 .npc-options {
 	background-color: var(--white);
-	padding: 1rem 1rem 0;
+	padding: 0rem 1rem;
 	border: 2px solid var(--deep-red);
 	border-radius: var(--border-radius);
 	max-width: 760px;
@@ -27,12 +27,13 @@ $transition-speed: 500ms;
 	}
 
 	&__input {
-		flex: 1 1 200px;
+		flex: 1 1 160px;
 		margin: 0.5rem;
 
 		&--buttons {
 			display: flex;
 			justify-content: flex-end;
+			margin-bottom: 0;
 		}
 	}
 
@@ -40,10 +41,25 @@ $transition-speed: 500ms;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		padding-bottom: 1rem;
+		padding: 1rem 0 1rem;
 		border-bottom: 1px solid var(--deep-red);
 		margin-bottom: 1rem;
 		cursor: pointer;
+		transition: all $transition-speed ease;
+
+		&:hover {
+			margin-left: -1rem;
+			margin-right: -1rem;
+			padding: 1rem;
+
+			.npc-options__header-icon {
+				transform: rotate(-180deg) translateY(-2px);
+
+				path {
+					fill: var(--red);
+				}
+			}
+		}
 	}
 
 	&__header-title-area {
@@ -72,36 +88,29 @@ $transition-speed: 500ms;
 
 	&__header-icon {
 		position: relative;
-		height: 1rem;
-		width: 1rem;
+		top: 2px;
+		height: 1.5rem;
+		width: 1.5rem;
+		transform: rotate(-180deg);
 		transition: all $transition-speed ease;
 
-		&:before {
-			content: '';
-			height: 1.15rem;
-			width: 2px;
-			background-color: var(--deep-red);
-			position: absolute;
-			left: 50%;
-			transform: translateX(-50%) rotate(45deg);
-		}
-
-		&:after {
-			content: '';
-			height: 1.15rem;
-			width: 2px;
-			background-color: var(--deep-red);
-			position: absolute;
-			left: 50%;
-			transform: translateX(-50%) rotate(-45deg);
+		path {
+			transition: all $transition-speed ease;
+			fill: var(--deep-red);
 		}
 	}
 
 	&--closed {
 		.npc-options {
 
+			&__header:hover {
+				.npc-options__header-icon {
+					transform: rotate(0deg) translateY(2px);
+				}
+			}
+
 			&__header-icon {
-				transform: rotate(45deg);
+				transform: rotate(0deg);
 			}
 
 			&__options {
@@ -111,6 +120,7 @@ $transition-speed: 500ms;
 			&__input--buttons {
 				background-color: var(--white);
 				overflow: hidden;
+				margin-top: 0rem;
 			}
 
 			&__reset {

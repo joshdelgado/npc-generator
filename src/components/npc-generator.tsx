@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { alignments } from '../consts/alignments';
 import { abilities, classes } from '../consts/consts';
 import { gods } from '../consts/gods';
-import { adjectives, traits, religiousAdjective, socioeconomic, traits2, quirks } from '../consts/npc-bio';
+import { adjectives, traits, religiousAdjective, socioeconomic, traits2, quirks, plotHooks } from '../consts/npc-bio';
 import { races } from '../consts/races';
 import { randomNumber, getRandomMapKey, getRandomNumberStandardDist } from '../utility/functions';
 import { NpcCard } from './npc-card';
@@ -23,7 +23,8 @@ export class NpcGenerator extends Component<any, any> {
 				race: '',
 				class: '',
 				alignment: '',
-				statAlgo: false
+				statAlgo: false,
+				plotHook: false
 			},
 			npc: {
 				name: null,
@@ -37,10 +38,11 @@ export class NpcGenerator extends Component<any, any> {
 					wisdom: { score: null, modifier: null },
 					constitution: { score: null, modifier: null },
 					charisma: { score: null, modifier: null },
-				}
-			},
-			attributes: {
-				gender: null,
+				},
+				attributes: {
+					gender: null,
+				},
+				plotHook: null
 			},
 			loaded: false,
 			firstLoad: true,
@@ -89,21 +91,29 @@ export class NpcGenerator extends Component<any, any> {
 		return getRandomNumberStandardDist(races.get(race.index)!.weight.min, races.get(race.index)!.weight.max, 1);
 	}
 
-	getNpcName = (race: string, gender: string): string => {
-		if (gender !== 'male' && gender !== 'female') {
+	getNpcName = (race: string, gender: string): any => {
+		console.log(gender);
+		if (gender !== 'Male' && gender !== 'Female') {
 			gender = this.getNpcGender();
 		}
+
 		const rand1 = Math.floor(Math.random() * races.get(race)!.names.get(gender.toLowerCase())!.length),
-			rand2 = Math.floor(Math.random() * races.get(race)!.names.get('surname')!.length);
-
-		let last = races.get(race)!.names.get('surname')![rand2],
+			rand2 = Math.floor(Math.random() * races.get(race)!.names.get('surname')!.length),
+			last = races.get(race)!.names.get('surname')![rand2],
 			first = races.get(race)!.names.get(gender.toLowerCase())![rand1];
+		let virtue: string | null = null;
 
+		if (race === 'tiefling') {
+			const rand3 = Math.floor(Math.random() * races.get(race)!.names.get('virtue')!.length);
+			virtue = races.get(race)!.names.get('virtue')![rand3];
+		}
 
-		let returnName = first;
-		if (last) { returnName = returnName + " " + last; }
-
-		return returnName;
+		return {
+			first: first,
+			surname: last,
+			fullName: last ? first + " " + last : first,
+			virtueName: virtue ? virtue : null
+		}
 	}
 
 	getModifier(score: number): number {
@@ -264,14 +274,14 @@ export class NpcGenerator extends Component<any, any> {
 		let npcAlignment = this.getNpcData('alignment', 'alignments/' + randomAlignment);
 
 		Promise.all([npcRace, npcClass, npcLevel, npcAlignment]).then((r) => {
-
 			const age = this.getAge(r[0].race),
 				height = this.getHeight(r[0].race),
 				weight = this.getWeight(r[0].race),
 				gender = selections.gender || this.getNpcGender(),
 				name = this.getNpcName(r[0].race.index, gender),
-				description = this.generateDescription(name, r[0].race, r[3].alignment),
-				stats = this.generateStats(r[1].class, r[0].race.ability_bonuses, r[2].level.ability_score_bonuses, level, selections.statAlgo);
+				description = this.generateDescription(name.fullName, r[0].race, r[3].alignment),
+				stats = this.generateStats(r[1].class, r[0].race.ability_bonuses, r[2].level.ability_score_bonuses, level, selections.statAlgo),
+				plotHook = this.state.userSelections.plotHook ? plotHooks[randomNumber(0, plotHooks.length)] : null;
 
 			setTimeout(() => {
 				this.setState({
@@ -279,7 +289,10 @@ export class NpcGenerator extends Component<any, any> {
 						race: r[0].race,
 						class: r[1].class,
 						level: r[2].level,
-						name: name,
+						firstName: name.first,
+						surname: name.surname,
+						fullName: name.fullName,
+						virtueName: name.virtueName,
 						abilityScores: stats.abilityScores,
 						armorClass: stats.armorClass,
 						hitpoints: stats.hitpoints,
@@ -290,7 +303,8 @@ export class NpcGenerator extends Component<any, any> {
 							alignment: r[3].alignment,
 							gender: gender
 						},
-						description: description
+						description: description,
+						plotHook: plotHook
 					},
 					loaded: true,
 					disableForm: false

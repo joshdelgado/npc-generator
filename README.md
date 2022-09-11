@@ -13,10 +13,5 @@ That small list I was talking about:
 - SEO
 - Add a plot hook 
 - Add pictures that accurately represent the race, class, and gender
-- Allow user to pre-select:
-	- Level
-	- Race
-	- Gender
-	- Class
-	- Alignment
-- Be able to choose whether points are assigned randomly or intelligently
+- Save generated NPCs to a cookie
+- Download a pdf or print out NPC

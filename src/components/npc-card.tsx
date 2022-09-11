@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { NpcGenderIcon } from './gender-icon';
 import { NpcAbilityScore } from './npc-ability-score';
+import { NpcName } from './npc-name';
 
 export class NpcCard extends Component<any, any> {
 
@@ -12,6 +12,7 @@ export class NpcCard extends Component<any, any> {
 		spinnerState: 'hidden',
 		npcState: 'hidden gone',
 	}
+
 	componentDidUpdate = (oldProps: any) => {
 		if (oldProps.userSelections !== this.props.userSelections) {
 			this.setState({ userSelections: this.props.userSelections });
@@ -52,24 +53,25 @@ export class NpcCard extends Component<any, any> {
 		return (
 			<div className={this.state.parentClasses}>
 				<div className={`npc-card__first-load ${this.state.firstLoadState}`}>
-					<p>Click <strong>Generate Npc</strong> above to get a totally random npc for whatever you need. If you have some npc criteria in mind, like race or class, click the <strong>+ button</strong> to reveal more options.</p>
+					<p>Click <strong>Generate Npc</strong> above to get a totally random npc for whatever you need. If you have some npc criteria in mind, like race or class, click the <strong>down angle</strong> to reveal more options.</p>
 				</div>
 				<div className={`npc-card__spinner ${this.state.spinnerState}`}></div>
 				<div className={`npc-card__npc ${this.state.npcState}`}>
-					{this.state.loaded ? (<><div className="npc-card__header">
-						<div className="npc-card__titles">
-							<h2 className="npc-card__name">{npc.name}<NpcGenderIcon gender={npc.attributes.gender}></NpcGenderIcon></h2>
-							<ol className="npc-card__info">
-								<li className="npc-card__value">{npc.race.name}</li>
-								<li className="npc-card__value">{npc.class.name}</li>
+					{this.state.loaded ? (<>
+						<div className="npc-card__header">
+							<div className="npc-card__titles">
+								<NpcName npc={npc}></NpcName>
+								<ol className="npc-card__info">
+									<li className="npc-card__value">{npc.race.name}</li>
+									<li className="npc-card__value">{npc.class.name}</li>
+								</ol>
+							</div>
+							<ol className="npc-card__sturdiness">
+								<li><span>Level</span>{npc.level.level}</li>
+								<li><span>HP</span>{npc.hitpoints}</li>
+								<li><span>AC</span>{npc.armorClass}</li>
 							</ol>
 						</div>
-						<ol className="npc-card__sturdiness">
-							<li><span>Level</span>{npc.level.level}</li>
-							<li><span>HP</span>{npc.hitpoints}</li>
-							<li><span>AC</span>{npc.armorClass}</li>
-						</ol>
-					</div>
 						<div className="npc-card__image" >
 							<img src={`${process.env.PUBLIC_URL}/img/${npc.race.index}.png`} alt={npc.race.name} />
 						</div>
@@ -91,7 +93,13 @@ export class NpcCard extends Component<any, any> {
 							<NpcAbilityScore label="Intelligence" score={npc.abilityScores.intelligence}></NpcAbilityScore>
 							<NpcAbilityScore label="Wisdom" score={npc.abilityScores.wisdom}></NpcAbilityScore>
 							<NpcAbilityScore label="Charisma" score={npc.abilityScores.charisma}></NpcAbilityScore>
-						</ul></>) : (<></>)}
+						</ul>
+						{npc.plotHook ? (
+							<div className="npc-card__plothook">
+								<h4 className="npc-card__plothook-title">Plothook</h4>
+								<p className="npc-card__plothook-text">"{npc.plotHook}" <strong>-&nbsp;{npc.fullName}</strong></p>
+							</div>) : (<></>)}
+					</>) : (<></>)}
 				</div>
 			</div>
 		)
