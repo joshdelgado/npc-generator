@@ -25,8 +25,8 @@ export class PreFooter extends Component<any, any> {
 					<ul>
 						<li className="pre-footer__wallets">
 							<p>Find this useful? Buy me a drink! <span>(please and thank you)</span></p>
-							<img className="pre-footer__qr-code" src={`${process.env.PUBLIC_URL}/img/btc-wallet.png`} alt="Bitcoin Wallet Address" title={this.btcAddress} onClick={() => { this.alertCopy('Bitcoin', this.btcAddress) }} />
-							<img className="pre-footer__qr-code" src={`${process.env.PUBLIC_URL}/img/eth-wallet.png`} alt="Ethereum Wallet Address" title={this.ethAddress} onClick={() => { this.alertCopy('Ethereum', this.ethAddress) }} />
+							<img className="pre-footer__qr-code" src={`${process.env.PUBLIC_URL}/img/btc-wallet-192.png`} alt="Bitcoin Wallet Address" title={this.btcAddress} onClick={() => { this.alertCopy('Bitcoin', this.btcAddress) }} />
+							<img className="pre-footer__qr-code" src={`${process.env.PUBLIC_URL}/img/eth-wallet-192.png`} alt="Ethereum Wallet Address" title={this.ethAddress} onClick={() => { this.alertCopy('Ethereum', this.ethAddress) }} />
 							{this.state.alertClicked ? <p>{this.state.clickedWallet} Address Copied!</p> : <span>Click or tap to copy</span>}
 						</li>
 						<li className="pre-footer__cta">Check out my <a href="https://www.youtube.com/thejunkdrawershow">D&D Campaign</a> <span>🤙</span></li>

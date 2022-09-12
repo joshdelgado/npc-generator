@@ -18,15 +18,17 @@
 		justify-content: center;
 		align-items: center;
 	}
+
+	&__title {
+		position: absolute;
+		opacity: 0;
+		pointer-events: none;
+	}
 }
 
 
 @media(max-width: $breakpoint) {
 	.app-header {
 		margin-bottom: 2rem;
-
-		&__title {
-			display: none;
-		}
 	}
 }

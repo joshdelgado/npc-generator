@@ -10,7 +10,7 @@ function App() {
 			<AppHeader></AppHeader>
 			<NpcGenerator></NpcGenerator>
 			<AppFooter> </AppFooter>
-		</div>
+		</div >
 	);
 }
 
