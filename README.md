@@ -11,7 +11,6 @@ I have a small list of things I would like to add to this over time. This is a h
 That small list I was talking about:
 
 - SEO
-- Add a plot hook 
 - Add pictures that accurately represent the race, class, and gender
 - Save generated NPCs to a cookie
 - Download a pdf or print out NPC

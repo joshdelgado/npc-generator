@@ -92,7 +92,6 @@ export class NpcGenerator extends Component<any, any> {
 	}
 
 	getNpcName = (race: string, gender: string): any => {
-		console.log(gender);
 		if (gender !== 'Male' && gender !== 'Female') {
 			gender = this.getNpcGender();
 		}
