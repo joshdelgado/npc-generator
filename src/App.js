@@ -1,6 +1,6 @@
 import './App.scss';
-import { AppHeader } from './components/layout/app-header';
-import { AppFooter } from './components/layout/app-footer';
+import { AppHeader } from './components/layouts/app-header';
+import { AppFooter } from './components/layouts/app-footer';
 import { NpcGenerator } from './components/npc-generator';
 import TagManager from 'react-gtm-module';
 

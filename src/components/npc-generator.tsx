@@ -9,7 +9,7 @@ import { races } from '../consts/races';
 import { randomNumber, getRandomMapKey, getRandomNumberStandardDist } from '../utility/functions';
 import { NpcCard } from './npc-card';
 import { NpcOptions } from './npc-options';
-import { PreFooter } from './layout/pre-footer';
+import { PreFooter } from './layouts/pre-footer';
 
 const baseUrl: string = 'https://www.dnd5eapi.co/api/';
 
