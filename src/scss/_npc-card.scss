@@ -55,6 +55,24 @@
 		}
 	}
 
+	&__titles {
+		position: relative;
+	}
+
+	&__title-tooltip {
+		display: inline-block;
+		position: absolute;
+		top: 0;
+		left: 100%;
+		padding: 0.5rem;
+		background-color: var(--deep-red);
+		border-radius: 4px;
+		box-shadow: var(--box-shadow);
+		color: var(--yellow);
+		opacity: 0;
+		transition: opacity 350ms ease;
+	}
+
 	&__name {
 		display: inline-block;
 		font-size: 2.5rem;
@@ -67,6 +85,10 @@
 
 			&:hover {
 				color: var(--deep-red);
+
+				+.npc-card__title-tooltip {
+					opacity: 1;
+				}
 			}
 		}
 	}
@@ -136,7 +158,7 @@
 
 	&__attributes {
 		display: flex;
-		justify-content: space-between;
+		justify-content: flex-start;
 		flex-wrap: wrap;
 		margin: 0 -1rem;
 		padding-bottom: 2rem;
@@ -241,6 +263,7 @@
 		}
 
 		&__titles {
+			position: relative;
 			width: 100%;
 			margin-bottom: 0;
 			order: 2;

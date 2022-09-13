@@ -14,3 +14,5 @@ export const classes: Map<string, any> = new Map<string, any>([
 	['warlock', { statPriority: ['charisma', 'constitution', 'dexterity', 'wisdom', 'strength', 'intelligence'] }],
 	['wizard', { statPriority: ['intelligence', 'dexterity', 'constitution', 'wisdom', 'charisma', 'strength'] }]
 ]);
+
+export const dragonbornColors: string[] = ['black', 'blue', 'brass', 'bronze', 'copper', 'gold', 'green', 'red', 'silver', 'white'];

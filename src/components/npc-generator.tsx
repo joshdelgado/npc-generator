@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { alignments } from '../consts/alignments';
-import { abilities, classes } from '../consts/consts';
+import { abilities, classes, dragonbornColors } from '../consts/consts';
 import { gods } from '../consts/gods';
 import { adjectives, traits, religiousAdjective, socioeconomic, traits2, quirks, plotHooks } from '../consts/npc-bio';
 import { races } from '../consts/races';
@@ -30,7 +30,6 @@ export class NpcGenerator extends Component<any, any> {
 				name: null,
 				race: null,
 				class: null,
-				gender: null,
 				abilityScores: {
 					strength: { score: null, modifier: null },
 					dexterity: { score: null, modifier: null },
@@ -100,18 +99,24 @@ export class NpcGenerator extends Component<any, any> {
 			rand2 = Math.floor(Math.random() * races.get(race)!.names.get('surname')!.length),
 			last = races.get(race)!.names.get('surname')![rand2],
 			first = races.get(race)!.names.get(gender.toLowerCase())![rand1];
-		let virtue: string | null = null;
+		let virtue: string | null = null,
+			nickname: string | null = null;
 
 		if (race === 'tiefling') {
 			const rand3 = Math.floor(Math.random() * races.get(race)!.names.get('virtue')!.length);
 			virtue = races.get(race)!.names.get('virtue')![rand3];
+		}
+		if (race === 'gnome') {
+			const rand3 = Math.floor(Math.random() * races.get(race)!.names.get('nickname')!.length);
+			nickname = races.get(race)!.names.get('nickname')![rand3];
 		}
 
 		return {
 			first: first,
 			surname: last,
 			fullName: last ? first + " " + last : first,
-			virtueName: virtue ? virtue : null
+			virtueName: virtue ? virtue : null,
+			nickname: nickname ? nickname : null
 		}
 	}
 
@@ -260,6 +265,10 @@ export class NpcGenerator extends Component<any, any> {
 		)
 	}
 
+	getScaleColor = (): string => {
+		return dragonbornColors[Math.floor(Math.random() * dragonbornColors.length)];
+	}
+
 	generateNpc = () => {
 		this.setState({ loaded: false, firstLoad: false, disableForm: true });
 		const selections = this.state.userSelections;
@@ -280,7 +289,8 @@ export class NpcGenerator extends Component<any, any> {
 				name = this.getNpcName(r[0].race.index, gender),
 				description = this.generateDescription(name.fullName, r[0].race, r[3].alignment),
 				stats = this.generateStats(r[1].class, r[0].race.ability_bonuses, r[2].level.ability_score_bonuses, level, selections.statAlgo),
-				plotHook = this.state.userSelections.plotHook ? plotHooks[randomNumber(0, plotHooks.length)] : null;
+				plotHook = this.state.userSelections.plotHook ? plotHooks[randomNumber(0, plotHooks.length)] : null,
+				scaleColor = r[0].race.index === 'dragonborn' ? this.getScaleColor() : null;
 
 			setTimeout(() => {
 				this.setState({
@@ -292,6 +302,7 @@ export class NpcGenerator extends Component<any, any> {
 						surname: name.surname,
 						fullName: name.fullName,
 						virtueName: name.virtueName,
+						nickname: name.nickname,
 						abilityScores: stats.abilityScores,
 						armorClass: stats.armorClass,
 						hitpoints: stats.hitpoints,
@@ -300,7 +311,8 @@ export class NpcGenerator extends Component<any, any> {
 							height: height,
 							weight: weight,
 							alignment: r[3].alignment,
-							gender: gender
+							gender: gender,
+							scaleColor: scaleColor
 						},
 						description: description,
 						plotHook: plotHook

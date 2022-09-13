@@ -32,7 +32,8 @@ const allNames: Map<string, Map<string, string[]>> = new Map<string, Map<string,
 	['gnome', new Map<string, string[]>([
 		['male', ['Alston', 'Alvyn', 'Boddynock', 'Brocc', 'Burgell', 'Dimble', 'Eldon', 'Erky', 'Fonkin', 'Frug', 'Gerbo', 'Gimble', 'Glim', 'Jebeddo', 'Kellen', 'Namfoodle', 'Orryn', 'Roondar', 'Seebo', 'Sindri', 'Warryn', 'Wrenn', 'Zook']],
 		['female', ['Bimpnottin', 'Breena', 'Caramip', 'Carlin', 'Donella', 'Duvamil', 'Ella', 'Ellyjobell', 'Ellywick', 'Lilli', 'Loopmottin', 'Lorilla', 'Mardnab', 'Nissa', 'Nyx', 'Oda', 'Orla', 'Roywyn', 'Shamil', 'Tana', 'Waywocket', 'Zanna']],
-		['surname', ['Beren', 'Daergel', 'Folkor', 'Garrick', 'Nackle', 'Murnig', 'Ningel', 'Raulnor', 'Scheppen', 'Timbers', 'Turen']]
+		['surname', ['Beren', 'Daergel', 'Folkor', 'Garrick', 'Nackle', 'Murnig', 'Ningel', 'Raulnor', 'Scheppen', 'Timbers', 'Turen']],
+		['nickname', ['Aleslosh', 'Ashhearth', 'Badger', 'Cloak', 'Doublelock', 'Filchbatter', 'Fnipper', 'Ku', 'Nim', 'Oneshoe', 'Pock', 'Sparklegem', 'Stumbleduck']]
 	])],
 	['halfling', new Map<string, string[]>([
 		['male', ['Alton', 'Ander', 'Cade', 'Corrin', 'Eldon', 'Errich', 'Finnan', 'Garret', 'Lindal', 'Lyle', 'Merric', 'Milo', 'Osborn', 'Perrin', 'Reed', 'Roscoe', 'Wellby']],
@@ -94,6 +95,7 @@ class RaceInfo {
 				this.names.set('male', allNames.get('gnome')?.get('male')!);
 				this.names.set('female', allNames.get('gnome')?.get('female')!);
 				this.names.set('surname', allNames.get('gnome')?.get('surname')!);
+				this.names.set('nickname', allNames.get('gnome')?.get('nickname')!)
 				break;
 			case 'half-elf':
 				this.names.set('male', [...allNames.get('elf')?.get('male')!, ...allNames.get('human')?.get('male')!]);

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { NpcAbilityScore } from './npc-ability-score';
+import { NpcAttributes } from './npc-attributes';
 import { NpcName } from './npc-name';
 
 export class NpcCard extends Component<any, any> {
@@ -59,13 +60,7 @@ export class NpcCard extends Component<any, any> {
 				<div className={`npc-card__npc ${this.state.npcState}`}>
 					{this.state.loaded ? (<>
 						<div className="npc-card__header">
-							<div className="npc-card__titles">
-								<NpcName npc={npc}></NpcName>
-								<ol className="npc-card__info">
-									<li className="npc-card__value">{npc.race.name}</li>
-									<li className="npc-card__value">{npc.class.name}</li>
-								</ol>
-							</div>
+							<NpcName npc={npc}></NpcName>
 							<ol className="npc-card__sturdiness">
 								<li><span>Level</span>{npc.level.level}</li>
 								<li><span>HP</span>{npc.hitpoints}</li>
@@ -76,12 +71,7 @@ export class NpcCard extends Component<any, any> {
 							<img src={`${process.env.PUBLIC_URL}/img/${npc.race.index}.png`} alt={npc.race.name} />
 						</div>
 						<div className="npc-card__bio">
-							<ol className="npc-card__attributes">
-								<li><strong>Age</strong>{npc.attributes.age} years</li>
-								<li><strong>Height</strong>{npc.attributes.height}</li>
-								<li><strong>Weight</strong>{npc.attributes.weight} lbs</li>
-								<li><strong>Alignment</strong>{npc.attributes.alignment.name}</li>
-							</ol>
+							<NpcAttributes npc={npc}></NpcAttributes>
 							<div className="npc-card__description">
 								{npc.description}
 							</div>
