@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Logo } from './logo';
+import { Logo } from '../elements/logo';
 
 export class AppHeader extends Component<any, any> {
 

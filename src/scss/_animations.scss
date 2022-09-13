@@ -23,3 +23,19 @@
 		visibility: hidden;
 	}
 }
+
+/*
+* Classes below are used for animations
+*/
+
+.active {
+	opacity: 1;
+}
+
+.hidden {
+	opacity: 0;
+}
+
+.gone {
+	display: none !important;
+}

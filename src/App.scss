@@ -61,16 +61,11 @@ a {
 }
 
 @import "scss/animations";
-@import "scss/app-header";
-@import "scss/app-footer";
-@import "scss/pre-footer";
+@import "scss/layouts/layouts";
 @import "scss/npc-options";
 @import "scss/npc-card";
 @import "scss/npc-stat";
-@import "scss/logo";
-@import "scss/buttons";
-@import "scss/inputs";
-@import "scss/checkbox";
+@import "scss/elements/elements";
 
 @media(max-width: $breakpoint) {
 	.app__content {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import packageJson from '../../package.json';
+import packageJson from '../../../package.json';
 
 export class AppFooter extends Component<any, any> {
 
