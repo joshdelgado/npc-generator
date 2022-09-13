@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { classes } from '../../consts/consts';
+import { classes } from '../../consts/classes';
 import { capitalize } from '../../utility/functions';
 
 export class NpcClassSelect extends Component<any, any> {

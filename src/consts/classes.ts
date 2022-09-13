@@ -1,5 +1,3 @@
-export const abilities: string[] = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
-
 export const classes: Map<string, any> = new Map<string, any>([
 	['barbarian', { statPriority: ['strength', 'constitution', 'dexterity', 'wisdom', 'charisma', 'intelligence'] }],
 	['bard', { statPriority: ['charisma', 'dexterity', 'constitution', 'strength', 'wisdom', 'intelligence'] }],
@@ -14,5 +12,3 @@ export const classes: Map<string, any> = new Map<string, any>([
 	['warlock', { statPriority: ['charisma', 'constitution', 'dexterity', 'wisdom', 'strength', 'intelligence'] }],
 	['wizard', { statPriority: ['intelligence', 'dexterity', 'constitution', 'wisdom', 'charisma', 'strength'] }]
 ]);
-
-export const dragonbornColors: string[] = ['black', 'blue', 'brass', 'bronze', 'copper', 'gold', 'green', 'red', 'silver', 'white'];

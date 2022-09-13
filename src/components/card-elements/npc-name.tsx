@@ -1,5 +1,5 @@
 import React from "react";
-import { NpcGenderIcon } from "./gender-icon";
+import { NpcGenderIcon } from "../elements/gender-icon";
 
 export function NpcName(props: any) {
 

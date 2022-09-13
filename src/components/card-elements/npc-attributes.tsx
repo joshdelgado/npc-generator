@@ -1,6 +1,6 @@
 import React from 'react';
-import { elvenTranslations } from '../consts/races';
-import { capitalize } from '../utility/functions';
+import { elvenTranslations } from '../../consts/races';
+import { capitalize } from '../../utility/functions';
 
 export function NpcAttributes(props: any) {
 

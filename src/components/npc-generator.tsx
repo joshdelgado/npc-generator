@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { alignments } from '../consts/alignments';
-import { abilities, classes, dragonbornColors } from '../consts/consts';
+import { dragonbornColors } from '../consts/dragonborn-colors';
+import { abilities } from '../consts/abilities';
+import { classes } from '../consts/classes';
 import { gods } from '../consts/gods';
 import { adjectives, traits, religiousAdjective, socioeconomic, traits2, quirks, plotHooks } from '../consts/npc-bio';
 import { races } from '../consts/races';
 import { randomNumber, getRandomMapKey, getRandomNumberStandardDist } from '../utility/functions';
 import { NpcCard } from './npc-card';
 import { NpcOptions } from './npc-options';
-import { PreFooter } from './pre-footer';
+import { PreFooter } from './layout/pre-footer';
 
 const baseUrl: string = 'https://www.dnd5eapi.co/api/';
 

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { NpcAbilityScore } from './npc-ability-score';
-import { NpcAttributes } from './npc-attributes';
-import { NpcName } from './npc-name';
+import { NpcAbilityScore } from './card-elements/npc-ability-score';
+import { NpcAttributes } from './card-elements/npc-attributes';
+import { NpcName } from './card-elements/npc-name';
+import { NpcPlothook } from './card-elements/npc-plothook';
 
 export class NpcCard extends Component<any, any> {
 
@@ -84,11 +85,7 @@ export class NpcCard extends Component<any, any> {
 							<NpcAbilityScore label="Wisdom" score={npc.abilityScores.wisdom}></NpcAbilityScore>
 							<NpcAbilityScore label="Charisma" score={npc.abilityScores.charisma}></NpcAbilityScore>
 						</ul>
-						{npc.plotHook ? (
-							<div className="npc-card__plothook">
-								<h4 className="npc-card__plothook-title">Plothook</h4>
-								<p className="npc-card__plothook-text">"{npc.plotHook}" <strong>-&nbsp;{npc.fullName}</strong></p>
-							</div>) : (<></>)}
+						{npc.plotHook ? <NpcPlothook npc={npc}></NpcPlothook> : null}
 					</>) : (<></>)}
 				</div>
 			</div>
