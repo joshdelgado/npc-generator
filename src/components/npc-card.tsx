@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { NpcAbilityScore } from './card-elements/npc-ability-score';
-import { NpcAttributes } from './card-elements/npc-attributes';
-import { NpcName } from './card-elements/npc-name';
+import { NpcAbilityScores } from './card-elements/npc-ability-scores';
+import { NpcBio } from './card-elements/npc-bio';
+import { NpcHeader } from './card-elements/npc-header';
+import { NpcImage } from './card-elements/npc-image';
 import { NpcPlothook } from './card-elements/npc-plothook';
 
 export class NpcCard extends Component<any, any> {
@@ -60,33 +61,12 @@ export class NpcCard extends Component<any, any> {
 				<div className={`npc-card__spinner ${this.state.spinnerState}`}></div>
 				<div className={`npc-card__npc ${this.state.npcState}`}>
 					{this.state.loaded ? (<>
-						<div className="npc-card__header">
-							<NpcName npc={npc}></NpcName>
-							<ol className="npc-card__sturdiness">
-								<li><span>Level</span>{npc.level.level}</li>
-								<li><span>HP</span>{npc.hitpoints}</li>
-								<li><span>AC</span>{npc.armorClass}</li>
-							</ol>
-						</div>
-						<div className="npc-card__image" >
-							<img src={`${process.env.PUBLIC_URL}/img/${npc.race.index}.png`} alt={npc.race.name} />
-						</div>
-						<div className="npc-card__bio">
-							<NpcAttributes npc={npc}></NpcAttributes>
-							<div className="npc-card__description">
-								{npc.description}
-							</div>
-						</div>
-						<ul className="npc-card__ability-scores" >
-							<NpcAbilityScore label="Strength" score={npc.abilityScores.strength}></NpcAbilityScore>
-							<NpcAbilityScore label="Dexterity" score={npc.abilityScores.dexterity}></NpcAbilityScore>
-							<NpcAbilityScore label="Constitution" score={npc.abilityScores.constitution}></NpcAbilityScore>
-							<NpcAbilityScore label="Intelligence" score={npc.abilityScores.intelligence}></NpcAbilityScore>
-							<NpcAbilityScore label="Wisdom" score={npc.abilityScores.wisdom}></NpcAbilityScore>
-							<NpcAbilityScore label="Charisma" score={npc.abilityScores.charisma}></NpcAbilityScore>
-						</ul>
+						<NpcHeader npc={npc}></NpcHeader>
+						<NpcImage npc={npc}></NpcImage>
+						<NpcBio npc={npc}></NpcBio>
+						<NpcAbilityScores npc={npc}></NpcAbilityScores>
 						{npc.plotHook ? <NpcPlothook npc={npc}></NpcPlothook> : null}
-					</>) : (<></>)}
+					</>) : null}
 				</div>
 			</div>
 		)
