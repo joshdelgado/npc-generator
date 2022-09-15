@@ -20,7 +20,7 @@
 
 		p {
 			flex: 0 0 100%;
-			font-size: 1.75rem;
+			font-size: 1.5rem;
 
 			span {
 				display: block;
@@ -50,7 +50,7 @@
 	}
 
 	&__cta {
-		font-size: 1.5rem;
+		font-size: 1.25rem;
 
 		span {
 			display: inline-block;
@@ -62,8 +62,7 @@
 @media(max-width: $breakpoint) {
 	.pre-footer {
 
-		&__wallets p,
-		&__cta {
+		&__wallets p {
 			font-size: 1.25rem;
 		}
 	}
