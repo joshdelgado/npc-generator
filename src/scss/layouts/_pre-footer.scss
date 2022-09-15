@@ -34,9 +34,9 @@
 	}
 
 	&__qr-code {
-		max-width: 12rem;
+		max-width: 8rem;
 		margin: 0.5rem;
-		border-radius: 1rem;
+		border-radius: 10%;
 		box-shadow: var(--box-shadow);
 		transition: all 200ms ease;
 		cursor: pointer;
@@ -48,31 +48,10 @@
 	}
 
 	&__cta {
-
 		span {
 			display: inline-block;
 			font-size: 1.25rem;
 			text-shadow: none;
-		}
-	}
-}
-
-@media (max-width: $breakpoint) {
-	.pre-footer {
-		&__wallets {
-			img {
-				max-width: 10rem;
-			}
-		}
-	}
-}
-
-@media (max-width: $breakpoint-small) {
-	.pre-footer {
-		&__wallets {
-			img {
-				max-width: calc(50% - 1rem);
-			}
 		}
 	}
 }
